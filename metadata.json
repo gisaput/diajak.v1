@@ -1,0 +1,6 @@
+{
+  "name": "Diajak",
+  "description": "Platform discover event & sosial aktivitas bersama kreator di sekitar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

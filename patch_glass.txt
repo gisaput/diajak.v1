@@ -1,0 +1,9 @@
+                .hazeEffect(
+                    state = hazeState,
+                    style = HazeStyle(
+                        backgroundColor = Color.Transparent,
+                        tint = HazeTint(DiajakGlassConfig.BaseColor.copy(alpha = DiajakGlassConfig.TintAlpha)),
+                        blurRadius = DiajakGlassConfig.BlurRadius,
+                        noiseFactor = 0f
+                    )
+                )

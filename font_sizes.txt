@@ -1,0 +1,505 @@
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:251:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:254:            lineHeight = 32.sp
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:276:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:306:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:346:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:386:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:427:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:512:              textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 13.sp, fontWeight = FontWeight.Medium),
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:632:              fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:643:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:702:            Text(text = "${activity.rating}", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:718:            fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:727:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:738:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:769:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:774:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:852:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:881:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:886:      lineHeight = 16.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:905:        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:924:        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:938:          fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1013:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1042:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1047:      lineHeight = 16.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1066:        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1085:        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1099:          fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1176:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1205:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1210:      lineHeight = 16.sp,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1229:        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1248:        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1262:          fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/HomeScreen.kt:1329:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:51:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:76:            lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:81:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:90:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:95:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:104:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:109:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:117:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:122:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:129:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/TermsAndConditionsScreen.kt:136:            lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/MainScreen.kt:570:      letterSpacing = 0.2.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:300:                  fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:335:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:338:            lineHeight = 30.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:393:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:412:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:414:                    lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:435:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:478:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:480:                        lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:517:                Text(activity.kreatorName, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:519:              Text("Kreator Terverifikasi", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:553:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:560:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:581:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:599:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:605:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:639:                        fontSize = 13.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:646:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:666:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:668:                  lineHeight = 18.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:673:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:697:                  fontSize = 13.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:772:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:779:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:786:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:812:            fontSize = 13.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:883:                fontSize = 13.sp
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:888:              Text(activity.kreatorName, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:889:              Text("Kreator", fontSize = 13.sp, color = DiajakOrange, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:928:                  fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:934:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:1001:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:1011:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:1030:              placeholder = { Text("Tulis pesan...", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface) },
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:1031:              textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 13.sp),
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:1151:              fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:1173:    Row(verticalAlignment = Alignment.CenterVertically) { Icon(imageVector = icon, contentDescription = label, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.onSurface); Spacer(modifier = Modifier.width(4.dp)); Text(label, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface) }
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:1175:    Text(valText, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/DetailScreen.kt:1191:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:166:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:204:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:213:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:253:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:268:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:271:          lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:282:          Text("Jelajahi Acara", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:372:                            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:386:                          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:395:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:397:                        lineHeight = 18.sp
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:459:                        fontSize = 13.sp
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:478:                            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:496:                                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:510:                                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:519:                          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:534:                          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:552:                              fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:631:              fontSize = 13.sp
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:640:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:645:              fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:687:                fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:693:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:756:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:766:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:785:            placeholder = { Text("Tulis pesan...", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface) },
+app/src/main/java/com/example/ui/screens/MessagesScreen.kt:786:            textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 13.sp),
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:142:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:221:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:302:        Text("Ubah Nama", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:333:            Text("Batal", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:368:        Text("Ubah Username", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:399:            Text("Batal", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:434:        Text("Ubah Bio", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:465:            Text("Batal", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:496:        Text("Pilih Jenis Kelamin", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:512:            Text("Pria", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:527:            Text("Wanita", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:541:            Text("Batal", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:632:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:696:            Text("Batal", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:731:        Text("Ubah No. Handphone", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:763:            Text("Batal", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:798:        Text("Ubah Email", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:830:            Text("Batal", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:867:        Text("Pilih Foto Profil", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:891:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:928:              Text("Kucing", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:954:              Text("Panda", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:985:              Text("Anjing", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:1012:              Text("Logo Aplikasi", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:1024:          Text("Batal", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:1048:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:1061:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/EditProfileScreen.kt:1182:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HelpCenterScreen.kt:58:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HelpCenterScreen.kt:88:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HelpCenterScreen.kt:95:            lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/HelpCenterScreen.kt:102:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/HelpCenterScreen.kt:174:          fontSize = 14.5.sp,
+app/src/main/java/com/example/ui/screens/HelpCenterScreen.kt:193:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/KreatorRegistrationDialog.kt:109:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:371:                      fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:463:              textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 13.sp, fontWeight = FontWeight.Medium),
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:594:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:741:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:769:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:774:                lineHeight = 16.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:783:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:799:                  fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:818:                  fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:832:                    fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:887:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:904:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:910:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:959:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:971:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:977:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:1030:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:1042:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:1048:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:1108:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:1134:        Text("Reset", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/MapExploreScreen.kt:1143:        Text("Terapkan", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/AboutDiajakScreen.kt:51:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AboutDiajakScreen.kt:71:            lineHeight = 18.sp
+app/src/main/java/com/example/ui/screens/AboutDiajakScreen.kt:78:            lineHeight = 18.sp
+app/src/main/java/com/example/ui/screens/AboutDiajakScreen.kt:85:        lineHeight = 18.sp
+app/src/main/java/com/example/ui/screens/ProfileScreen.kt:129:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/ProfileScreen.kt:208:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/ProfileScreen.kt:238:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:79:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:102:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:109:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:122:            Text("Jelajahi Acara", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:164:                    fontSize = 13.sp, fontWeight = FontWeight.Medium
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:169:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:195:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:204:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:215:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:235:                    Text("Peserta", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:236:                    Text("Total", fontSize = 13.sp, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:240:                    Text(": ${booking.undanganCount} Peserta", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:241:                    Text(": ${booking.totalPriceFormatted}", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:256:                    Text("Buka Undangan", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:307:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:382:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:384:                  letterSpacing = 1.sp
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:396:                  fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:425:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:427:                  lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:438:              Text(text = booking.schedule, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:447:                Text(text = booking.locationName, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:461:                Text("Kode Booking", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:462:                Text(booking.id, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:465:                Text("Undangan", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:466:                Text("${booking.undanganCount} Peserta", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:477:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:491:                Text("Nama Lengkap", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:494:                  fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:500:                Text("Alamat Email", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:503:                  fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:509:                Text("Nomor Telepon", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:512:                  fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:575:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:596:          Text("Simpan ke Galeri", color = DiajakOrange, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingsScreen.kt:609:          Text("Tutup", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingConfirmationDialog.kt:46:        Text("Konfirmasi Kehadiran", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingConfirmationDialog.kt:85:            Text("–", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingConfirmationDialog.kt:89:          Text("$count Peserta", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingConfirmationDialog.kt:96:            Text("+", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingConfirmationDialog.kt:107:          Text(totalStr, fontWeight = FontWeight.Medium, fontSize = 13.sp, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/BookingConfirmationDialog.kt:129:            Text("Konfirmasi", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:51:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:76:            lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:81:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:90:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:95:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:102:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:107:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:114:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:119:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:126:            lineHeight = 20.sp
+app/src/main/java/com/example/ui/screens/PrivacyPolicyScreen.kt:133:            lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/AuthContent.kt:50:    Text("G", color = Color(0xFF4285F4), fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/AuthContent.kt:189:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:204:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:209:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:231:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:260:        fontSize = 13.sp
+app/src/main/java/com/example/ui/screens/AuthContent.kt:280:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:288:        fontSize = 13.sp
+app/src/main/java/com/example/ui/screens/AuthContent.kt:320:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:333:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:403:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:413:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:415:            lineHeight = 15.sp
+app/src/main/java/com/example/ui/screens/AuthContent.kt:442:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:450:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:454:            lineHeight = 18.sp
+app/src/main/java/com/example/ui/screens/AuthContent.kt:492:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:567:        Text(name.take(1), fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/AuthContent.kt:574:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/AuthContent.kt:580:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:95:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:140:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:142:                letterSpacing = 1.sp
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:154:                fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:183:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:185:                lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:207:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:226:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:244:              Text("Kode Booking", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:245:              Text(booking.id, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:248:              Text("Jumlah Undangan", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:249:              Text("${booking.undanganCount} Peserta", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:260:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:275:              Text("Nama Lengkap", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:278:                fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:288:              Text("Alamat Email", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:291:                fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:301:              Text("Nomor Handphone", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:304:                fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:368:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:391:        Text("Simpan Undangan ke Galeri", color = DiajakOrange, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt:409:        Text("Hubungi Kreator / Tanya Sesuatu", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:63:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:89:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:96:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:109:            Text("Jelajahi Acara", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:198:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:226:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:231:      lineHeight = 16.sp,
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:240:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:258:        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/FavoritesScreen.kt:272:          fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:297:                      Text(loc.icon, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:403:                    Text("Tentukan Koordinat Titik Temu", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:408:                    fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:453:                Text("Rekomendasi Titik Kumpul:", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = Color(0xFF64748B))
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:478:                        Text(loc.icon, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:479:                        Text(loc.name.take(16) + if (loc.name.length > 16) ".." else "", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:504:                Text("Batal", color = DiajakOrange, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:524:                Text("Pilih Tujuan Ini", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:553:              Text("Kreator Studio", color = DiajakOrange, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:554:              Text("Buat Acara Baru", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:561:              Text("✕", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:608:                  Text("Tentukan Kategori:", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:673:                          text = { Text(cat, fontSize = 13.sp) },
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:723:                          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:728:                          fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:730:                          lineHeight = 15.sp
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:758:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:801:                          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:836:                          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:911:                          Text("Acara Komunitas Gratis / Free", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:912:                          Text("Acara tidak dikenakan biaya undangan masuk", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:971:                            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:976:                            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:994:                          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1018:                                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1038:                            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1043:                            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1063:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1068:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1070:                    lineHeight = 16.sp
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1085:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1102:                            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1153:                                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1177:                      fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1187:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1201:                        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1237:                          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1243:                          fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1271:                          Text("Gunakan GPS", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1282:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1287:                      fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1371:                          fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1378:                        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1597:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1602:                  Text("Batal", color = Color.Black, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1608:                fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1702:                        Text(loc.icon, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1783:                    Text(nearestPreset.icon, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1790:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1796:                      fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1856:                  Text("Pilih Tujuan Ini", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/CreateAcaraDialog.kt:1896:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:146:            fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:204:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:218:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:233:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:245:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:251:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:270:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:275:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:291:                    Text("–", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:297:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:308:                    Text("+", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:318:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:382:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:400:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:405:                    fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:416:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:421:                    fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:435:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:441:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:467:                    fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:476:                  fontSize = 10.5.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:478:                  lineHeight = 15.sp
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:519:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:572:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:579:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:590:                    Text("Secure Payment", color = Color(0xFF137333), fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:603:                    Text("Merchant", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:604:                    Text("Layanan Undangan Resmi", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:607:                    Text("Order ID", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:608:                    Text(bookingId, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:619:                  Text("Total Pembayaran:", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:622:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:634:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:657:                    Text("Pindai Kode QRIS di Bawah Ini", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:704:                      fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:723:                    Text("Nomor Virtual Account BCA", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:733:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:750:                        Text("Salin", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:754:                    Text("Langkah Pembayaran:", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:755:                    Text("1. Pilih m-Transfer > BCA Virtual Account.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:756:                    Text("2. Masukkan nomor VA di atas.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:757:                    Text("3. Tagihan akan otomatis terdeteksi, tekan Bayar.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:774:                    Text("Nomor Virtual Account Mandiri", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:785:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:802:                        Text("Salin", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:806:                    Text("Langkah Pembayaran:", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:807:                    Text("1. Pilih Bayar > Multi Payment > Masukkan Kode Perusahaan.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:808:                    Text("2. Masukkan nomor VA di atas.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:842:                    Text("Memverifikasi Pembayaran...", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:844:                    Text("Bayar Sekarang (Simulasi)", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:888:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:894:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:935:                        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:937:                        letterSpacing = 0.5.sp
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:949:                        fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:978:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:980:                        lineHeight = 22.sp
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:991:                    Text(text = activity.schedule, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1000:                      Text(text = activity.locationName, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1001:                      Text(text = activity.address, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1013:                      Text("Kode Booking", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1014:                      Text(bookingId, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1017:                      Text("Jumlah Undangan", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1018:                      Text("$undanganCount Peserta", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1028:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1040:                      Text("Nama Lengkap", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1041:                      Text(userNameInput, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1044:                      Text("Alamat Email", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1045:                      Text(userEmailInput, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1048:                      Text("Nomor Handphone", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1049:                      Text(userPhoneInput, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1110:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1145:                  Text("Simpan Undangan ke Galeri", color = DiajakOrange, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1159:                  Text("Lihat Semua Undangan", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1205:          Text(iconText, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1209:          Text(title, fontWeight = FontWeight.Medium, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt:1210:          Text(subtitle, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:331:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:373:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:379:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:459:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:464:      lineHeight = 16.sp
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:468:      fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:487:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:494:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:499:      lineHeight = 16.sp
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:539:      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:544:      lineHeight = 16.sp
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:598:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:617:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:624:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:660:                        fontSize = 13.sp, fontWeight = FontWeight.Medium
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:668:                        fontSize = 13.sp, fontWeight = FontWeight.Medium
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:674:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:701:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:710:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:721:                        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:742:                      Text("Slot", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:743:                      Text("Harga", fontSize = 13.sp, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:747:                      Text(": ${activity.currentPeserta}/${activity.maxPeserta}", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:748:                      Text(": ${activity.priceFormatted}", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:773:                        fontSize = 13.sp, fontWeight = FontWeight.Medium
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:807:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:964:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:993:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:998:            Text(text = "(Pilih Cover)", fontSize = 12.sp, fontWeight = FontWeight.Normal, color = Color.Gray)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1037:                   Text("Tambah", fontSize = 13.sp, color = DiajakOrange, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1097:                placeholder = { Text("Buat judul menarik untuk acara kamu", fontSize = 13.sp) },
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1129:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1144:                placeholder = { Text("Jelaskan acara kamu secara detail supaya peserta tertarik untuk mengikutinya", fontSize = 13.sp) },
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1177:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1320:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1382:                    fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1412:            Text("Centang Jika Acara Kamu Gratis", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1458:              Text("Simpan", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1492:              Text("Tampilkan", fontWeight = FontWeight.Medium, fontSize = 13.sp, color = if (isSaved) Color.White else Color(0xFF94A3B8))
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1505:            Text("Silakan geser pin pada peta untuk menentukan lokasi kumpul secara akurat.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1737:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1792:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1827:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1868:            placeholder = { Text("Misal Gratis Dokumentasi", fontSize = 13.sp, fontWeight = FontWeight.Medium) },
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1900:            Text("Tambah", color = DiajakOrange, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:1915:            Text("Simpan", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2158:              Text(loc.icon, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2188:            fontSize = 13.sp, fontWeight = FontWeight.Medium
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2193:            fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2273:        Text("Simpan", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2388:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2451:        Text("Simpan", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2515:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2521:                fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2551:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2604:                      fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2661:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2690:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2739:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2768:                fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2900:              fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:2997:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3043:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3095:                  fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3132:        Text("Simpan", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3167:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3173:          Text("*", color = androidx.compose.ui.graphics.Color.Red, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3180:          fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3229:          fontSize = 13.sp, fontWeight = FontWeight.Medium,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3234:          Text("*", color = Color.Red, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3239:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3289:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3301:          Text(p.pesertaName, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3303:          Text(p.acaraTitle, fontSize = 13.sp, color = Color.Gray)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3305:          Text("Status: ${p.status}", fontSize = 13.sp, color = DiajakOrange, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3314:              Text("Konfirmasi", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3323:              Text("Selesaikan", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3363:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3375:        Text("Total Pendapatan", color = Color.White, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3376:        Text("Rp ${String.format("%,d", balance).replace(',', '.')}", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3388:      Text("Riwayat Transaksi", fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3394:              Text(t.title, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3395:              Text(t.date, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color.Black)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3397:            Text(if (t.type == "Income") "+ Rp ${t.amount}" else "- Rp ${t.amount}", color = if (t.type == "Income") Color(0xFF4CAF50) else Color.Red, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3440:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3529:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3541:          Text(a.title, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3544:            Text("Peserta: Aktif", fontSize = 13.sp, color = Color.Gray)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3548:              Text("4.8/5.0", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3587:        fontSize = 13.sp,
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3604:            Text("Kode: ${v.code}", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = DiajakOrange)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3606:            Text("Diskon: Rp ${v.discountValue}", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3607:            Text("Min. Belanja: Rp ${v.minPurchase}", fontSize = 13.sp, color = Color.Gray)
+app/src/main/java/com/example/ui/screens/KreatorDashboardScreen.kt:3651:        fontSize = 13.sp,

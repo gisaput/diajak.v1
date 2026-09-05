@@ -1,0 +1,118 @@
+   133	          Card(
+   134	            modifier = Modifier
+   135	              .fillMaxWidth()
+   136	              .clickable { onBookingClick(booking) }
+   137	              .border(BorderStroke(1.dp, Color(0xFFDADCE0)), RoundedCornerShape(16.dp)),
+   138	            shape = RoundedCornerShape(16.dp),
+   139	            colors = CardDefaults.cardColors(containerColor = Color.White),
+   140	            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+   141	          ) {
+   142	            Column(modifier = Modifier.padding(16.dp)) {
+   143	              Row(
+   144	                modifier = Modifier.fillMaxWidth(),
+   145	                horizontalArrangement = Arrangement.SpaceBetween,
+   146	                verticalAlignment = Alignment.CenterVertically
+   147	              ) {
+   148	                Row(verticalAlignment = Alignment.CenterVertically) {
+   149	                  Icon(
+   150	                    imageVector = Icons.Rounded.CheckCircle,
+   151	                    contentDescription = "OK",
+   152	                    tint = Color(0xFF00B368),
+   153	                    modifier = Modifier.size(16.dp)
+   154	                  )
+   155	                  Spacer(modifier = Modifier.width(4.dp))
+   156	                  Text(
+   157	                    text = booking.status.uppercase(),
+   158	                    color = Color(0xFF00B368),
+   159	                    fontWeight = FontWeight.Bold,
+   160	                    fontSize = 11.sp
+   161	                  )
+   162	                }
+   163	                Text(
+   164	                  text = "ID: #${booking.id}",
+   165	                  fontSize = 13.sp,
+   166	                  fontWeight = FontWeight.Normal,
+   167	                  color = MaterialTheme.colorScheme.onSurfaceVariant
+   168	                )
+   169	              }
+   170	
+   171	              HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MaterialTheme.colorScheme.outlineVariant)
+   172	
+   173	              Row(verticalAlignment = Alignment.CenterVertically) {
+   174	                Box(
+   175	                  modifier = Modifier
+   176	                    .size(80.dp)
+   177	                    .clip(RoundedCornerShape(14.dp))
+   178	                ) {
+   179	                  Image(
+   180	                    painter = painterResource(id = booking.imageResId),
+   181	                    contentDescription = null,
+   182	                    contentScale = ContentScale.Crop,
+   183	                    modifier = Modifier.fillMaxSize()
+   184	                  )
+   185	                }
+   186	                Spacer(modifier = Modifier.width(14.dp))
+   187	                Column(modifier = Modifier.weight(1f)) {
+   188	                  Text(
+   189	                    text = booking.acaraTitle,
+   190	                    fontWeight = FontWeight.Bold,
+   191	                    fontSize = 15.sp,
+   192	                    color = MaterialTheme.colorScheme.onSurface
+   193	                  )
+   194	                  Spacer(modifier = Modifier.height(4.dp))
+   195	                  Text(
+   196	                    text = "📍 ${booking.locationName}",
+   197	                    fontSize = 13.sp,
+   198	                    fontWeight = FontWeight.Normal,
+   199	                    color = MaterialTheme.colorScheme.onSurfaceVariant
+   200	                  )
+   201	                  Spacer(modifier = Modifier.height(2.dp))
+   202	                  Text(
+   203	                    text = "🕒 ${booking.schedule}",
+   204	                    fontSize = 13.sp,
+   205	                    fontWeight = FontWeight.Normal,
+   206	                    color = MaterialTheme.colorScheme.onSurfaceVariant
+   207	                  )
+   208	                }
+   209	              }
+   210	
+   211	              Spacer(modifier = Modifier.height(14.dp))
+   212	
+   213	              Row(
+   214	                modifier = Modifier
+   215	                  .fillMaxWidth()
+   216	                  .background(Color(0xFFF8F9FC), RoundedCornerShape(12.dp))
+   217	                  .padding(12.dp),
+   218	                horizontalArrangement = Arrangement.SpaceBetween,
+   219	                verticalAlignment = Alignment.CenterVertically
+   220	              ) {
+   221	                Row(verticalAlignment = Alignment.CenterVertically) {
+   222	                  Column(horizontalAlignment = Alignment.Start) {
+   223	                    Text("Peserta", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+   224	                    Text("Total", fontSize = 13.sp, fontWeight = FontWeight.ExtraBold, color = DiajakOrange)
+   225	                  }
+   226	                  Spacer(modifier = Modifier.width(4.dp))
+   227	                  Column(horizontalAlignment = Alignment.Start) {
+   228	                    Text(": ${booking.undanganCount} Peserta", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+   229	                    Text(": ${booking.totalPriceFormatted}", fontSize = 13.sp, fontWeight = FontWeight.ExtraBold, color = DiajakOrange)
+   230	                  }
+   231	                }
+   232	
+   233	                Surface(
+   234	                  shape = RoundedCornerShape(16.dp),
+   235	                  color = DiajakOrange,
+   236	                  modifier = Modifier.clickable { onBookingClick(booking) }
+   237	                ) {
+   238	                  Row(
+   239	                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+   240	                    verticalAlignment = Alignment.CenterVertically
+   241	                  ) {
+   242	                    Icon(Icons.Rounded.QrCode, contentDescription = "QR", tint = Color.White, modifier = Modifier.size(16.dp))
+   243	                    Spacer(modifier = Modifier.width(6.dp))
+   244	                    Text("Buka Undangan", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+   245	                  }
+   246	                }
+   247	              }
+   248	            }
+   249	          }
+   250	        }

@@ -1,0 +1,30 @@
+        onUploadClick = {
+          bukuTabunganLauncher.launch("image/*")
+        }
+      )
+      
+      Spacer(modifier = Modifier.weight(1f))
+      
+      Button(
+        onClick = {
+          Toast.makeText(context, "Dokumen berhasil disimpan!", Toast.LENGTH_SHORT).show()
+        },
+        modifier = Modifier
+          .fillMaxWidth()
+          .height(52.dp),
+        enabled = isKtpUploaded && isBukuTabunganUploaded,
+        colors = ButtonDefaults.buttonColors(
+          containerColor = DiajakOrange,
+          disabledContainerColor = Color(0xFFE2E8F0)
+        ),
+        shape = RoundedCornerShape(12.dp)
+      ) {
+        if (isUploading) {
+          CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
+        } else {
+          Text("Simpan Dokumen", color = if (isKtpUploaded && isBukuTabunganUploaded) Color.White else Color(0xFF94A3B8), style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily))
+        }
+      }
+    }
+  }
+}

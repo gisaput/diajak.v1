@@ -1,0 +1,125 @@
+  val scrollState = androidx.compose.foundation.rememberScrollState()
+  val hazeState = remember { dev.chrisbanes.haze.HazeState() }
+
+  Box(
+    modifier = Modifier.fillMaxSize().background(Color(0xFFE5E7EB))
+  ) {
+    // 1. Content Layer
+    Column(
+      modifier = Modifier
+        .fillMaxSize()
+        .dev.chrisbanes.haze.hazeSource(state = hazeState)
+        .androidx.compose.foundation.verticalScroll(scrollState)
+    ) {
+      Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
+      
+      Column(
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large)
+      ) {
+        Text(
+          text = "Upload dokumen berikut untuk keperluan verifikasi akun dan pencairan dana Anda.",
+          style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+          color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        
+        // KTP Upload Section
+        DocumentUploadCard(
+          title = "Kartu Tanda Penduduk (KTP)",
+          description = "Pastikan foto KTP terlihat jelas, tidak terpotong, dan tulisan dapat dibaca.",
+          isUploaded = isKtpUploaded,
+          onUploadClick = {
+            ktpLauncher.launch("image/*")
+          }
+        )
+        
+        // Buku Tabungan Upload Section
+        DocumentUploadCard(
+          title = "Buku Tabungan / Rekening",
+          description = "Digunakan untuk tujuan pencairan dana tiket masuk. Pastikan nama sesuai dengan KTP.",
+          isUploaded = isBukuTabunganUploaded,
+          onUploadClick = {
+            bukuTabunganLauncher.launch("image/*")
+          }
+        )
+        
+        Spacer(modifier = Modifier.height(100.dp))
+      }
+    }
+
+    // 2. Glass Header Layer
+    com.example.ui.components.DiajakGlassHeader(
+      hazeState = hazeState,
+      modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    ) {
+      Box(
+        modifier = Modifier.fillMaxWidth().statusBarsPadding().height(56.dp).padding(horizontal = 20.dp)
+      ) {
+        // Back Button
+        IconButton(
+          onClick = onBack,
+          modifier = Modifier
+            .size(40.dp)
+            .clip(androidx.compose.foundation.shape.CircleShape)
+            .align(Alignment.CenterStart)
+            .background(Color.Black.copy(alpha = 0.03f))
+            .dev.chrisbanes.haze.hazeEffect(
+              state = hazeState,
+              style = com.example.ui.components.DiajakGlassConfig.ButtonStyle
+            )
+            .border(0.5.dp, Color.Black.copy(alpha = 0.08f), androidx.compose.foundation.shape.CircleShape)
+        ) {
+          Icon(
+            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+            contentDescription = "Kembali",
+            tint = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.size(24.dp)
+          )
+        }
+
+        // Title
+        Text(
+          text = "Upload Dokumen",
+          style = com.example.ui.theme.DiajakDesignSystem.Typography.Headline,
+          color = MaterialTheme.colorScheme.onSurface,
+          textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+          modifier = Modifier.align(Alignment.Center).fillMaxWidth()
+        )
+      }
+    }
+    
+    // Bottom Action Button
+    if (isKtpUploaded && isBukuTabunganUploaded) {
+      Box(
+        modifier = Modifier
+          .align(Alignment.BottomCenter)
+          .fillMaxWidth()
+          .background(
+            brush = androidx.compose.ui.graphics.Brush.verticalGradient(
+              colors = listOf(Color.Transparent, Color.White, Color.White),
+              startY = 0f,
+              endY = 100f
+            )
+          )
+          .padding(20.dp)
+          .navigationBarsPadding()
+      ) {
+        Button(
+          onClick = {
+            Toast.makeText(context, "Dokumen berhasil diverifikasi!", Toast.LENGTH_SHORT).show()
+            onBack()
+          },
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp),
+          colors = ButtonDefaults.buttonColors(containerColor = DiajakOrange),
+          shape = RoundedCornerShape(16.dp)
+        ) {
+          Text("Selesai & Simpan", style = com.example.ui.theme.DiajakDesignSystem.Typography.TitleBold, color = Color.White)
+        }
+      }
+    }
+  }
+}

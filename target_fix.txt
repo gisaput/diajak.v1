@@ -1,0 +1,5 @@
+      // Buku Tabungan Upload Section
+      DocumentUploadCard(
+        title = "Buku Tabungan / Rekening",
+        description = "Upload foto bagian depan buku tabungan yang menampilkan nama dan nomor rekening.",
+        isUploaded = isBukuTabunganUploaded,

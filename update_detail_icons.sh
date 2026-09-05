@@ -1,0 +1,6 @@
+sed -i 's/fun InfoChipItem(label: String, valText: String)/fun InfoChipItem(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, valText: String)/g' app/src/main/java/com/example/ui/screens/DetailScreen.kt
+sed -i 's/Text(label, fontSize = 11.sp, color = Color(0xFF718096))/Row(verticalAlignment = Alignment.CenterVertically) { Icon(imageVector = icon, contentDescription = label, modifier = Modifier.size(14.dp), tint = Color(0xFF718096)); Spacer(modifier = Modifier.width(4.dp)); Text(label, fontSize = 11.sp, color = Color(0xFF718096)) }/g' app/src/main/java/com/example/ui/screens/DetailScreen.kt
+
+sed -i 's/InfoChipItem("📅 Tanggal", tanggalText)/InfoChipItem(androidx.compose.material.icons.Icons.Rounded.DateRange, "Tanggal", tanggalText)/g' app/src/main/java/com/example/ui/screens/DetailScreen.kt
+sed -i 's/InfoChipItem("🕒 Jam", jamText)/InfoChipItem(androidx.compose.material.icons.Icons.Rounded.Schedule, "Jam", jamText)/g' app/src/main/java/com/example/ui/screens/DetailScreen.kt
+sed -i 's/InfoChipItem("👥 Kuota", "${activity.currentClients}\/${activity.maxClients} Slot")/InfoChipItem(androidx.compose.material.icons.Icons.Rounded.Group, "Kuota", "${activity.currentClients}\/${activity.maxClients} Slot")/g' app/src/main/java/com/example/ui/screens/DetailScreen.kt

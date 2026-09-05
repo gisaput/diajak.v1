@@ -1,0 +1,3 @@
+sed -i 's/color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface/color = androidx.compose.ui.graphics.Color(0xFF202124)/g' app/src/main/java/com/example/ui/screens/BookingFlowScreen.kt
+sed -i 's/color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface/color = androidx.compose.ui.graphics.Color(0xFF202124)/g' app/src/main/java/com/example/ui/screens/BookingsScreen.kt
+sed -i 's/color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface/color = androidx.compose.ui.graphics.Color(0xFF202124)/g' app/src/main/java/com/example/ui/screens/UndanganDetailOverlay.kt

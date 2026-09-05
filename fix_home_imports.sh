@@ -1,0 +1,2 @@
+sed -i 's/import androidx.compose.material.icons.rounded.Clear/import androidx.compose.material.icons.rounded.Clear\nimport androidx.compose.material.icons.rounded.Tune\nimport androidx.compose.material.icons.rounded.FilterList/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt
+sed -i 's/painter = painterResource(id = R.drawable.ic_launcher_foreground)/imageVector = Icons.Rounded.Tune/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt

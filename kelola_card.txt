@@ -1,0 +1,144 @@
+   687	            Card(
+   688	              modifier = Modifier
+   689	                .fillMaxWidth()
+   690	                .border(BorderStroke(1.dp, Color(0xFFDADCE0)), RoundedCornerShape(16.dp)),
+   691	              shape = RoundedCornerShape(16.dp),
+   692	              colors = CardDefaults.cardColors(containerColor = Color.White),
+   693	              elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+   694	            ) {
+   695	              Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+   696	                // Header Row (Status & ID/Slot)
+   697	                Row(
+   698	                  modifier = Modifier.fillMaxWidth(),
+   699	                  horizontalArrangement = Arrangement.SpaceBetween,
+   700	                  verticalAlignment = Alignment.CenterVertically
+   701	                ) {
+   702	                  Row(verticalAlignment = Alignment.CenterVertically) {
+   703	                    if (activity.kreatorLastActiveDaysAgo > 7) {
+   704	                      Icon(Icons.Rounded.Cancel, contentDescription = "Inaktif", tint = Color(0xFFC53030), modifier = Modifier.size(16.dp))
+   705	                      Spacer(modifier = Modifier.width(4.dp))
+   706	                      Text(
+   707	                        text = "INAKTIF (> 1 MINGGU)",
+   708	                        color = Color(0xFFC53030),
+   709	                        fontWeight = FontWeight.Bold,
+   710	                        fontSize = 11.sp
+   711	                      )
+   712	                    } else {
+   713	                      Icon(Icons.Rounded.CheckCircle, contentDescription = "Aktif", tint = Color(0xFF2B6CB0), modifier = Modifier.size(16.dp))
+   714	                      Spacer(modifier = Modifier.width(4.dp))
+   715	                      Text(
+   716	                        text = "AKTIF",
+   717	                        color = Color(0xFF2B6CB0),
+   718	                        fontWeight = FontWeight.Bold,
+   719	                        fontSize = 11.sp
+   720	                      )
+   721	                    }
+   722	                  }
+   723	                  Text(
+   724	                    text = "ID: #${activity.id.take(8)}",
+   725	                    fontSize = 13.sp,
+   726	                    fontWeight = FontWeight.Normal,
+   727	                    color = MaterialTheme.colorScheme.onSurfaceVariant
+   728	                  )
+   729	                }
+   730	
+   731	                HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MaterialTheme.colorScheme.outlineVariant)
+   732	
+   733	                // Image & Info Row
+   734	                Row(verticalAlignment = Alignment.CenterVertically) {
+   735	                  Box(
+   736	                    modifier = Modifier
+   737	                      .size(80.dp)
+   738	                      .clip(RoundedCornerShape(14.dp))
+   739	                  ) {
+   740	                    Image(
+   741	                      painter = painterResource(id = activity.imageResId),
+   742	                      contentDescription = activity.title,
+   743	                      contentScale = ContentScale.Crop,
+   744	                      modifier = Modifier.fillMaxSize()
+   745	                    )
+   746	                  }
+   747	                  Spacer(modifier = Modifier.width(14.dp))
+   748	                  Column(modifier = Modifier.weight(1f)) {
+   749	                    Text(
+   750	                      text = activity.title,
+   751	                      fontWeight = FontWeight.Bold,
+   752	                      fontSize = 15.sp,
+   753	                      color = MaterialTheme.colorScheme.onSurface,
+   754	                      maxLines = 2,
+   755	                      overflow = TextOverflow.Ellipsis
+   756	                    )
+   757	                    Spacer(modifier = Modifier.height(4.dp))
+   758	                    Text(
+   759	                      text = "📍 ${activity.locationName}",
+   760	                      fontSize = 13.sp,
+   761	                      fontWeight = FontWeight.Normal,
+   762	                      color = MaterialTheme.colorScheme.onSurfaceVariant
+   763	                    )
+   764	                    Spacer(modifier = Modifier.height(2.dp))
+   765	                    Text(
+   766	                      text = "🕒 ${formatKreatorCardSchedule(activity.schedule)}",
+   767	                      fontSize = 13.sp,
+   768	                      fontWeight = FontWeight.Normal,
+   769	                      color = MaterialTheme.colorScheme.onSurfaceVariant
+   770	                    )
+   771	                  }
+   772	                }
+   773	
+   774	                Spacer(modifier = Modifier.height(14.dp))
+   775	
+   776	                // Footer Row
+   777	                Row(
+   778	                  modifier = Modifier
+   779	                    .fillMaxWidth()
+   780	                    .background(Color(0xFFF8F9FC), RoundedCornerShape(12.dp))
+   781	                    .padding(12.dp),
+   782	                  horizontalArrangement = Arrangement.SpaceBetween,
+   783	                  verticalAlignment = Alignment.CenterVertically
+   784	                ) {
+   785	                  Row(verticalAlignment = Alignment.CenterVertically) {
+   786	                    Column(horizontalAlignment = Alignment.Start) {
+   787	                      Text("Slot", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+   788	                      Text("Harga", fontSize = 13.sp, fontWeight = FontWeight.ExtraBold, color = DiajakOrange)
+   789	                    }
+   790	                    Spacer(modifier = Modifier.width(4.dp))
+   791	                    Column(horizontalAlignment = Alignment.Start) {
+   792	                      Text(": ${activity.currentPeserta}/${activity.maxPeserta}", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+   793	                      Text(": ${activity.priceFormatted}", fontSize = 13.sp, fontWeight = FontWeight.ExtraBold, color = DiajakOrange)
+   794	                    }
+   795	                  }
+   796	                  androidx.compose.material3.Surface(
+   797	                    shape = RoundedCornerShape(16.dp),
+   798	                    color = DiajakOrange,
+   799	                    modifier = Modifier.clickable {
+   800	                      scheduleToEditId = activity.id
+   801	                      scheduleTextToEdit = activity.schedule
+   802	                    }
+   803	                  ) {
+   804	                    Row(
+   805	                      modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+   806	                      verticalAlignment = Alignment.CenterVertically
+   807	                    ) {
+   808	                      Icon(
+   809	                        imageVector = Icons.Outlined.Edit,
+   810	                        contentDescription = "Edit",
+   811	                        tint = Color.White,
+   812	                        modifier = Modifier.size(16.dp)
+   813	                      )
+   814	                      Spacer(modifier = Modifier.width(6.dp))
+   815	                      Text(
+   816	                        text = "Jadwal",
+   817	                        color = Color.White,
+   818	                        fontWeight = FontWeight.Bold,
+   819	                        fontSize = 12.sp
+   820	                      )
+   821	                    }
+   822	                  }
+   823	                }
+   824	              }
+   825	            }
+   826	          }
+   827	        }
+   828	      }
+   829	
+   830	      // Sticky Bottom Button (Matches "Join" button style)

@@ -1,0 +1,138 @@
+      DiajakGlassHeader(
+        hazeState = hazeState,
+        modifier = Modifier.fillMaxWidth()
+      ) {
+        Box(
+          modifier = Modifier
+            .fillMaxWidth()
+            .statusBarsPadding()
+            .padding(top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.medium)
+            .padding(horizontal = 20.dp)
+        ) {
+          Card(
+            modifier = Modifier
+              .fillMaxWidth()
+              .height(54.dp),
+            shape = CircleShape,
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            border = BorderStroke(
+              width = if (isSearchFocused) 2.dp else 1.5.dp,
+              color = if (isSearchFocused) DiajakOrange else Color.Transparent
+            )
+          ) {
+            Row(
+              modifier = Modifier
+                .fillMaxSize()
+                .padding(start = MaterialTheme.spacing.small, end = MaterialTheme.spacing.small),
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              // Left Back button icon inside the unified bar (kembali ke beranda)
+              IconButton(
+                onClick = { onBack() },
+                modifier = Modifier.size(36.dp)
+              ) {
+                Icon(
+                  imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                  contentDescription = "Kembali ke Beranda",
+                  tint = MaterialTheme.colorScheme.onSurface,
+                  modifier = Modifier.size(20.dp)
+                )
+              }
+
+              Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
+
+              BasicTextField(
+                value = localSearchQuery,
+                onValueChange = { localSearchQuery = it },
+                textStyle = com.example.ui.theme.DiajakDesignSystem.Typography.TitleBold.copy(color = MaterialTheme.colorScheme.onSurface),
+                singleLine = true,
+                cursorBrush = SolidColor(DiajakOrange),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = {
+                  onSearchChange(localSearchQuery)
+                  focusManager.clearFocus()
+                }),
+                modifier = Modifier
+                  .weight(1f)
+                  .onFocusChanged { state ->
+                    isSearchFocused = state.isFocused
+                    if (state.isFocused) {
+                      onPriceFilterChange("all")
+                      onRatingFilterChange("all")
+                      onCityFilterChange("all")
+                      onSelectCategory("all")
+                    }
+                  },
+                decorationBox = { innerTextField ->
+                  Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.CenterStart
+                  ) {
+                    if (localSearchQuery.isEmpty()) {
+                      Text(
+                        text = "Yuk temukan di sini",
+                        style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                        color = Color(0xFF262626)
+                      )
+                    }
+                    innerTextField()
+                  }
+                }
+              )
+
+              Row(
+                verticalAlignment = Alignment.CenterVertically
+              ) {
+                if (localSearchQuery.isNotEmpty()) {
+                  IconButton(
+                    onClick = {
+                      localSearchQuery = ""
+                      onSearchChange("")
+                      onPriceFilterChange("all")
+                      onRatingFilterChange("all")
+                      onCityFilterChange("all")
+                      onSelectCategory("all")
+                      focusManager.clearFocus()
+                    },
+                    modifier = Modifier.size(36.dp)
+                  ) {
+                    Icon(
+                      imageVector = Icons.Outlined.Clear,
+                      contentDescription = "Hapus",
+                      tint = MaterialTheme.colorScheme.onSurface,
+                      modifier = Modifier.size(20.dp)
+                    )
+                  }
+                }
+
+                // Filter icon inside the bar with active highlight state matching Google Maps
+                val hasActiveFilters = priceFilter != "all" || ratingFilter != "all" || cityFilter != "all" || selectedCategory != "all"
+                IconButton(
+                  onClick = {
+                    focusManager.clearFocus()
+                    showFilterDialog = true
+                  },
+                  modifier = Modifier.size(36.dp)
+                ) {
+                  Box(modifier = Modifier.size(24.dp)) {
+                    Icon(
+                      imageVector = Icons.Outlined.Tune,
+                      contentDescription = "Filter",
+                      tint = if (hasActiveFilters) DiajakOrange else MaterialTheme.colorScheme.onSurface,
+                      modifier = Modifier.size(20.dp).align(Alignment.Center)
+                    )
+                    if (hasActiveFilters) {
+                      Box(
+                        modifier = Modifier
+                          .size(6.dp)
+                          .background(DiajakOrange, shape = CircleShape)
+                          .align(Alignment.TopEnd)
+                      )
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }

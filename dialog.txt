@@ -1,0 +1,355 @@
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UndanganDetailDialog(
+  booking: BookingModel,
+  onDismiss: () -> Unit
+) {
+  val screenWidth = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp.dp
+  val favoriteImageSize = (screenWidth - 60.dp) / 2
+  val targetImageSize = favoriteImageSize / 2
+
+  val context = LocalContext.current
+  Dialog(
+    onDismissRequest = onDismiss,
+    properties = DialogProperties(usePlatformDefaultWidth = false)
+  ) {
+    Scaffold(
+      topBar = {
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .background(androidx.compose.ui.graphics.Color(0xFFE5E7EB))
+          .statusBarsPadding()
+            .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium),
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          IconButton(
+            onClick = onDismiss,
+            modifier = Modifier.size(24.dp)
+          ) {
+            Icon(
+              imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+              contentDescription = "Kembali",
+              tint = MaterialTheme.colorScheme.onSurface,
+              modifier = Modifier.size(24.dp)
+            )
+          }
+          Spacer(modifier = Modifier.width(20.dp))
+          Text(
+            text = "Undangan Voucher",
+            style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+            color = MaterialTheme.colorScheme.onSurface
+          )
+        }
+      },
+      containerColor = androidx.compose.ui.graphics.Color(0xFFE5E7EB)
+    ) { paddingValues ->
+      Column(
+        modifier = Modifier
+          .fillMaxSize()
+          .padding(paddingValues)
+          .verticalScroll(rememberScrollState())
+          .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+      ) {
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+
+        // Beautiful Undangan Shape Card
+        Box(
+          modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(24.dp))
+            .background(Color.White)
+            .border(0.dp, Color.Transparent, RoundedCornerShape(24.dp))
+            .drawWithContent {
+              drawContent()
+              // Draw side notches
+              val notchY = size.height * 0.65f
+              val radius = 20.dp.toPx()
+
+              // Left Notch
+              drawCircle(
+                color = Color.White,
+                radius = radius,
+                center = Offset(0f, notchY)
+              )
+              // Right Notch
+              drawCircle(
+                color = Color.White,
+                radius = radius,
+                center = Offset(size.width, notchY)
+              )
+            }
+        ) {
+          Column(
+            modifier = Modifier
+              .fillMaxWidth()
+              .padding(20.dp)
+          ) {
+            // Undangan Header
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.SpaceBetween,
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                  modifier = Modifier
+                    .size(36.dp)
+                    .clip(CircleShape)
+                    .background(DiajakOrange.copy(alpha = 0.1f)),
+                  contentAlignment = Alignment.Center
+                ) {
+                  Icon(
+                    Icons.Outlined.CardMembership,
+                    contentDescription = null,
+                    tint = DiajakOrange,
+                    modifier = Modifier.size(18.dp)
+                  )
+                }
+                Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+                Text(
+                  text = "UNDANGAN",
+                  style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                  color = DiajakOrange
+                )
+              }
+
+              Box(
+                modifier = Modifier
+                  .background(Color(0xFFE6F4EA), RoundedCornerShape(8.dp))
+                  .padding(horizontal = MaterialTheme.spacing.small, vertical = MaterialTheme.spacing.extraSmall)
+              ) {
+                Text(
+                  text = booking.status.uppercase(),
+                  color = Color(0xFF137333),
+                  style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                  
+                )
+              }
+            }
+
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+            // Activity Image & Details
+            Row(verticalAlignment = Alignment.Top) {
+              Box(
+                modifier = Modifier
+                  .size(targetImageSize)
+                  .clip(RoundedCornerShape(12.dp))
+              ) {
+                Image(
+                  painter = painterResource(id = booking.imageResId),
+                  contentDescription = null,
+                  contentScale = ContentScale.Crop,
+                  modifier = Modifier.fillMaxSize()
+                )
+              }
+              Spacer(modifier = Modifier.width(36.dp))
+              Column(modifier = Modifier.weight(1f)) {
+                Text(
+                  text = booking.acaraTitle,
+                  style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                  color = MaterialTheme.colorScheme.onSurface,
+                  lineHeight = 22.sp
+                )
+              }
+            }
+
+            Spacer(modifier = Modifier.height(36.dp))
+
+            // Info Rows
+            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+              Icon(Icons.Outlined.AccessTime, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
+              Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+              Text(text = booking.schedule, style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
+            }
+
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+
+            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
+              Icon(Icons.Outlined.Place, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.padding(top = 2.dp).size(20.dp))
+              Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+              Column {
+                Text(text = booking.locationName, style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
+              }
+            }
+
+            Spacer(modifier = Modifier.height(18.dp))
+
+            Surface(
+              modifier = Modifier.fillMaxWidth(),
+              shape = RoundedCornerShape(16.dp),
+              color = Color.White,
+              shadowElevation = 0.dp,
+              border = BorderStroke(0.dp, Color.Transparent)
+            ) {
+              Row(
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .padding(20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+              ) {
+                Column(modifier = Modifier.weight(1f)) {
+                  Text("Kode Booking", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
+                  Text(booking.id, style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
+                }
+                Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.End) {
+                  Text("Undangan", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
+                  Text("${booking.undanganCount} Peserta", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = DiajakOrange)
+                }
+              }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Visitor Information Section (NAME, EMAIL, PHONE)
+            Text(
+              text = "Informasi Kontak Peserta",
+              style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+              color = MaterialTheme.colorScheme.onSurface
+            )
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+
+            Surface(
+              modifier = Modifier.fillMaxWidth(),
+              shape = RoundedCornerShape(16.dp),
+              color = Color.White,
+              shadowElevation = 0.dp,
+              border = BorderStroke(0.dp, Color.Transparent)
+            ) {
+              Column(
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+              ) {
+              Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text("Nama Lengkap", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
+                Text(
+                  text = if (booking.userName.isNotBlank()) booking.userName else "Anggi Saputro",
+                  style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                  
+                  color = MaterialTheme.colorScheme.onSurface
+                )
+              }
+              Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text("Alamat Email", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
+                Text(
+                  text = if (booking.userEmail.isNotBlank()) booking.userEmail else "gisaput@gmail.com",
+                  style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                  
+                  color = MaterialTheme.colorScheme.onSurface
+                )
+              }
+              Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text("Nomor Telepon", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
+                Text(
+                  text = if (booking.userPhone.isNotBlank()) booking.userPhone else "081234567890",
+                  style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                  
+                  color = MaterialTheme.colorScheme.onSurface
+                )
+              }
+            }
+          }
+
+            // Spacing to push down past the notch line
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Beautiful custom drawn Barcode or QR code
+            Column(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+              Box(
+                modifier = Modifier
+                  .size(120.dp)
+                  .clip(RoundedCornerShape(8.dp))
+                  .border(0.dp, Color.Transparent, RoundedCornerShape(8.dp))
+                  .padding(MaterialTheme.spacing.small),
+                contentAlignment = Alignment.Center
+              ) {
+                Canvas(modifier = Modifier.fillMaxSize()) {
+                  val sizePx = size.width
+                  val cols = 15
+                  val cellSize = sizePx / cols
+                  drawRect(Color.White)
+
+                  // Corner Finder 1
+                  drawRect(androidx.compose.ui.graphics.Color(0xFF202124), Offset(0f, 0f), Size(cellSize * 3, cellSize * 3))
+                  drawRect(Color.White, Offset(cellSize, cellSize), Size(cellSize, cellSize))
+                  
+                  // Corner Finder 2
+                  drawRect(androidx.compose.ui.graphics.Color(0xFF202124), Offset(cellSize * (cols - 3), 0f), Size(cellSize * 3, cellSize * 3))
+                  drawRect(Color.White, Offset(cellSize * (cols - 2), cellSize), Size(cellSize, cellSize))
+                  
+                  // Corner Finder 3
+                  drawRect(androidx.compose.ui.graphics.Color(0xFF202124), Offset(0f, cellSize * (cols - 3)), Size(cellSize * 3, cellSize * 3))
+                  drawRect(Color.White, Offset(cellSize, cellSize * (cols - 2)), Size(cellSize, cellSize))
+
+                  for (r in 0 until cols) {
+                    for (c in 0 until cols) {
+                      if ((r < 3 && c < 3) || (r < 3 && c >= cols - 3) || (r >= cols - 3 && c < 3)) {
+                        continue
+                      }
+                      if ((r * c + r * 7 + c * 13) % 3 == 0 || (r + c) % 5 == 0) {
+                        drawRect(
+                          color = androidx.compose.ui.graphics.Color(0xFF202124),
+                          topLeft = Offset(c * cellSize, r * cellSize),
+                          size = Size(cellSize, cellSize)
+                        )
+                      }
+                    }
+                  }
+                }
+              }
+
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+              Text(
+                text = "Tunjukkan QR untuk Check-in",
+                style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                color = MaterialTheme.colorScheme.onSurface
+              )
+            }
+          }
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Save to Gallery Button
+        OutlinedButton(
+          onClick = {
+            Toast.makeText(context, "Undangan berhasil disimpan ke galeri ponsel! 📸", Toast.LENGTH_LONG).show()
+          },
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(52.dp),
+          shape = RoundedCornerShape(16.dp),
+          border = BorderStroke(1.5.dp, DiajakOrange)
+        ) {
+          Text("Simpan ke Galeri", color = DiajakOrange, style = com.example.ui.theme.DiajakDesignSystem.Typography.TitleBold)
+        }
+
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+        Button(
+          onClick = onDismiss,
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(52.dp),
+          shape = RoundedCornerShape(16.dp),
+          colors = ButtonDefaults.buttonColors(containerColor = DiajakOrange)
+        ) {
+          Text("Tutup", color = Color.White, style = com.example.ui.theme.DiajakDesignSystem.Typography.TitleBold)
+        }
+        
+        Spacer(modifier = Modifier.height(20.dp))
+      }
+    }
+  }
+}
+}
+}

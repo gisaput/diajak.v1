@@ -1,0 +1,83 @@
+  
+  val isKtpUploaded by viewModel.isKtpUploaded.collectAsState()
+  val isBukuTabunganUploaded by viewModel.isBukuTabunganUploaded.collectAsState()
+  var ktpUri by remember { mutableStateOf<android.net.Uri?>(null) }
+  var bukuTabunganUri by remember { mutableStateOf<android.net.Uri?>(null) }
+  var isUploading by remember { mutableStateOf(false) }
+
+  val ktpLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+    contract = androidx.activity.result.contract.ActivityResultContracts.GetContent()
+  ) { uri ->
+    if (uri != null) {
+      coroutineScope.launch {
+        isUploading = true
+        delay(800) // Simulate upload delay
+        ktpUri = uri
+        viewModel.setKtpUploaded(true)
+        isUploading = false
+        Toast.makeText(context, "KTP berhasil diupload", Toast.LENGTH_SHORT).show()
+      }
+    }
+  }
+
+  val bukuTabunganLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+    contract = androidx.activity.result.contract.ActivityResultContracts.GetContent()
+  ) { uri ->
+    if (uri != null) {
+      coroutineScope.launch {
+        isUploading = true
+        delay(800) // Simulate upload delay
+        bukuTabunganUri = uri
+        viewModel.setBukuTabunganUploaded(true)
+        isUploading = false
+        Toast.makeText(context, "Buku Tabungan berhasil diupload", Toast.LENGTH_SHORT).show()
+      }
+    }
+  }
+
+  Scaffold(
+    topBar = {
+      TopAppBar(
+        title = { Text("Upload Dokumen", style = com.example.ui.theme.DiajakDesignSystem.Typography.Display, color = MaterialTheme.colorScheme.onSurface) },
+        navigationIcon = {
+          IconButton(onClick = onBack) {
+            Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Kembali", tint = MaterialTheme.colorScheme.onSurface)
+          }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+          containerColor = androidx.compose.ui.graphics.Color(0xFFE5E7EB),
+          titleContentColor = MaterialTheme.colorScheme.onSurface,
+          navigationIconContentColor = MaterialTheme.colorScheme.onSurface
+        )
+      )
+    },
+    containerColor = androidx.compose.ui.graphics.Color(0xFFE5E7EB)
+  ) { paddingValues ->
+    Column(
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(paddingValues)
+        .padding(20.dp),
+      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large)
+    ) {
+      Text(
+        text = "Upload dokumen berikut untuk keperluan verifikasi akun dan pencairan dana Anda.",
+        style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+      )
+      
+      // KTP Upload Section
+      DocumentUploadCard(
+        title = "Kartu Tanda Penduduk (KTP)",
+        description = "Pastikan foto KTP terlihat jelas, tidak terpotong, dan tulisan dapat dibaca.",
+        isUploaded = isKtpUploaded,
+        onUploadClick = {
+          ktpLauncher.launch("image/*")
+        }
+      )
+      
+      // Buku Tabungan Upload Section
+      DocumentUploadCard(
+        title = "Buku Tabungan / Rekening",
+        description = "Upload foto bagian depan buku tabungan yang menampilkan nama dan nomor rekening.",
+        isUploaded = isBukuTabunganUploaded,
