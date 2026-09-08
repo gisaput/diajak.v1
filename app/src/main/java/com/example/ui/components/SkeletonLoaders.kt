@@ -6,6 +6,8 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.material3.MaterialTheme
+import com.example.ui.theme.spacing
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -116,7 +118,7 @@ fun SkeletonCategoryChipsRow(
     LazyRow(
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 20.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
     ) {
         items(itemCount) { index ->
             val chipWidth = when (index % 3) {
@@ -188,7 +190,7 @@ fun SkeletonActivityCardHorizontal(
             )
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
         // Title Line 1
         SkeletonText(
@@ -197,7 +199,7 @@ fun SkeletonActivityCardHorizontal(
             shape = RoundedCornerShape(4.dp)
         )
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
 
         // Title Line 2
         SkeletonText(
@@ -206,7 +208,7 @@ fun SkeletonActivityCardHorizontal(
             shape = RoundedCornerShape(4.dp)
         )
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
         // Location Line
         SkeletonText(
@@ -215,7 +217,7 @@ fun SkeletonActivityCardHorizontal(
             shape = RoundedCornerShape(4.dp)
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
         // Price & Rating Row
         Row(
@@ -280,17 +282,17 @@ fun SkeletonActivityCardVertical(
                     .shimmerEffect(shape = RoundedCornerShape(12.dp))
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Title Skeleton
             SkeletonText(width = 220.dp, height = 20.dp)
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
             // Location & Date Skeleton
             SkeletonText(width = 160.dp, height = 12.dp)
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Footer Price & Action Row
             Row(
@@ -318,7 +320,7 @@ fun SkeletonActivityList(
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
     ) {
         repeat(itemCount) {
             SkeletonActivityCardVertical()
@@ -348,7 +350,7 @@ fun SkeletonDetailContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 20.dp)
+                .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
         ) {
             // Category Badge Skeleton
             SkeletonBox(
@@ -356,17 +358,17 @@ fun SkeletonDetailContent(
                 shape = RoundedCornerShape(12.dp)
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Title Line 1
             SkeletonText(width = 280.dp, height = 22.dp)
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
             // Title Line 2
             SkeletonText(width = 180.dp, height = 22.dp)
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Creator Row Skeleton
             Row(
@@ -379,12 +381,12 @@ fun SkeletonDetailContent(
                 Spacer(modifier = Modifier.width(12.dp))
                 Column {
                     SkeletonText(width = 120.dp, height = 14.dp)
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                     SkeletonText(width = 80.dp, height = 12.dp)
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Detail Accordion Title
             Row(
@@ -396,16 +398,16 @@ fun SkeletonDetailContent(
                 SkeletonBox(modifier = Modifier.size(24.dp), shape = CircleShape)
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Detail Body Paragraph Skeleton
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
                 SkeletonText(modifier = Modifier.fillMaxWidth(), height = 14.dp)
                 SkeletonText(modifier = Modifier.fillMaxWidth(), height = 14.dp)
                 SkeletonText(width = 220.dp, height = 14.dp)
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Benefit Accordion Title
             Row(
@@ -417,7 +419,7 @@ fun SkeletonDetailContent(
                 SkeletonBox(modifier = Modifier.size(24.dp), shape = CircleShape)
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Benefit Items Skeleton
             repeat(3) {
@@ -466,9 +468,9 @@ fun SkeletonBookingCard(
                 modifier = Modifier.weight(1f)
             ) {
                 SkeletonText(width = 140.dp, height = 20.dp)
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                 SkeletonText(width = 100.dp, height = 12.dp)
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                 SkeletonText(width = 80.dp, height = 14.dp)
             }
         }

@@ -61,8 +61,8 @@ fun HelpCenterScreen(
       Column(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(start = 20.dp, end = 20.dp, bottom = 40.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+          .padding(start = 20.dp, end = 20.dp, bottom = MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
       ) {
         // Intro Text
         Column(
@@ -131,7 +131,7 @@ fun HelpCenterScreen(
         answer = "Jika Anda memiliki kendala teknis atau pertanyaan lebih lanjut yang tidak terjawab di FAQ ini, Anda dapat mengirimkan email dukungan ke customer service melalui kontak bantuan resmi. Tim kami siap membantu Anda kapan saja!"
       )
 
-      Spacer(modifier = Modifier.height(20.dp))
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
       }
     }
 

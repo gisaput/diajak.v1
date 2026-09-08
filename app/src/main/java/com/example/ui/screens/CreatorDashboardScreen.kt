@@ -378,7 +378,7 @@ fun KreatorMainDashboard(
             }
           }
           
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
           
           // Kreator profile details
           Row(
@@ -516,7 +516,7 @@ fun KreatorMainDashboard(
           ServiceGridItem(icon = Icons.AutoMirrored.Outlined.EventNote, label = "Pendaftaran", onClick = { onNavigate("pendaftaran") }, showBadge = hasNewPendaftaran)
           ServiceGridItem(icon = Icons.AutoMirrored.Outlined.Chat, label = "Pesan", onClick = { onNavigate("messages") }, showBadge = hasUnreadMessages)
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         Row(
           modifier = Modifier.fillMaxWidth(),
           horizontalArrangement = Arrangement.SpaceBetween
@@ -745,7 +745,7 @@ fun KreatorActivitiesScreen(
             modifier = Modifier.size(72.dp),
             tint = MaterialTheme.colorScheme.onSurface
           )
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
           Text(
             text = "Belum Ada Aktivitas",
             style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
@@ -871,7 +871,7 @@ fun KreatorActivitiesScreen(
                 }
               }
 
-              Spacer(modifier = Modifier.height(36.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
               // Footer Row
               Row(
@@ -1261,7 +1261,7 @@ fun KreatorCreateActivityScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = DiajakDesignSystem.Dimens.ScreenPaddingHorizontal),
-          verticalArrangement = Arrangement.spacedBy(6.dp)
+          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
         ) {
           Box(modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
@@ -1403,9 +1403,9 @@ fun KreatorCreateActivityScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = DiajakDesignSystem.Dimens.ScreenPaddingHorizontal),
-          verticalArrangement = Arrangement.spacedBy(6.dp)
+          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
         ) {
-          Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+          Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
             // Biaya
             Column(modifier = Modifier.weight(1f)) {
               val displayPrice = if (priceString.isNotEmpty()) {
@@ -1577,7 +1577,7 @@ fun KreatorCreateActivityScreen(
       ) {
       Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
       ) {
         // BUTTON 1: SIMPAN KE DRAFT (FULLY TRANSPARENT BACKGROUND, NO SHADOW)
         OutlinedButton(
@@ -1702,7 +1702,7 @@ fun KreatorCreateActivityScreen(
         text = {
           Column {
             Text("Silakan geser pin pada peta untuk menentukan lokasi kumpul secara akurat.", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             Box(
               modifier = Modifier
                 .fillMaxWidth()
@@ -2911,7 +2911,7 @@ fun AturWaktuContent(
     ) {
         Row(
           modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           // Jam Mulai Section
           Column(
@@ -3720,13 +3720,13 @@ fun KreatorFinanceScreen(
             .padding(MaterialTheme.spacing.large)
         ) {
           Text("Total Pendapatan", color = Color.White, style = com.example.ui.theme.DiajakDesignSystem.Typography.Body)
-          Spacer(modifier = Modifier.height(4.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
           Text(
             "Rp ${String.format("%,d", balance).replace(',', '.')}",
             color = Color.White,
             style = androidx.compose.ui.text.TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily)
           )
-          Spacer(modifier = Modifier.height(16.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
           OutlinedButton(
             onClick = onNavigateToWithdraw,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White),
@@ -3767,7 +3767,7 @@ fun KreatorFinanceScreen(
               ) {
                 Column(modifier = Modifier.weight(1f)) {
                   Text(t.title, style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                  Spacer(modifier = Modifier.height(2.dp))
+                  Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                   Text(t.date, style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = Color(0xFF64748B), fontSize = 13.sp)
                 }
                 Spacer(modifier = Modifier.width(12.dp))
@@ -3919,7 +3919,7 @@ fun KreatorWithdrawScreen(
               cursorColor = DiajakOrange
             )
           )
-          Spacer(modifier = Modifier.height(4.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
           Button(
             onClick = { onWithdraw(amount.toIntOrNull() ?: 0, bank, account) },
             modifier = Modifier.fillMaxWidth().height(50.dp),
@@ -4184,9 +4184,9 @@ fun KreatorVouchersScreen(
                 .padding(16.dp)
             ) {
               Text("Kode: ${v.code}", style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold, color = DiajakOrange)
-              Spacer(modifier = Modifier.height(4.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
               Text("Diskon: Rp ${v.discountValue}", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily))
-              Spacer(modifier = Modifier.height(2.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
               Text("Min. Belanja: Rp ${v.minPurchase}", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = Color(0xFF64748B), fontSize = 13.sp)
             }
           }
@@ -4331,7 +4331,7 @@ fun KreatorCreateVoucherScreen(
               cursorColor = DiajakOrange
             )
           )
-          Spacer(modifier = Modifier.height(4.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
           Button(
             onClick = { onSubmit(code, discount.toIntOrNull() ?: 0, minPurchase.toIntOrNull() ?: 0) },
             modifier = Modifier.fillMaxWidth().height(50.dp),

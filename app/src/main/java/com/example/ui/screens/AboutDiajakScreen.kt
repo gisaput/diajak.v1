@@ -54,8 +54,8 @@ fun AboutDiajakScreen(
       Column(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(start = 20.dp, end = 20.dp, bottom = 40.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+          .padding(start = 20.dp, end = 20.dp, bottom = MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
       ) {
         Text(
           text = "Platform sosial inovatif ini dirancang untuk menghubungkan peserta-peserta melalui hobi, aktivitas seru di sekitar mereka. Kami percaya bahwa setiap peserta berhak menemukan komunitas yang mendukung, teman baru yang asyik, serta pengalaman hidup yang berkesan.",

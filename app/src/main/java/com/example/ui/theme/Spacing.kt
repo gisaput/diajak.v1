@@ -26,11 +26,11 @@ data class Spacing(
     /** Jarak antar elemen kecil / komponen internal form (8.dp) */
     val element: Dp = 8.dp,
     
-    /** Jarak antara judul section dan konten di bawahnya (16.dp) */
-    val sectionContent: Dp = 16.dp,
+    /** Jarak antara judul section dan konten di bawahnya (8.dp) */
+    val sectionContent: Dp = 8.dp,
     
-    /** Jarak antar section besar/utama (24.dp) */
-    val section: Dp = 24.dp,
+    /** Jarak antar section besar/utama (16.dp - harmonis dengan margin layar) */
+    val section: Dp = 16.dp,
     
     /** Margin standar untuk sisi kiri dan kanan layar (16.dp) */
     val screenMargin: Dp = 16.dp
@@ -49,11 +49,11 @@ object ThemeSpacing {
     val ExtraSmall: Dp = 4.dp
     val Small: Dp = 8.dp
     val Medium: Dp = 16.dp
-    val Large: Dp = 24.dp
+    val Large: Dp = 16.dp // Aligned with Medium (16.dp) for uniform vertical-horizontal harmony
     val ExtraLarge: Dp = 32.dp
     val Huge: Dp = 48.dp
     val Element: Dp = Small
     val SectionContent: Dp = Medium
-    val Section: Dp = Large
+    val Section: Dp = Medium
     val ScreenMargin: Dp = Medium
 }

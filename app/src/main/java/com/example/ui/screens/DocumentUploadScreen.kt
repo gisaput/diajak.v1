@@ -130,7 +130,7 @@ fun DocumentUploadScreen(
         }
       )
       
-      Spacer(modifier = Modifier.height(16.dp))
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
       
       Button(
         onClick = {
@@ -238,7 +238,7 @@ fun DocumentUploadCard(
         style = DiajakDesignSystem.Typography.Body,
         color = MaterialTheme.colorScheme.onSurfaceVariant
       )
-      Spacer(modifier = Modifier.height(20.dp))
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
       
       Box(
         modifier = Modifier

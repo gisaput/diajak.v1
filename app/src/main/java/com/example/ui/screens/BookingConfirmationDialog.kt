@@ -140,7 +140,7 @@ fun BookingConfirmationDialog(
           }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         Row(
           modifier = Modifier.fillMaxWidth(),
@@ -150,7 +150,7 @@ fun BookingConfirmationDialog(
           Text(totalStr, style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = DiajakOrange)
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
           OutlinedButton(

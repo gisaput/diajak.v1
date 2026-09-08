@@ -29,18 +29,28 @@ Card( // or Surface
 
 ---
 
-## Spacing Guidelines (ThemeSpacing)
-To maintain consistent padding and margins across all screens, we use a centralized `ThemeSpacing` object (defined in `Spacing.kt`). Do NOT use hardcoded `dp` values for spacing between major layout components. Always use the semantic values from `ThemeSpacing`.
+## Spacing Guidelines (ThemeSpacing & Vertical-Horizontal Harmony)
+To maintain consistent padding and margins across all screens, we use a centralized `ThemeSpacing` object (defined in `Spacing.kt`). Do NOT use hardcoded `dp` values for spacing between layout components. Always use the semantic values from `ThemeSpacing` / `MaterialTheme.spacing`.
+
+### Uniform Vertical-Horizontal Rhythm (Isotropic Harmony Rule):
+- **Vertical Spacing = Horizontal Screen Margin (16.dp)**: The vertical spacing between major cards, forms, and distinct sections is strictly unified to **`16.dp`** (`ThemeSpacing.Medium` / `MaterialTheme.spacing.medium`), matching the left and right screen margin (16.dp). This eliminates wild vertical gaps and creates a balanced, harmonious 1:1 visual grid.
+- **Maximum Spacing Ceiling**: No general content spacer may exceed **`16.dp`** (except for the mandatory `80.dp` glass header offset spacer and bottom scroll clearance).
+- **Internal / Closely Related Elements (8.dp)**: Small related elements (e.g. form label to input field, title to subtitle) use **`8.dp`** (`ThemeSpacing.Small` / `MaterialTheme.spacing.small`).
+- **Micro Spacing (4.dp)**: Badges, tags, and tight metadata use **`4.dp`** (`ThemeSpacing.ExtraSmall` / `MaterialTheme.spacing.extraSmall`).
 
 ### Standardized Spacing Scale:
-1. **`ThemeSpacing.Small` (8.dp)**: Distance between small, closely related elements.
-2. **`ThemeSpacing.Medium` (16.dp)**: Distance between a section title and its content block, as well as the standard margin for the left/right screen edges.
-3. **`ThemeSpacing.Large` (24.dp)**: Distance between major, distinct structural sections.
+1. **`ThemeSpacing.ExtraSmall` (4.dp)**: Micro-spacing between tightly coupled items.
+2. **`ThemeSpacing.Small` (8.dp)**: Distance between small, closely related elements.
+3. **`ThemeSpacing.Medium` (16.dp)**: Unified standard vertical distance between sections/cards, and horizontal screen margins.
+4. **`ThemeSpacing.Large` (16.dp)**: Aligned with Medium for uniform visual rhythm.
 
 ---
 
 ## UNIVERSAL iOS-Style Pure Optical Glass Header
-To maintain visual consistency and a premium feel matching iOS, **ALL screens (scrollable or non-scrollable)** MUST use the iOS-Style Glass Header implementation (via `DiajakGlassHeader`). This acts as a standard visual anchor.
+To maintain visual consistency and a premium feel matching iOS, **ALL screens (scrollable or non-scrollable)** MUST use the iOS-Style Glass Header implementation (via `DiajakGlassHeader`). This acts as a standard visual anchor. Complete architectural details and PRD specifications are documented in `DESIGN_SYSTEM_HEADER.md`.
+
+**MANDATORY RULE FOR NEW & EXISTING SCREENS:**
+Whenever creating a new screen or modifying an existing screen in the **Diajak** app, you **MUST** implement this exact header glass pattern. No plain `TopAppBar`, no solid opaque bars, and no un-blurred headers are allowed.
 
 **Crucial Constraints (LOCKED SPECIFICATIONS):**
 - **Header Height**: The overall height of the content layer MUST be exactly `56.dp` (excluding status bar).

@@ -185,7 +185,7 @@ fun MessagesScreen(
               modifier = Modifier.size(72.dp),
               tint = MaterialTheme.colorScheme.onSurface
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             Text(
               text = if (searchQuery.isNotEmpty()) {
                 "Pencarian Kosong"
@@ -215,7 +215,7 @@ fun MessagesScreen(
               textAlign = androidx.compose.ui.text.style.TextAlign.Center,
               lineHeight = 22.sp
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             Button(
               onClick = onExploreClick,
               colors = ButtonDefaults.buttonColors(containerColor = DiajakOrange),
@@ -270,7 +270,7 @@ fun MessagesScreen(
                   onClick = { onToggleNotificationRead(notification.id) }
                 ) {
                   Column(
-                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp)
+                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
                   ) {
                   Row(
                     verticalAlignment = Alignment.Top
@@ -366,7 +366,7 @@ fun MessagesScreen(
                     }
                 ) {
                   Column(
-                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp)
+                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
                   ) {
                   Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -736,7 +736,7 @@ fun MessagesScreen(
                   )
                 }
                 
-                Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                 
                 // Timestamp
                 Text(

@@ -1,7 +1,9 @@
 package com.example.ui.utils
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.DirectionsBike
 import androidx.compose.material.icons.automirrored.outlined.DirectionsRun
+import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
 
@@ -28,7 +30,7 @@ fun getCategoryIconVector(categoryNameOrId: String): ImageVector {
     clean == "hiburan" || clean.contains("hiburan") -> Icons.Outlined.Attractions
     clean == "hobi" || clean.contains("hobi") -> Icons.Outlined.Extension
     clean == "identitas" || clean.contains("identitas") -> Icons.Outlined.Badge
-    clean == "investasi" || clean.contains("investasi") -> Icons.Outlined.TrendingUp
+    clean == "investasi" || clean.contains("investasi") -> Icons.AutoMirrored.Outlined.TrendingUp
     clean == "jejaring" || clean.contains("jejaring") || clean.contains("networking") -> Icons.Outlined.Hub
     clean == "karier" || clean.contains("karier") || clean.contains("karir") -> Icons.Outlined.WorkOutline
     clean == "kebugaran" || clean.contains("kebugaran") || clean.contains("fitness") || clean.contains("gym") -> Icons.Outlined.FitnessCenter
@@ -69,7 +71,7 @@ fun getCategoryIconVector(categoryNameOrId: String): ImageVector {
     clean == "sains" || clean.contains("sains") || clean.contains("science") -> Icons.Outlined.Science
     clean == "seminar" || clean.contains("seminar") -> Icons.Outlined.CoPresent
     clean == "seni" || clean.contains("seni") || clean.contains("art") -> Icons.Outlined.Palette
-    clean == "sepeda" || clean.contains("sepeda") || clean.contains("bike") || clean.contains("cycling") -> Icons.Outlined.DirectionsBike
+    clean == "sepeda" || clean.contains("sepeda") || clean.contains("bike") || clean.contains("cycling") -> Icons.AutoMirrored.Outlined.DirectionsBike
     clean == "sosial" || clean.contains("sosial") || clean.contains("social") -> Icons.Outlined.People
     clean == "spiritualitas" || clean.contains("spiritual") -> Icons.Outlined.AutoAwesome
     clean == "teater" || clean.contains("teater") || clean.contains("theatre") -> Icons.Outlined.TheaterComedy

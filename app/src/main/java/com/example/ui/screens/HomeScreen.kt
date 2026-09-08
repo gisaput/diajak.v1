@@ -4,6 +4,11 @@ import com.example.ui.theme.diajakGlassButton
 import com.example.ui.theme.diajakGlassHeaderEffect
 import com.example.ui.theme.HeaderUnderlayState
 import com.example.ui.theme.GlassmorphismTheme
+import com.example.ui.theme.HazeConfig
+import com.example.ui.theme.HazeMode
+import com.example.ui.theme.LocalHazeConfig
+import com.example.ui.theme.ProvideHazeConfig
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -376,125 +381,9 @@ fun HomeScreen(
         .hazeSource(state = hazeState),
       contentPadding = PaddingValues(bottom = 124.dp)
     ) {
-      // 0. Top Greeting Section (Avatar + Greeting + Notification Button) - Scrolls with content, NOT floating
-      item(contentType = HeaderUnderlayState.TEXT) {
-        Box(
-          modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-            .height(56.dp)
-            .padding(horizontal = 20.dp)
-        ) {
-          // Left: Profile Avatar + Greeting Text (Anchored CenterStart with safe right clearance)
-          Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-              .align(Alignment.CenterStart)
-              .padding(end = 56.dp)
-              .clip(RoundedCornerShape(12.dp))
-              .clickable { onProfileClick() }
-          ) {
-            // Circular Profile Image (40.dp)
-            Box(
-              modifier = Modifier
-                .size(40.dp)
-                .diajakGlassButton(hazeState),
-              contentAlignment = Alignment.Center
-            ) {
-              if (profileImageUri != null) {
-                Image(
-                  painter = coil.compose.rememberAsyncImagePainter(profileImageUri),
-                  contentDescription = "Foto Profil",
-                  modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape),
-                  contentScale = ContentScale.Crop
-                )
-              } else if (profileImageRes != null) {
-                Image(
-                  painter = painterResource(id = profileImageRes),
-                  contentDescription = "Foto Profil",
-                  modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape),
-                  contentScale = ContentScale.Crop
-                )
-              } else {
-                Icon(
-                  imageVector = Icons.Outlined.Person,
-                  contentDescription = "Foto Profil",
-                  tint = DiajakOrange,
-                  modifier = Modifier.size(20.dp)
-                )
-              }
-            }
-
-            // Greeting & Subtitle
-            Column(
-              verticalArrangement = Arrangement.Center
-            ) {
-              Text(
-                text = "$greetingText, $displayName",
-                style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold.copy(
-                  fontSize = 14.sp,
-                  fontWeight = FontWeight.Bold
-                ),
-                color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-              )
-              Text(
-                text = "Temukan Aktivitas di Sekitarmu",
-                style = com.example.ui.theme.DiajakDesignSystem.Typography.Caption.copy(
-                  fontSize = 11.sp
-                ),
-                color = Color(0xFF6B7280),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-              )
-            }
-          }
-
-          // Right: Notification Button
-          Box(
-            modifier = Modifier.align(Alignment.CenterEnd),
-            contentAlignment = Alignment.TopEnd
-          ) {
-            IconButton(
-              onClick = { onNavigateToNotifications() },
-              modifier = Modifier
-                .size(40.dp)
-                .diajakGlassButton(hazeState)
-            ) {
-              Icon(
-                imageVector = Icons.Outlined.Notifications,
-                contentDescription = "Notifikasi",
-                tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.size(20.dp)
-              )
-            }
-
-            if (hasUnreadNotifications) {
-              Box(
-                modifier = Modifier
-                  .offset(x = (-2).dp, y = 2.dp)
-                  .size(9.dp)
-                  .background(DiajakOrange, CircleShape)
-                  .border(1.5.dp, Color.White, CircleShape)
-              )
-            }
-          }
-        }
-      }
-
-      // Spacer before search bar
+      // 1. Kolom Pencarian Putih Bersih (Langsung di atas, dengan safe status bar spacing)
       item(contentType = HeaderUnderlayState.CONTAINER) {
-        Spacer(modifier = Modifier.height(14.dp))
-      }
-
-      // 1. Kolom Pencarian Putih Bersih (Search Bar Interaktif Langsung Bisa Diketik)
-      item(contentType = HeaderUnderlayState.CONTAINER) {
+        Spacer(modifier = Modifier.statusBarsPadding().height(16.dp))
         Surface(
           modifier = Modifier
             .fillMaxWidth()
@@ -532,10 +421,10 @@ fun HomeScreen(
             ) {
               if (searchQuery.isEmpty()) {
                 Text(
-                  text = "Cari aktivitas, hobi, komunitas...",
+                  text = "Cari aktivitas, hobi, komunitas, kota",
                   style = TextStyle(
                     fontSize = 13.5.sp,
-                    color = Color(0xFF94A3B8),
+                    color = Color(0xFF0F172A),
                     fontWeight = FontWeight.Normal
                   ),
                   maxLines = 1,
@@ -582,15 +471,24 @@ fun HomeScreen(
             }
           }
         }
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
       }
 
-      // 2. Kategori Kapsul (Pills dengan Ikon Berwarna) - Berada di Bawah Search Bar
-      item(contentType = HeaderUnderlayState.TEXT) {
-        Spacer(modifier = Modifier.height(12.dp))
+      // 2. Sliding Banners - Berada tepat di bawah Kolom Pencarian
+      item(contentType = HeaderUnderlayState.PHOTO) {
+        HomeSlidingBanners(
+          onSelectCityFilter = onSelectCityFilter,
+          statusBarHeightDp = statusBarHeightDp
+        )
+      }
+
+      // 3. Kategori Kapsul (Pills dengan Ikon Berwarna) - Berada di Bawah Banner
+      item(contentType = HeaderUnderlayState.CONTAINER) {
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         LazyRow(
           modifier = Modifier.fillMaxWidth(),
           contentPadding = PaddingValues(horizontal = 20.dp),
-          horizontalArrangement = Arrangement.spacedBy(10.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           items(sortedCategories, key = { cat -> cat.id }) { cat ->
             val isSelected = selectedCategory == cat.id
@@ -604,15 +502,6 @@ fun HomeScreen(
             )
           }
         }
-        Spacer(modifier = Modifier.height(16.dp))
-      }
-
-      // 3. Sliding Banners - Berada di Bawah Kategori dengan Ukuran Proporsional
-      item(contentType = HeaderUnderlayState.PHOTO) {
-        HomeSlidingBanners(
-          onSelectCityFilter = onSelectCityFilter,
-          statusBarHeightDp = statusBarHeightDp
-        )
       }
 
 
@@ -623,7 +512,7 @@ fun HomeScreen(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.extraLarge, bottom = MaterialTheme.spacing.medium),
+            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.section, bottom = MaterialTheme.spacing.sectionContent),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -670,7 +559,7 @@ fun HomeScreen(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.extraLarge, bottom = MaterialTheme.spacing.medium),
+            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.section, bottom = MaterialTheme.spacing.sectionContent),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -718,7 +607,7 @@ fun HomeScreen(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.extraLarge, bottom = MaterialTheme.spacing.medium),
+            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.section, bottom = MaterialTheme.spacing.sectionContent),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -765,7 +654,7 @@ fun HomeScreen(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.extraLarge, bottom = MaterialTheme.spacing.medium),
+            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.section, bottom = MaterialTheme.spacing.sectionContent),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -816,73 +705,12 @@ fun HomeScreen(
     }
   }
 
-  // Dynamically detect which content category is currently passing under the header:
-  // 1. TEXT: Greeting or section titles directly on gray background -> dissolves text seamlessly into #E5E7EB
-  // 2. PHOTO: Sliding banners or activity carousel photos -> pure optical blur, ZERO FOG
-  // 3. CONTAINER: Search bar or category capsules -> smooth edge melting
-  // Completely layout-independent: reads contentType directly from whatever item is passing underneath!
-  val underlayState by remember {
-    derivedStateOf {
-      val visibleItems = lazyListState.layoutInfo.visibleItemsInfo
-      if (visibleItems.isEmpty() || !isScrolled) {
-        HeaderUnderlayState.PHOTO
-      } else {
-        val headerHeightPx = with(density) { (statusBarHeightDp + 56.dp).toPx() }
-        
-        // Find which item intersects the top header area [0, headerHeightPx]
-        val headerItem = visibleItems.firstOrNull { item ->
-          item.offset <= headerHeightPx && (item.offset + item.size) > 0
-        } ?: visibleItems.first()
-
-        // Read dynamically from contentType without any hardcoded index
-        val detectedType = (headerItem.contentType as? HeaderUnderlayState) ?: HeaderUnderlayState.PHOTO
-        // Keep TEXT state (glossy sheen) until the photo or container item's top edge touches the top of the screen
-        if ((detectedType == HeaderUnderlayState.PHOTO || detectedType == HeaderUnderlayState.CONTAINER) && headerItem.offset > 0) {
-          HeaderUnderlayState.TEXT
-        } else {
-          detectedType
-        }
-      }
-    }
-  }
-
-  val textMeltingFactor by animateFloatAsState(
-    targetValue = when (underlayState) {
-      HeaderUnderlayState.TEXT -> 1f
-      HeaderUnderlayState.CONTAINER -> 0.18f
-      HeaderUnderlayState.PHOTO -> 0f
-    },
-    animationSpec = tween(durationMillis = 180, easing = LinearOutSlowInEasing),
-    label = "homeTextMelting"
-  )
-
-  val meltingColor by animateColorAsState(
-    targetValue = when (underlayState) {
-      HeaderUnderlayState.CONTAINER -> Color.White
-      HeaderUnderlayState.TEXT -> GlassmorphismTheme.Header.BaseColor
-      HeaderUnderlayState.PHOTO -> GlassmorphismTheme.Header.BaseColor
-    },
-    animationSpec = tween(durationMillis = 180, easing = LinearOutSlowInEasing),
-    label = "homeMeltingColor"
-  )
-
-  val photoGlowFactor by animateFloatAsState(
-    targetValue = when (underlayState) {
-      HeaderUnderlayState.PHOTO -> 1f
-      HeaderUnderlayState.CONTAINER -> 0.45f
-      HeaderUnderlayState.TEXT -> 0f
-    },
-    animationSpec = tween(durationMillis = 180, easing = LinearOutSlowInEasing),
-    label = "homePhotoGlow"
-  )
-
-  // 2. Glass Header Layer with Intelligent Dynamic Adaptation
+  // 2. Pure Optical Glass Header Layer (100% Pure Optical Haze - iOS & Tinder Style)
   if (isScrolled) {
     DiajakGlassHeader(
       hazeState = hazeState,
-      textMeltingFactor = textMeltingFactor,
-      photoGlowFactor = photoGlowFactor,
-      meltingColor = meltingColor,
+      lazyListState = lazyListState,
+      containerColor = Color(0xFFE5E7EB),
       modifier = Modifier
         .align(Alignment.TopCenter)
         .zIndex(10f)
@@ -911,7 +739,7 @@ fun HomeScreen(
         modifier = Modifier
           .fillMaxWidth()
           .padding(horizontal = 20.dp)
-          .padding(bottom = 32.dp)
+          .padding(bottom = MaterialTheme.spacing.medium)
       ) {
         Text(
           text = "Pilih Lokasi",
@@ -992,7 +820,7 @@ fun HomeScreen(
           }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         Text(
           text = "Kota Populer",
@@ -1161,7 +989,7 @@ fun CategoryCapsuleCard(
         .fillMaxHeight()
         .padding(start = 5.dp, end = 16.dp),
       verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.spacedBy(8.dp)
+      horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
     ) {
       // Small circular container keeping the category icon colorful
       Box(
@@ -1290,7 +1118,7 @@ fun CityCircleCard(
       }
     }
 
-    Spacer(modifier = Modifier.height(6.dp))
+    Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
     Text(
       text = city.cityName,
@@ -1382,7 +1210,7 @@ fun ActivityCardItem(activity: ActivityModel, onClick: () -> Unit) {
           }
         }
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
         Text(
           text = activity.title,
@@ -1393,7 +1221,7 @@ fun ActivityCardItem(activity: ActivityModel, onClick: () -> Unit) {
           lineHeight = 20.sp
         )
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
         Row(verticalAlignment = Alignment.CenterVertically) {
           Icon(Icons.Outlined.Place, contentDescription = "Loc", tint = DiajakOrange, modifier = Modifier.size(14.dp))
@@ -1962,7 +1790,7 @@ fun HomeSlidingBanners(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
           )
-          Spacer(modifier = Modifier.height(2.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
           Text(
             text = banner.subtitle,
             style = com.example.ui.theme.DiajakDesignSystem.Typography.Body.copy(
@@ -1974,7 +1802,7 @@ fun HomeSlidingBanners(
             overflow = TextOverflow.Ellipsis,
             lineHeight = 15.sp
           )
-          Spacer(modifier = Modifier.height(8.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
           Surface(
             shape = RoundedCornerShape(14.dp),
@@ -2001,7 +1829,7 @@ fun HomeSlidingBanners(
           modifier = Modifier
             .align(Alignment.BottomEnd)
             .padding(end = 14.dp, bottom = 12.dp),
-          horizontalArrangement = Arrangement.spacedBy(4.dp),
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
           verticalAlignment = Alignment.CenterVertically
         ) {
           homeCityBannersList.indices.forEach { index ->

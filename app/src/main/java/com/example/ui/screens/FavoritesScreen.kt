@@ -108,7 +108,7 @@ fun FavoritesScreen(
             modifier = Modifier.size(72.dp),
             tint = MaterialTheme.colorScheme.onSurface
           )
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
           Text(
             text = "Belum Ada Aktivitas Favorit",
             style = DiajakDesignSystem.Typography.TitleBold,
@@ -121,7 +121,7 @@ fun FavoritesScreen(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
           )
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
           Button(
             onClick = onExploreClick,
             colors = ButtonDefaults.buttonColors(containerColor = DiajakOrange),
@@ -306,7 +306,7 @@ fun FavoriteActivityGridCard(
           modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
         // Subtitle / Location Row with Location Pin Icon
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -329,7 +329,7 @@ fun FavoriteActivityGridCard(
           )
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         // Price & Rating Row (Price on left, Rating on right with yellow badge)
         Row(

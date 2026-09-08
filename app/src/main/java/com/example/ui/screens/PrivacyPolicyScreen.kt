@@ -59,8 +59,8 @@ fun PrivacyPolicyScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 40.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
+                    .padding(start = 20.dp, end = 20.dp, top = 0.dp, bottom = MaterialTheme.spacing.medium),
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
             ) {
                 Text(
                     text = "Selamat datang di Kebijakan Privasi kami. Kami sangat menghargai kepercayaan Anda dan berkomitmen penuh untuk melindungi privasi serta keamanan data pribadi Anda. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan membagikan informasi Anda saat menggunakan aplikasi ini.",
@@ -69,7 +69,7 @@ fun PrivacyPolicyScreen(
                     lineHeight = 22.sp
                 )
                 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                 Text(
                     text = "1. Informasi yang Kami Kumpulkan",
                     style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold,
@@ -84,7 +84,7 @@ fun PrivacyPolicyScreen(
                     lineHeight = 22.sp
                 )
                 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                 Text(
                     text = "2. Penggunaan Informasi",
                     style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold,
@@ -97,7 +97,7 @@ fun PrivacyPolicyScreen(
                     lineHeight = 22.sp
                 )
                 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                 Text(
                     text = "3. Perlindungan & Keamanan Data",
                     style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold,
@@ -110,7 +110,7 @@ fun PrivacyPolicyScreen(
                     lineHeight = 22.sp
                 )
                 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                 Text(
                     text = "4. Berbagi Informasi",
                     style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold,
@@ -123,7 +123,7 @@ fun PrivacyPolicyScreen(
                     lineHeight = 22.sp
                 )
                 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                 Text(
                     text = "Dengan menggunakan layanan kami, Anda menyetujui pengumpulan dan penggunaan informasi sebagaimana dijelaskan dalam Kebijakan Privasi ini. Kami dapat memperbarui kebijakan ini secara berkala, dan perubahan akan diumumkan langsung melalui aplikasi.",
                     style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,

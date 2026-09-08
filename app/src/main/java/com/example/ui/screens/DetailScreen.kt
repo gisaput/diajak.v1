@@ -321,7 +321,7 @@ fun DetailScreen(
             ) {
               Row(
                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 verticalAlignment = Alignment.CenterVertically
               ) {
                 images.indices.forEach { index ->
@@ -366,7 +366,7 @@ fun DetailScreen(
           Column(
             modifier = Modifier
               .fillMaxWidth()
-              .padding(horizontal = 20.dp, vertical = 22.dp)
+              .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
           ) {
             // Judul Aktivitas
             Text(
@@ -381,7 +381,7 @@ fun DetailScreen(
               modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Tanggal & Jam info (Sesuai Desain Tanggal & Jam dengan Tahun Lengkap)
             val datePart = getDisplayedScheduleDateText(activity.schedule, baseToday)
@@ -446,9 +446,9 @@ fun DetailScreen(
               }
             }
 
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             HorizontalDivider(color = Color(0xFFE2E8F0), thickness = 1.dp)
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // 1. Tentang Aktivitas
             Text(
@@ -459,7 +459,7 @@ fun DetailScreen(
               ),
               color = MaterialTheme.colorScheme.onSurface
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Overview Text with Soft Gradient Fade on lines 3-4 when collapsed
             Box(
@@ -507,9 +507,9 @@ fun DetailScreen(
               exit = fadeOut(animationSpec = tween(180)) + shrinkVertically(animationSpec = tween(180))
             ) {
               Column(modifier = Modifier.fillMaxWidth()) {
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                 HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
                 // 2. Yang Didapat
                 Text(
@@ -520,9 +520,9 @@ fun DetailScreen(
                   ),
                   color = MaterialTheme.colorScheme.onSurface
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                 Column(
-                  verticalArrangement = Arrangement.spacedBy(10.dp)
+                  verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
                 ) {
                   activity.detailsList.forEach { detail ->
                     Row(
@@ -637,9 +637,9 @@ fun DetailScreen(
               )
             }
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             HorizontalDivider(color = Color(0xFFF1F5F9))
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // 2. Lokasi (Tengah)
             Row(
@@ -678,9 +678,9 @@ fun DetailScreen(
               }
             }
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             HorizontalDivider(color = Color(0xFFF1F5F9))
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // 3. Profile (Bawah)
             Row(
@@ -772,7 +772,7 @@ fun DetailScreen(
               }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             val displayedReviews = allReviewsList.take(2)
             displayedReviews.forEachIndexed { idx, rev ->
@@ -803,7 +803,7 @@ fun DetailScreen(
                       color = MaterialTheme.colorScheme.onSurface
                     )
                   }
-                  Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+                  Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)) {
                     repeat(rev.rating) {
                       Icon(
                         imageVector = Icons.Outlined.Star,
@@ -828,13 +828,13 @@ fun DetailScreen(
                 )
               }
               if (idx < displayedReviews.lastIndex) {
-                Spacer(modifier = Modifier.height(14.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                 HorizontalDivider(color = Color(0xFFF1F5F9))
-                Spacer(modifier = Modifier.height(14.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
               }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             Button(
               onClick = { isReviewsSheetOpen = true },
               colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
@@ -947,16 +947,13 @@ fun DetailScreen(
     ) {
       // Glass Header Background (Fades in smoothly when scrolling past hero image)
       if (headerAlpha > 0f) {
-        Box(
+        DiajakGlassHeader(
+          hazeState = hazeState,
+          scrollState = scrollState,
           modifier = Modifier
             .matchParentSize()
             .graphicsLayer { alpha = headerAlpha }
-            .diajakGlassHeaderEffect(
-              hazeState = hazeState,
-              textMeltingFactor = textMeltingFactor,
-              photoGlowFactor = photoGlowFactor
-            )
-        )
+        ) {}
       }
 
       Box(
@@ -1007,7 +1004,7 @@ fun DetailScreen(
         // Circular Floating Action Buttons (Right: Share & Favorite Love)
         Row(
           modifier = Modifier.align(Alignment.CenterEnd),
-          horizontalArrangement = Arrangement.spacedBy(10.dp),
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
           verticalAlignment = Alignment.CenterVertically
         ) {
           // Circular Share Button
@@ -1242,7 +1239,7 @@ fun DetailScreen(
                 listHeight = currentHeight
               }
               .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
           ) {
             // Include an initial message at the beginning of the chat (bottom of reversed list)
             val combinedMessages = listOf("Halo! Senang bisa terhubung. Ada yang bisa saya bantu terkait aktivitas ini? 😊") + chatMessages
@@ -1283,7 +1280,7 @@ fun DetailScreen(
                     )
                   }
                   
-                  Spacer(modifier = Modifier.height(2.dp))
+                  Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                   
                   // Timestamp
                   Text(
@@ -1586,7 +1583,7 @@ fun DetailScreen(
                     )
                   }
                   Row(
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
+                    horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)
                   ) {
                     repeat(rev.rating) {
                       Icon(
@@ -1738,7 +1735,7 @@ fun BouncingDotsLoading() {
   Row(
     modifier = Modifier
       .fillMaxWidth()
-      .padding(vertical = 20.dp),
+      .padding(vertical = MaterialTheme.spacing.medium),
     horizontalArrangement = Arrangement.Center,
     verticalAlignment = Alignment.CenterVertically
   ) {
@@ -2162,7 +2159,7 @@ fun DetailMapBottomSheet(
         .align(Alignment.CenterEnd)
         .padding(end = 16.dp)
         .zIndex(10f),
-      verticalArrangement = Arrangement.spacedBy(8.dp)
+      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
     ) {
       IconButton(
         onClick = {

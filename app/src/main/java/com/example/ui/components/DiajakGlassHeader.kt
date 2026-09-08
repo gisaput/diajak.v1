@@ -32,11 +32,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.HazeStyle
+import dev.chrisbanes.haze.HazeTint
 import dev.chrisbanes.haze.hazeSource
 
 import com.example.ui.theme.DiajakDesignSystem
 import com.example.ui.theme.GlassmorphismTheme
+import com.example.ui.theme.HazeConfig
+import com.example.ui.theme.HazeMode
 import com.example.ui.theme.HeaderUnderlayState
+import com.example.ui.theme.LocalHazeConfig
+import com.example.ui.theme.ProvideHazeConfig
 import com.example.ui.theme.diajakGlassButton
 import com.example.ui.theme.diajakGlassHeaderEffect
 
@@ -80,121 +85,108 @@ fun DiajakGlassHeader(
     style: HazeStyle? = null,
     textMeltingFactor: Float? = null,
     photoGlowFactor: Float? = null,
+    containerMeltingFactor: Float? = null,
     meltingColor: Color? = null,
     content: @Composable BoxScope.() -> Unit
 ) {
     val density = LocalDensity.current
 
-    // Auto-detect underlay state from scroll state, lazy list state, or lazy grid state
-    val autoUnderlayState by remember(lazyListState, lazyGridState, scrollState) {
+    // Dynamically detect underlay state based on current scroll position & visible items
+    val currentUnderlayState by remember(lazyListState, lazyGridState, scrollState) {
         derivedStateOf {
             if (lazyListState != null) {
-                val visibleItems = lazyListState.layoutInfo.visibleItemsInfo
-                if (visibleItems.isEmpty() || (lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0)) {
-                    HeaderUnderlayState.PHOTO
+                val layoutInfo = lazyListState.layoutInfo
+                val visibleItems = layoutInfo.visibleItemsInfo
+                if (visibleItems.isEmpty()) {
+                    HeaderUnderlayState.TEXT
                 } else {
-                    val headerHeightPx = with(density) { 80.dp.toPx() }
-                    val headerItem = visibleItems.firstOrNull { item ->
-                        item.offset <= headerHeightPx && (item.offset + item.size) > 0
+                    // Header active blur zone is ~40dp to 80dp from the top of the viewport
+                    val headerTargetPx = with(density) { 50.dp.toPx() }
+                    val item = visibleItems.firstOrNull { 
+                        it.offset <= headerTargetPx && (it.offset + it.size) > headerTargetPx 
                     } ?: visibleItems.first()
-                    val detectedType = (headerItem.contentType as? HeaderUnderlayState)
-                        ?: if (headerItem.index == 0) HeaderUnderlayState.TEXT else HeaderUnderlayState.PHOTO
-                    // Keep TEXT state (glossy sheen) until the photo or container item's top edge touches the top of the screen
-                    if ((detectedType == HeaderUnderlayState.PHOTO || detectedType == HeaderUnderlayState.CONTAINER) && headerItem.offset > 0) {
-                        HeaderUnderlayState.TEXT
-                    } else {
-                        detectedType
-                    }
+                    (item.contentType as? HeaderUnderlayState) ?: HeaderUnderlayState.TEXT
                 }
             } else if (lazyGridState != null) {
-                val visibleItems = lazyGridState.layoutInfo.visibleItemsInfo
-                if (visibleItems.isEmpty() || (lazyGridState.firstVisibleItemIndex == 0 && lazyGridState.firstVisibleItemScrollOffset == 0)) {
-                    HeaderUnderlayState.PHOTO
+                val layoutInfo = lazyGridState.layoutInfo
+                val visibleItems = layoutInfo.visibleItemsInfo
+                if (visibleItems.isEmpty()) {
+                    HeaderUnderlayState.TEXT
                 } else {
-                    val headerHeightPx = with(density) { 80.dp.toPx() }
-                    val headerItem = visibleItems.firstOrNull { item ->
-                        item.offset.y <= headerHeightPx && (item.offset.y + item.size.height) > 0
+                    val headerTargetPx = with(density) { 50.dp.toPx() }
+                    val item = visibleItems.firstOrNull { 
+                        it.offset.y <= headerTargetPx && (it.offset.y + it.size.height) > headerTargetPx 
                     } ?: visibleItems.first()
-                    val detectedType = (headerItem.contentType as? HeaderUnderlayState)
-                        ?: if (headerItem.index == 0) HeaderUnderlayState.TEXT else HeaderUnderlayState.PHOTO
-                    // Keep TEXT state (glossy sheen) until the photo or container item's top edge touches the top of the screen
-                    if ((detectedType == HeaderUnderlayState.PHOTO || detectedType == HeaderUnderlayState.CONTAINER) && headerItem.offset.y > 0) {
-                        HeaderUnderlayState.TEXT
-                    } else {
-                        detectedType
-                    }
+                    (item.contentType as? HeaderUnderlayState) ?: HeaderUnderlayState.TEXT
                 }
             } else if (scrollState != null) {
-                val scrollVal = scrollState.value
-                val textThresholdPx = with(density) { 90.dp.toPx() }
-                val containerThresholdPx = with(density) { 340.dp.toPx() }
-                if (scrollVal in 1..(textThresholdPx.toInt())) {
-                    HeaderUnderlayState.TEXT
-                } else if (scrollVal > containerThresholdPx) {
-                    HeaderUnderlayState.CONTAINER
-                } else {
+                if (scrollState.value < with(density) { 340.dp.toPx() }) {
                     HeaderUnderlayState.PHOTO
+                } else {
+                    HeaderUnderlayState.CONTAINER
                 }
             } else {
-                HeaderUnderlayState.PHOTO
+                HeaderUnderlayState.TEXT
             }
         }
     }
 
-    val animatedTextMelting by animateFloatAsState(
-        targetValue = when (autoUnderlayState) {
-            HeaderUnderlayState.TEXT -> 1f
-            HeaderUnderlayState.CONTAINER -> 0.18f
-            HeaderUnderlayState.PHOTO -> 0f
-        },
-        animationSpec = tween(durationMillis = 180, easing = LinearOutSlowInEasing),
-        label = "autoTextMelting"
+    val targetPhotoRatio = if (currentUnderlayState == HeaderUnderlayState.PHOTO) 1f else 0f
+    val animatedPhotoRatio by animateFloatAsState(
+        targetValue = targetPhotoRatio,
+        animationSpec = tween(durationMillis = 280, easing = LinearOutSlowInEasing),
+        label = "photoOpticalTransition"
     )
 
-    val animatedMeltingColor by animateColorAsState(
-        targetValue = when (autoUnderlayState) {
-            HeaderUnderlayState.CONTAINER -> Color.White
-            HeaderUnderlayState.TEXT -> containerColor
-            HeaderUnderlayState.PHOTO -> containerColor
-        },
-        animationSpec = tween(durationMillis = 180, easing = LinearOutSlowInEasing),
-        label = "autoMeltingColor"
+    val targetTextMeltingRatio = if (currentUnderlayState == HeaderUnderlayState.TEXT) 1f else 0f
+    val animatedTextMeltingRatio by animateFloatAsState(
+        targetValue = targetTextMeltingRatio,
+        animationSpec = tween(durationMillis = 280, easing = LinearOutSlowInEasing),
+        label = "textMeltingTransition"
     )
 
-    val animatedPhotoGlow by animateFloatAsState(
-        targetValue = when (autoUnderlayState) {
-            HeaderUnderlayState.PHOTO -> 1f
-            HeaderUnderlayState.CONTAINER -> 0.45f
-            HeaderUnderlayState.TEXT -> 0f
-        },
-        animationSpec = tween(durationMillis = 180, easing = LinearOutSlowInEasing),
-        label = "autoPhotoGlow"
-    )
-
-    val effectiveTextMelting = textMeltingFactor ?: animatedTextMelting
-    val effectivePhotoGlow = photoGlowFactor ?: animatedPhotoGlow
-    val effectiveMeltingColor = meltingColor ?: animatedMeltingColor
-
-    val effectiveStyle = style ?: remember(effectiveMeltingColor) {
-        GlassmorphismTheme.Header.adaptiveStyle(containerColor = effectiveMeltingColor)
+    // Unified HazeConfig resolved from threshold state and smooth transition ratios
+    val ambientHazeConfig = LocalHazeConfig.current
+    val calculatedHazeConfig = remember(currentUnderlayState, animatedPhotoRatio, animatedTextMeltingRatio) {
+        val mode = if (currentUnderlayState == HeaderUnderlayState.PHOTO) HazeMode.PHOTO_MODE else HazeMode.CONTENT_MODE
+        HazeConfig(
+            mode = mode,
+            photoRatio = animatedPhotoRatio,
+            textMeltingRatio = animatedTextMeltingRatio
+        )
     }
 
-    Box(modifier = modifier.fillMaxWidth()) {
-        // Layer 1: Dynamic Haze Optical Glass Effect with 3 Adaptive Transitions & 3-Tier Gentle Curve
-        Box(
-            modifier = Modifier
-                .matchParentSize()
-                .diajakGlassHeaderEffect(
-                    hazeState = hazeState,
-                    style = effectiveStyle,
-                    textMeltingFactor = effectiveTextMelting,
-                    photoGlowFactor = effectivePhotoGlow,
-                    containerColor = effectiveMeltingColor
-                )
-        )
-        
-        // Layer 2: Content Layer
-        content()
+    val effectiveHazeConfig = if (style != null) {
+        ambientHazeConfig
+    } else {
+        calculatedHazeConfig
+    }
+
+    val effectiveStyle = style ?: effectiveHazeConfig.effectiveStyle
+    val effectiveTextMelting = textMeltingFactor ?: 0f
+    val effectivePhotoGlow = photoGlowFactor ?: 0f
+    val effectiveContainerMelting = containerMeltingFactor ?: 0f
+
+    ProvideHazeConfig(config = effectiveHazeConfig) {
+        Box(modifier = modifier.fillMaxWidth()) {
+            // Layer 1: Pure Optical iOS-Style Frosted Glass Header with Coupled Progressive Dissolver
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .diajakGlassHeaderEffect(
+                        hazeState = hazeState,
+                        style = effectiveStyle,
+                        underlayState = currentUnderlayState,
+                        textMeltingFactor = effectiveTextMelting,
+                        photoGlowFactor = effectivePhotoGlow,
+                        containerMeltingFactor = effectiveContainerMelting,
+                        containerColor = meltingColor ?: containerColor
+                    )
+            )
+            
+            // Layer 2: Content Layer
+            content()
+        }
     }
 }
 
@@ -213,6 +205,7 @@ fun DiajakUniversalHeader(
     scrollState: ScrollState? = null,
     textMeltingFactor: Float? = null,
     photoGlowFactor: Float? = null,
+    containerMeltingFactor: Float? = null,
     containerColor: Color = GlassmorphismTheme.Header.BaseColor,
     actions: @Composable (RowScope.() -> Unit)? = null
 ) {
@@ -224,7 +217,8 @@ fun DiajakUniversalHeader(
         scrollState = scrollState,
         containerColor = containerColor,
         textMeltingFactor = textMeltingFactor,
-        photoGlowFactor = photoGlowFactor
+        photoGlowFactor = photoGlowFactor,
+        containerMeltingFactor = containerMeltingFactor
     ) {
         Box(
             modifier = Modifier

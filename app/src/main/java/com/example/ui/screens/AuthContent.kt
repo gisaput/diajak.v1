@@ -177,7 +177,7 @@ fun AuthContent(
         leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null, tint = DiajakOrange) },
         singleLine = true
       )
-      Spacer(modifier = Modifier.height(6.dp))
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
     }
 
     // Email field
@@ -191,7 +191,7 @@ fun AuthContent(
       keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
     )
 
-    Spacer(modifier = Modifier.height(6.dp))
+    Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
     // Password field
     PersistentOutlinedTextField(
@@ -214,7 +214,7 @@ fun AuthContent(
       keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
     )
 
-    Spacer(modifier = Modifier.height(20.dp))
+    Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
     // Submit Email button
     Button(
@@ -250,7 +250,7 @@ fun AuthContent(
       )
     }
 
-    Spacer(modifier = Modifier.height(20.dp))
+    Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
     // Switch mode CTA
     Row(
@@ -275,7 +275,7 @@ fun AuthContent(
       )
     }
 
-    Spacer(modifier = Modifier.height(20.dp))
+    Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
     // Social Divider Text
     Box(
@@ -289,7 +289,7 @@ fun AuthContent(
       )
     }
 
-    Spacer(modifier = Modifier.height(20.dp))
+    Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
     // Social Login Buttons
     // Google Button
@@ -376,7 +376,7 @@ fun AuthContent(
             }
           }
 
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
           Text(
             text = "Pilih akun untuk melanjutkan",
@@ -384,7 +384,7 @@ fun AuthContent(
             color = MaterialTheme.colorScheme.onSurface
           )
 
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
           // Account Item 1: Gisa Putra (User's actual email in metadata)
           GoogleAccountRow(
@@ -454,7 +454,7 @@ fun AuthContent(
             )
           }
 
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
           Text(
             text = "Untuk melanjutkan, Google akan membagikan nama, alamat email, preferensi bahasa, dan gambar profil Anda dengan aplikasi ini. Lihat Kebijakan Privasi dan Ketentuan Layanan.",
@@ -499,7 +499,7 @@ fun AuthContent(
             lineHeight = 22.sp
           )
 
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
           // Pulsing Face ID Scan Simulation
           var pulseScale by remember { mutableStateOf(1f) }
@@ -529,7 +529,7 @@ fun AuthContent(
             )
           }
 
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
           Text(
             text = "Memindai Face ID...",
@@ -537,11 +537,11 @@ fun AuthContent(
             color = Color(0xFF38BDF8)
           )
 
-          Spacer(modifier = Modifier.height(20.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
           Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
           ) {
             Button(
               onClick = { showApplePrompt = false },

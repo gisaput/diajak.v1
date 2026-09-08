@@ -492,7 +492,7 @@ fun CreateActivityDialog(
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .padding(20.dp),
-              horizontalArrangement = Arrangement.spacedBy(20.dp)
+              horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
             ) {
               Button(
                 onClick = { isFullScreenMapMode = false },
@@ -600,7 +600,7 @@ fun CreateActivityDialog(
             WizardProgressStep(stepNumber = 3, title = "Lokasi Peta", isActive = currentStep >= 3, isCurrent = currentStep == 3, modifier = Modifier.weight(1f))
           }
 
-          Spacer(modifier = Modifier.height(16.dp))
+          Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
           // --- STEP CONTENT (SCROLLABLE CONTAINER) ---
           Box(modifier = Modifier.weight(1f)) {
@@ -690,7 +690,7 @@ fun CreateActivityDialog(
 
                   Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
                     verticalAlignment = Alignment.CenterVertically
                   ) {
                     OutlinedTextField(
@@ -1023,7 +1023,7 @@ fun CreateActivityDialog(
                         }
                       }
 
-                      Spacer(modifier = Modifier.height(20.dp))
+                      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
                       Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -1226,7 +1226,7 @@ fun CreateActivityDialog(
                           style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
                           color = MaterialTheme.colorScheme.onSurface
                         )
-                        Spacer(modifier = Modifier.height(2.dp))
+                        Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                         Text(
                           text = "Temukan lokasi titik temu terdekat Anda saat ini",
                           style = com.example.ui.theme.DiajakDesignSystem.Typography.TitleBold,
@@ -1778,7 +1778,7 @@ fun CreateActivityDialog(
                       style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
                       color = MaterialTheme.colorScheme.onSurface
                     )
-                    Spacer(modifier = Modifier.height(2.dp))
+                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                     Text(
                       text = nearestPreset.address,
                       style = com.example.ui.theme.DiajakDesignSystem.Typography.TitleBold,

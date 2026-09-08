@@ -56,8 +56,8 @@ fun TermsAndConditionsScreen(
       Column(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(start = 20.dp, end = 20.dp, bottom = 40.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+          .padding(start = 20.dp, end = 20.dp, bottom = MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
       ) {
           Text(
             text = "Selamat datang di platform kami. Sebelum menggunakan layanan kami, harap luangkan waktu untuk membaca Syarat & Ketentuan Layanan ini. Syarat & Ketentuan ini mengatur akses dan penggunaan Anda atas aplikasi, situs web, serta layanan yang disediakan oleh kami.",

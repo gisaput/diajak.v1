@@ -6,6 +6,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.icons.automirrored.outlined.*
 import androidx.compose.material.icons.outlined.*
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -55,7 +58,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.zIndex
@@ -95,7 +97,9 @@ fun BookingFlowScreen(
   initialPhone: String = ""
 ) {
   val context = LocalContext.current
-  val clipboardManager = LocalClipboardManager.current
+  val clipboardManager = remember(context) {
+    context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+  }
   val focusManager = androidx.compose.ui.platform.LocalFocusManager.current
   
   val screenWidth = androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp.dp
@@ -257,7 +261,7 @@ fun BookingFlowScreen(
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
                 LazyRow(
-                  horizontalArrangement = Arrangement.spacedBy(10.dp),
+                  horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
                   contentPadding = PaddingValues(horizontal = 2.dp)
                 ) {
                   items(dateOptions) { option ->
@@ -312,7 +316,7 @@ fun BookingFlowScreen(
                 }
               }
 
-              Spacer(modifier = Modifier.height(28.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
               // Stepper Block
               Column(
@@ -331,7 +335,7 @@ fun BookingFlowScreen(
 
                     Row(
                       verticalAlignment = Alignment.CenterVertically,
-                      horizontalArrangement = Arrangement.spacedBy(20.dp),
+                      horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
                       modifier = Modifier.offset(x = 12.dp)
                     ) {
                       Box(
@@ -365,7 +369,7 @@ fun BookingFlowScreen(
                   }
               }
 
-              Spacer(modifier = Modifier.height(2.dp)) // Compensated top spacer for visually larger text field
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall)) // Compensated top spacer for visually larger text field
 
               Column(
                 modifier = Modifier.fillMaxWidth()
@@ -379,7 +383,7 @@ fun BookingFlowScreen(
                   singleLine = true
                 )
 
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
                 PersistentOutlinedTextField(
                   value = userEmailInput,
@@ -391,7 +395,7 @@ fun BookingFlowScreen(
                   keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                 )
 
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
                 PersistentOutlinedTextField(
                   value = userPhoneInput,
@@ -404,7 +408,7 @@ fun BookingFlowScreen(
                 )
               }
 
-              Spacer(modifier = Modifier.height(38.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
               Column(
                 modifier = Modifier.fillMaxWidth()
               ) {
@@ -618,7 +622,7 @@ fun BookingFlowScreen(
                 }
               }
 
-              Spacer(modifier = Modifier.height(20.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
               // Payment Methods list
               Column(
@@ -721,7 +725,8 @@ fun BookingFlowScreen(
                       Row(
                         modifier = Modifier
                           .clickable {
-                            clipboardManager.setText(AnnotatedString(vaNumber))
+                            val clip = ClipData.newPlainText("Virtual Account", vaNumber)
+                            clipboardManager?.setPrimaryClip(clip)
                             Toast.makeText(context, "Nomor VA disalin!", Toast.LENGTH_SHORT).show()
                           }
                           .background(DiajakOrange.copy(alpha = 0.1f), RoundedCornerShape(6.dp))
@@ -772,7 +777,8 @@ fun BookingFlowScreen(
                       Row(
                         modifier = Modifier
                           .clickable {
-                            clipboardManager.setText(AnnotatedString(mandiriVa))
+                            val clip = ClipData.newPlainText("Virtual Account", mandiriVa)
+                            clipboardManager?.setPrimaryClip(clip)
                             Toast.makeText(context, "Nomor VA Mandiri disalin!", Toast.LENGTH_SHORT).show()
                           }
                           .background(DiajakOrange.copy(alpha = 0.1f), RoundedCornerShape(6.dp))
@@ -953,7 +959,7 @@ fun BookingFlowScreen(
                   }
                 }
 
-                Spacer(modifier = Modifier.height(36.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
                 // Details summary box
                 Row(
@@ -962,17 +968,17 @@ fun BookingFlowScreen(
                 ) {
                   Column {
                     Text("Kode Booking", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Spacer(modifier = Modifier.height(2.dp))
+                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                     Text(bookingId, style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold, color = MaterialTheme.colorScheme.onSurface)
                   }
                   Column(horizontalAlignment = Alignment.End) {
                     Text("Jumlah Undangan", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Spacer(modifier = Modifier.height(2.dp))
+                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                     Text("$undanganCount Peserta", style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold, color = DiajakOrange)
                   }
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
                 // Visitor Contact Information Section
                 Text(
@@ -980,7 +986,7 @@ fun BookingFlowScreen(
                   style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold,
                   color = MaterialTheme.colorScheme.onSurface
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
                 Column(
                   modifier = Modifier.fillMaxWidth(),
@@ -1024,7 +1030,7 @@ fun BookingFlowScreen(
                   }
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
                 // Custom QR Code
                 Column(
@@ -1077,7 +1083,7 @@ fun BookingFlowScreen(
                     }
                   }
 
-                  Spacer(modifier = Modifier.height(28.dp))
+                  Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                   Text(
                     text = "Tunjukkan QR untuk Check-in",
                     style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
@@ -1087,7 +1093,7 @@ fun BookingFlowScreen(
                 }
               }
 
-              Spacer(modifier = Modifier.height(20.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             }
 
             // Sticky Bottom Bar
@@ -1099,7 +1105,7 @@ fun BookingFlowScreen(
               Column(
                 modifier = Modifier
                   .fillMaxWidth()
-                  .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.medium, bottom = 20.dp)
+                  .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.medium)
                   .navigationBarsPadding(),
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
               ) {
@@ -1231,7 +1237,7 @@ fun PaymentMethodItem(
         Column(modifier = Modifier.weight(1f)) {
           Text(title, style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold.copy(fontSize = 16.sp), color = MaterialTheme.colorScheme.onSurface)
           if (subtitle.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
             Text(subtitle, style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurfaceVariant)
           }
         }

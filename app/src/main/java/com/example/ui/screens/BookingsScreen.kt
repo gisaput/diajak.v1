@@ -115,7 +115,7 @@ fun BookingsScreen(
               modifier = Modifier.size(72.dp),
               tint = MaterialTheme.colorScheme.onSurface
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             Text(
               text = "Belum Ada Undangan Aktif",
               style = DiajakDesignSystem.Typography.Body,
@@ -128,7 +128,7 @@ fun BookingsScreen(
               color = MaterialTheme.colorScheme.onSurface,
               textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             Button(
               onClick = onExploreClick,
               colors = ButtonDefaults.buttonColors(containerColor = DiajakOrange),
@@ -214,7 +214,7 @@ fun BookingsScreen(
                       maxLines = 1,
                       overflow = TextOverflow.Ellipsis
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                       Icon(
                         imageVector = Icons.Outlined.LocationOn,
@@ -231,7 +231,7 @@ fun BookingsScreen(
                         overflow = TextOverflow.Ellipsis
                       )
                     }
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                       Icon(
                         imageVector = Icons.Outlined.AccessTime,
@@ -484,7 +484,7 @@ fun UndanganDetailDialog(
               }
             }
 
-            Spacer(modifier = Modifier.height(36.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Info Rows
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -503,7 +503,7 @@ fun UndanganDetailDialog(
               }
             }
 
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             Surface(
               modifier = Modifier.fillMaxWidth(),
@@ -529,7 +529,7 @@ fun UndanganDetailDialog(
               }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Visitor Information Section (NAME, EMAIL, PHONE)
             Text(
@@ -583,9 +583,9 @@ fun UndanganDetailDialog(
           }
 
             // Spacing to push down past the notch line
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Beautiful custom drawn Barcode or QR code
             Column(
@@ -645,7 +645,7 @@ fun UndanganDetailDialog(
           }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         // Save to Gallery Button
         OutlinedButton(
@@ -674,7 +674,7 @@ fun UndanganDetailDialog(
           Text("Tutup", color = Color.White, style = com.example.ui.theme.DiajakDesignSystem.Typography.TitleBold)
         }
         
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
       }
 
       DiajakGlassHeader(

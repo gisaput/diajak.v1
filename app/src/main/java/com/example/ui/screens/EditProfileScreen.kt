@@ -146,7 +146,7 @@ fun EditProfileScreen(
           bottom = DiajakDesignSystem.Dimens.ScreenPaddingVertical
         ),
       horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(20.dp)
+      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
     ) {
       Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
       
@@ -157,7 +157,7 @@ fun EditProfileScreen(
         Column(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp, bottom = MaterialTheme.spacing.small),
+            .padding(top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.small),
           horizontalAlignment = Alignment.CenterHorizontally
         ) {
           // Circular Image Frame
@@ -206,7 +206,7 @@ fun EditProfileScreen(
         }
       }
 
-      Spacer(modifier = Modifier.height(20.dp))
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
       // Profile Data Fields Container
       Column(
@@ -303,10 +303,10 @@ fun EditProfileScreen(
         modifier = Modifier
           .fillMaxWidth()
           .navigationBarsPadding()
-          .padding(horizontal = 20.dp, vertical = 20.dp)
+          .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
       ) {
         Text("Ubah Nama", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         OutlinedTextField(
           value = tempName,
           onValueChange = { tempName = it },
@@ -325,10 +325,10 @@ fun EditProfileScreen(
             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface
           )
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         Row(
           modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           OutlinedButton(
             onClick = { showNameDialog = false },
@@ -369,10 +369,10 @@ fun EditProfileScreen(
         modifier = Modifier
           .fillMaxWidth()
           .navigationBarsPadding()
-          .padding(horizontal = 20.dp, vertical = 20.dp)
+          .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
       ) {
         Text("Ubah Username", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         OutlinedTextField(
           value = tempUsername,
           onValueChange = { tempUsername = it },
@@ -391,10 +391,10 @@ fun EditProfileScreen(
             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface
           )
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         Row(
           modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           OutlinedButton(
             onClick = { showUsernameDialog = false },
@@ -435,10 +435,10 @@ fun EditProfileScreen(
         modifier = Modifier
           .fillMaxWidth()
           .navigationBarsPadding()
-          .padding(horizontal = 20.dp, vertical = 20.dp)
+          .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
       ) {
         Text("Ubah Bio", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         OutlinedTextField(
           value = tempBio,
           onValueChange = { tempBio = it },
@@ -457,10 +457,10 @@ fun EditProfileScreen(
             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface
           )
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         Row(
           modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           OutlinedButton(
             onClick = { showBioDialog = false },
@@ -497,11 +497,11 @@ fun EditProfileScreen(
         modifier = Modifier
           .fillMaxWidth()
           .navigationBarsPadding()
-          .padding(horizontal = 20.dp, vertical = 20.dp)
+          .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
       ) {
         Text("Pilih Jenis Kelamin", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
-        Spacer(modifier = Modifier.height(20.dp))
-        Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+        Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
           Row(
             modifier = Modifier
               .fillMaxWidth()
@@ -533,10 +533,10 @@ fun EditProfileScreen(
             Text("Wanita", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)
           }
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         Row(
           modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           OutlinedButton(
             onClick = { showGenderDialog = false },
@@ -623,12 +623,12 @@ fun EditProfileScreen(
         modifier = Modifier
           .fillMaxWidth()
           .navigationBarsPadding()
-          .padding(bottom = 20.dp)
+          .padding(bottom = MaterialTheme.spacing.medium)
       ) {
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 20.dp),
+            .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -647,7 +647,7 @@ fun EditProfileScreen(
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
             .height(180.dp),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           // Day Column
           Box(modifier = Modifier.weight(1f)) {
@@ -684,13 +684,13 @@ fun EditProfileScreen(
           }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         Row(
           modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           OutlinedButton(
             onClick = { showBirthDateDialog = false },
@@ -731,10 +731,10 @@ fun EditProfileScreen(
         modifier = Modifier
           .fillMaxWidth()
           .navigationBarsPadding()
-          .padding(horizontal = 20.dp, vertical = 20.dp)
+          .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
       ) {
         Text("Ubah No. Handphone", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         OutlinedTextField(
           value = tempPhone,
           onValueChange = { tempPhone = it },
@@ -754,10 +754,10 @@ fun EditProfileScreen(
             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface
           )
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         Row(
           modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           OutlinedButton(
             onClick = { showPhoneDialog = false },
@@ -798,10 +798,10 @@ fun EditProfileScreen(
         modifier = Modifier
           .fillMaxWidth()
           .navigationBarsPadding()
-          .padding(horizontal = 20.dp, vertical = 20.dp)
+          .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
       ) {
         Text("Ubah Email", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         OutlinedTextField(
           value = tempEmail,
           onValueChange = { tempEmail = it },
@@ -821,10 +821,10 @@ fun EditProfileScreen(
             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface
           )
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         Row(
           modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.spacedBy(20.dp)
+          horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           OutlinedButton(
             onClick = { showEmailDialog = false },
@@ -865,9 +865,9 @@ fun EditProfileScreen(
         modifier = Modifier
           .fillMaxWidth()
           .navigationBarsPadding()
-          .padding(horizontal = 20.dp, vertical = 20.dp),
+          .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
       ) {
         Text("Pilih Foto Profil", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
         
@@ -898,7 +898,7 @@ fun EditProfileScreen(
         // 2x2 Preset Grid
         Column(
           modifier = Modifier.fillMaxWidth(),
-          verticalArrangement = Arrangement.spacedBy(20.dp)
+          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
           Row(
             modifier = Modifier.fillMaxWidth(),

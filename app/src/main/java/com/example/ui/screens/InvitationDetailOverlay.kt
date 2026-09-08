@@ -175,7 +175,7 @@ fun InvitationDetailOverlay(
           }
         }
 
-        Spacer(modifier = Modifier.height(36.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         // Details summary box
         Row(
@@ -185,17 +185,17 @@ fun InvitationDetailOverlay(
         ) {
           Column {
             Text("Kode Booking", style = DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
             Text(booking.id, style = DiajakDesignSystem.Typography.BodyBold, color = MaterialTheme.colorScheme.onSurface)
           }
           Column(horizontalAlignment = Alignment.End) {
             Text("Jumlah Undangan", style = DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
             Text("${booking.undanganCount} Peserta", style = DiajakDesignSystem.Typography.BodyBold, color = DiajakOrange)
           }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         // Visitor Contact Information Section
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -206,7 +206,7 @@ fun InvitationDetailOverlay(
             textAlign = TextAlign.Start
           )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         Column(
           modifier = Modifier.fillMaxWidth(),
@@ -251,7 +251,7 @@ fun InvitationDetailOverlay(
         }
 
         // Spacing to push down past the notch line
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         // Custom QR Code
         Column(
@@ -313,7 +313,7 @@ fun InvitationDetailOverlay(
           )
         }
         
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
         Spacer(modifier = Modifier.height(160.dp)) // Extra space to scroll past floating bottom bar
       }
     }
@@ -360,7 +360,7 @@ fun InvitationDetailOverlay(
         .fillMaxWidth()
         .background(Color.Transparent)
         .navigationBarsPadding()
-        .padding(horizontal = 20.dp, vertical = 20.dp)
+        .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
     ) {
       Column(
         modifier = Modifier.fillMaxWidth(),

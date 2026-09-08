@@ -77,7 +77,7 @@ import com.example.ui.viewmodel.DiajakViewModel
           }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
         // Reusable auth content with Phone, Email, Google, Apple options
         AuthContent(

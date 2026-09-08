@@ -439,150 +439,138 @@ fun MapExploreScreen(
         .zIndex(10f)
         .fillMaxWidth()
     ) {
-      Row(
+      Box(
         modifier = Modifier
           .fillMaxWidth()
           .statusBarsPadding()
-          .height(64.dp)
-          .padding(horizontal = 20.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+          .padding(top = 16.dp, bottom = 12.dp)
       ) {
-        // Frosted Glass Circular Back Button (Left of search bar)
-        IconButton(
-          onClick = { onBack() },
+        Surface(
           modifier = Modifier
-            .size(40.dp)
-            .diajakGlassButton(hazeState)
-        ) {
-          Icon(
-            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-            contentDescription = "Kembali ke Beranda",
-            tint = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.size(20.dp)
-          )
-        }
-
-        // Search Bar Card taking the remaining width
-        Card(
-          modifier = Modifier
-            .weight(1f)
-            .height(48.dp)
-            .shadow(
-              elevation = 3.dp,
-              shape = CircleShape,
-              spotColor = Color.Black.copy(alpha = 0.08f),
-              ambientColor = Color.Black.copy(alpha = 0.04f)
-            ),
-          shape = CircleShape,
-          colors = CardDefaults.cardColors(containerColor = Color.White),
-          border = BorderStroke(
-            width = if (isSearchFocused) 1.5.dp else 0.5.dp,
-            color = if (isSearchFocused) DiajakOrange else Color.Black.copy(alpha = 0.08f)
-          )
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+            .height(48.dp),
+          shape = RoundedCornerShape(24.dp),
+          color = Color.White,
+          shadowElevation = 0.dp
         ) {
           Row(
             modifier = Modifier
               .fillMaxSize()
-              .padding(start = 16.dp, end = 4.dp),
+              .padding(start = 6.dp, end = 6.dp),
             verticalAlignment = Alignment.CenterVertically
           ) {
-            BasicTextField(
-              value = localSearchQuery,
-              onValueChange = {
-                localSearchQuery = it
-                onSearchChange(it)
-              },
-              textStyle = com.example.ui.theme.DiajakDesignSystem.Typography.TitleBold.copy(
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 14.sp
-              ),
-              singleLine = true,
-              cursorBrush = SolidColor(DiajakOrange),
-              keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-              keyboardActions = KeyboardActions(onSearch = {
-                onSearchChange(localSearchQuery)
-                focusManager.clearFocus()
-              }),
+            // Circular Back Button inside the search bar
+            IconButton(
+              onClick = { onBack() },
+              modifier = Modifier.size(38.dp)
+            ) {
+              Icon(
+                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                contentDescription = "Kembali ke Beranda",
+                tint = Color(0xFF0F172A),
+                modifier = Modifier.size(20.dp)
+              )
+            }
+
+            Spacer(modifier = Modifier.width(4.dp))
+
+            Box(
               modifier = Modifier
                 .weight(1f)
-                .onFocusChanged { state ->
-                  isSearchFocused = state.isFocused
-                  if (state.isFocused) {
-                    onPriceFilterChange("all")
-                    onRatingFilterChange("all")
-                    onCityFilterChange("all")
-                    onSelectCategory("all")
-                  }
-                },
-              decorationBox = { innerTextField ->
-                Box(
-                  modifier = Modifier.fillMaxWidth(),
-                  contentAlignment = Alignment.CenterStart
-                ) {
-                  if (localSearchQuery.isEmpty()) {
-                    Text(
-                      text = "Cari aktivitas, hobi, komunitas...",
-                      style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
-                      color = Color(0xFF71717A),
-                      fontSize = 14.sp
-                    )
-                  }
-                  innerTextField()
-                }
-              }
-            )
-
-            Row(
-              verticalAlignment = Alignment.CenterVertically
+                .fillMaxHeight(),
+              contentAlignment = Alignment.CenterStart
             ) {
-              if (localSearchQuery.isNotEmpty()) {
-                IconButton(
-                  onClick = {
-                    localSearchQuery = ""
-                    onSearchChange("")
-                    onPriceFilterChange("all")
-                    onRatingFilterChange("all")
-                    onCityFilterChange("all")
-                    onSelectCategory("all")
-                    focusManager.clearFocus()
-                  },
-                  modifier = Modifier.size(36.dp)
-                ) {
-                  Icon(
-                    imageVector = Icons.Outlined.Clear,
-                    contentDescription = "Hapus",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(18.dp)
-                  )
-                }
+              if (localSearchQuery.isEmpty()) {
+                Text(
+                  text = "Cari aktivitas, hobi, komunitas, kota",
+                  style = TextStyle(
+                    fontSize = 13.5.sp,
+                    color = Color(0xFF0F172A),
+                    fontWeight = FontWeight.Normal
+                  ),
+                  maxLines = 1,
+                  overflow = TextOverflow.Ellipsis
+                )
               }
+              BasicTextField(
+                value = localSearchQuery,
+                onValueChange = {
+                  localSearchQuery = it
+                  onSearchChange(it)
+                },
+                textStyle = TextStyle(
+                  fontSize = 13.5.sp,
+                  color = Color(0xFF0F172A),
+                  fontWeight = FontWeight.Medium
+                ),
+                singleLine = true,
+                cursorBrush = SolidColor(DiajakOrange),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = {
+                  onSearchChange(localSearchQuery)
+                  focusManager.clearFocus()
+                }),
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .onFocusChanged { state ->
+                    isSearchFocused = state.isFocused
+                    if (state.isFocused) {
+                      onPriceFilterChange("all")
+                      onRatingFilterChange("all")
+                      onCityFilterChange("all")
+                      onSelectCategory("all")
+                    }
+                  }
+              )
+            }
 
-              // Filter icon inside the bar with active highlight state matching Google Maps
-              val hasActiveFilters = priceFilter != "all" || ratingFilter != "all" || cityFilter != "all" || selectedCategory != "all"
+            if (localSearchQuery.isNotEmpty()) {
               IconButton(
                 onClick = {
+                  localSearchQuery = ""
+                  onSearchChange("")
+                  onPriceFilterChange("all")
+                  onRatingFilterChange("all")
+                  onCityFilterChange("all")
+                  onSelectCategory("all")
                   focusManager.clearFocus()
-                  showFilterDialog = true
                 },
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(32.dp)
               ) {
-                Box(modifier = Modifier.size(24.dp)) {
-                  Icon(
-                    imageVector = Icons.Outlined.Tune,
-                    contentDescription = "Filter",
-                    tint = if (hasActiveFilters) DiajakOrange else MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp).align(Alignment.Center)
+                Icon(
+                  imageVector = Icons.Outlined.Close,
+                  contentDescription = "Hapus",
+                  tint = Color(0xFF64748B),
+                  modifier = Modifier.size(16.dp)
+                )
+              }
+            }
+
+            // Filter icon inside the bar with active highlight state matching Google Maps
+            val hasActiveFilters = priceFilter != "all" || ratingFilter != "all" || cityFilter != "all" || selectedCategory != "all"
+            IconButton(
+              onClick = {
+                focusManager.clearFocus()
+                showFilterDialog = true
+              },
+              modifier = Modifier.size(38.dp)
+            ) {
+              Box(modifier = Modifier.size(24.dp), contentAlignment = Alignment.Center) {
+                Icon(
+                  imageVector = Icons.Outlined.Tune,
+                  contentDescription = "Filter",
+                  tint = if (hasActiveFilters) DiajakOrange else Color(0xFF0F172A),
+                  modifier = Modifier.size(20.dp)
+                )
+                if (hasActiveFilters) {
+                  Box(
+                    modifier = Modifier
+                      .size(6.dp)
+                      .clip(CircleShape)
+                      .background(DiajakOrange)
+                      .align(Alignment.TopEnd)
                   )
-                  if (hasActiveFilters) {
-                    Box(
-                      modifier = Modifier
-                        .size(6.dp)
-                        .clip(CircleShape)
-                        .background(DiajakOrange)
-                        .align(Alignment.TopEnd)
-                    )
-                  }
                 }
               }
             }
@@ -595,7 +583,7 @@ fun MapExploreScreen(
       modifier = Modifier
         .align(Alignment.TopEnd)
         .statusBarsPadding()
-        .padding(top = 72.dp)
+        .padding(top = 80.dp)
         .padding(horizontal = 20.dp)
         .zIndex(10f)
       ) {
@@ -662,7 +650,7 @@ fun MapExploreScreen(
       modifier = Modifier
         .align(Alignment.BottomCenter)
         .navigationBarsPadding()
-        .padding(bottom = 20.dp)
+        .padding(bottom = MaterialTheme.spacing.medium)
       ) {
       HorizontalPager(
         state = pagerState,
@@ -764,7 +752,7 @@ fun MapExploreScreen(
                 modifier = Modifier.fillMaxWidth()
               )
 
-              Spacer(modifier = Modifier.height(6.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
               // Subtitle / Location Row with Location Pin Icon
               Row(verticalAlignment = Alignment.CenterVertically) {
@@ -787,7 +775,7 @@ fun MapExploreScreen(
                 )
               }
 
-              Spacer(modifier = Modifier.height(10.dp))
+              Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
               // Price & Rating Row (Price on left, Rating on right with yellow badge)
               Row(
@@ -941,7 +929,7 @@ fun SlideInFilterScreen(
         }
       }
 
-      Spacer(modifier = Modifier.height(20.dp))
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
       Text(
         text = "Tampilkan aktivitas berdasarkan ulasan",
@@ -1005,7 +993,7 @@ fun SlideInFilterScreen(
         }
       }
 
-      Spacer(modifier = Modifier.height(20.dp))
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
       Text(
         text = "Tampilkan aktivitas di kota tertentu",
@@ -1076,7 +1064,7 @@ fun SlideInFilterScreen(
         }
       }
 
-      Spacer(modifier = Modifier.height(20.dp))
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
       Text(
         text = "Tampilkan kategori aktivitas",
@@ -1138,11 +1126,11 @@ fun SlideInFilterScreen(
         .fillMaxWidth()
         .background(Color.Transparent)
         .navigationBarsPadding()
-        .padding(horizontal = 20.dp, vertical = 20.dp)
+        .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
     ) {
       Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
       ) {
         OutlinedButton(
           onClick = {

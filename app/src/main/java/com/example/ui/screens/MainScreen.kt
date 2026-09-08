@@ -709,7 +709,7 @@ fun BottomNavItem(
         )
       }
     }
-    Spacer(modifier = Modifier.height(3.dp))
+    Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
     Text(
       text = label,
       fontSize = 11.sp,

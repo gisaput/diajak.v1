@@ -4,6 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
@@ -40,90 +45,116 @@ object GlassmorphismTheme {
         val TotalTopPadding: Dp = ContentHeight + ScrollGap // 80.dp
 
         val BaseColor: Color = Color(0xFFE5E7EB)
-        const val TintAlpha: Float = 0.20f
-        val BlurRadius: Dp = 24.dp
+        const val TintAlpha: Float = 0.0f
+        val BlurRadius: Dp = 18.dp
         const val NoiseFactor: Float = 0f
 
-        val TintColor: Color = BaseColor.copy(alpha = TintAlpha)
+        // Universal Pure Crystal Optical Glass Tint (Tipis, jernih, kilau kaca asli)
+        const val UniversalGlassAlpha: Float = 0.20f
 
         /**
-         * Dynamically configures a HazeStyle that adapts its tint color and opacity
-         * based on the background luminance beneath the header.
-         *
-         * - Over dark/vibrant content (photos/hero images, luminance < 0.5f):
-         *   Applies a crystal-clear frosted highlight tint (translucent white)
-         *   producing the vibrant, juicy refraction over colorful imagery.
-         *
-         * - Over light/gray text content (#E5E7EB, luminance >= 0.5f):
-         *   Dynamically shifts tint to match the ambient surface tone with calibrated
-         *   subtle alpha, preventing the blur from washing out into an opaque white fog.
+         * Universal Tinder & iOS Style Frosted Glass Header:
+         * Uses 24.dp pure optical blur with completely transparent background (NO double white paint).
+         * Zero tint (0.0f) ensures search bars, chips, and white containers match footer card softness
+         * without creating chalky, milky layers.
+         */
+        val UniversalStyle: HazeStyle = HazeStyle(
+            backgroundColor = Color.Transparent,
+            tint = HazeTint(Color.White.copy(alpha = 0f)),
+            blurRadius = 24.dp,
+            noiseFactor = 0f
+        )
+
+        // The base style for pure optical blur over photos (zero milky fog, 100% crystal)
+        val OpticalStyle: HazeStyle = HazeStyle(
+            backgroundColor = Color.Transparent,
+            tint = HazeTint(Color.Transparent),
+            blurRadius = 24.dp,
+            noiseFactor = 0f
+        )
+
+        /**
+         * Tinder/iOS uses a single continuous glass material rather than abruptly switching paints.
+         * For PHOTO underlay, the glass is purely optical (transparent paint).
+         * For non-photo underlay, no hard-edged color spray is applied; the HazeStyle's frosted tint
+         * and the 3-Tier ProgressiveGradientBrush naturally handle the smooth melting.
+         */
+        fun progressiveDissolverBrush(underlayState: HeaderUnderlayState): Brush {
+            // Keep completely transparent: the Haze frosted style and ProgressiveGradientBrush
+            // perform the natural dissolving without abrupt blocky paint bands!
+            return Brush.verticalGradient(
+                0.0f to Color.Transparent,
+                1.0f to Color.Transparent
+            )
+        }
+
+        fun tintFor(underlayState: HeaderUnderlayState): Color = Color.Transparent
+
+        /**
+         * Dynamic Optical & Frosted Style:
+         * Uses 100% pure HazeTint with Color.White (zero manual color overlays/spray).
+         * - Over PHOTO & CONTAINER (Search bar, Chip, Card, Footer): pure optical blur (tint alpha 0.0f)
+         *   matching footer card smoothness and eliminating milky chalk blocks.
+         * - Over TEXT (Standalone text on gray canvas): deep frosted tint (0.78f) to dissolve dark letters into the glass.
+         */
+        fun dynamicStyle(
+            photoRatio: Float = 0f,
+            textMeltingRatio: Float = 0f
+        ): HazeStyle {
+            val textBoost = (0.78f * textMeltingRatio * (1f - photoRatio)).coerceIn(0f, 0.78f)
+
+            return HazeStyle(
+                backgroundColor = Color.Transparent,
+                tint = HazeTint(Color.White.copy(alpha = textBoost)),
+                blurRadius = 24.dp,
+                noiseFactor = 0f
+            )
+        }
+
+        /**
+         * Returns the clean optical HazeStyle (zero flat paint spray).
+         */
+        fun styleFor(underlayState: HeaderUnderlayState): HazeStyle = OpticalStyle
+
+        /**
+         * Preserves backwards compatibility while returning the clean optical style.
          */
         fun adaptiveStyle(
             containerColor: Color = BaseColor,
             blurRadius: Dp = BlurRadius,
             noiseFactor: Float = NoiseFactor
-        ): HazeStyle {
-            val luminance = containerColor.luminance()
-            val dynamicTint: HazeTint = if (luminance < 0.5f) {
-                // Low luminance (dark or colorful photos):
-                // Translucent white frost accentuates contrast and crystal glass glow
-                val alpha = (0.22f - (luminance * 0.15f)).coerceIn(0.12f, 0.22f)
-                HazeTint(Color.White.copy(alpha = alpha))
-            } else {
-                // High luminance (gray background with text):
-                // Use the ambient container tone with minimal alpha
-                // Prevents "kabut putih" (white fog) over gray #E5E7EB background
-                val alpha = (0.12f * (1.0f - (luminance - 0.5f) * 0.4f)).coerceIn(0.06f, 0.12f)
-                HazeTint(containerColor.copy(alpha = alpha))
-            }
-
-            return HazeStyle(
-                backgroundColor = Color.Transparent,
-                tint = dynamicTint,
-                blurRadius = blurRadius,
-                noiseFactor = noiseFactor
-            )
-        }
+        ): HazeStyle = OpticalStyle
 
         val Style: HazeStyle
-            get() = adaptiveStyle(BaseColor)
+            get() = OpticalStyle
 
         /**
-         * Standard progressive vertical fade gradient stops (BlendMode.DstIn).
-         * 3-Tier Gentle Curve (seperti teknik gambar pertama):
-         * - Lapisan Atas (0.0f - 0.25f): Pekat & terlindung
-         * - Lapisan Tengah (0.25f - 0.65f): Difusi blur semi pekat
-         * - Lapisan Bawah (0.65f - 1.0f): Masking DstIn bertingkat dengan kurva landai yang hilang ke transparan tanpa garis
+         * Precision 3-Tier Gentle Progressive Gradient Mask (BlendMode.DstIn).
+         * Harmonized across Background abu-abu, Kontainer putih, dan Foto:
+         * - Tier 1 (Bagian Atas / Status bar 0.00f - 0.40f): TEBAL (0.90f - 0.82f) agar jam & status bar kontras & terbaca.
+         * - Tier 2 (Bagian Tengah / Kontrol & Judul 0.40f - 0.70f): SEMI-TEBAL (0.80f turun melandai ke 0.45f).
+         * - Tier 3 (Bagian Bawah / Bibir Kaca 0.70f - 1.00f): LANDAI & TIPIS (0.45f turun bertahap 0.20f -> 0.05f -> 0f),
+         *   sehingga konten yang masuk tidak terpotong garis tegas dan melebur mulus.
          */
         val ProgressiveGradientBrush: Brush = Brush.verticalGradient(
-            0.0f to Color.Black,
-            0.25f to Color.Black,
-            0.45f to Color.Black.copy(alpha = 0.78f),
-            0.65f to Color.Black.copy(alpha = 0.45f),
-            0.82f to Color.Black.copy(alpha = 0.18f),
-            0.93f to Color.Black.copy(alpha = 0.05f),
-            1.0f to Color.Transparent
+            0.00f to Color.Black.copy(alpha = 0.90f),
+            0.40f to Color.Black.copy(alpha = 0.82f),
+            0.55f to Color.Black.copy(alpha = 0.65f),
+            0.70f to Color.Black.copy(alpha = 0.45f),
+            0.82f to Color.Black.copy(alpha = 0.22f),
+            0.92f to Color.Black.copy(alpha = 0.07f),
+            0.98f to Color.Black.copy(alpha = 0.015f),
+            1.00f to Color.Transparent
         )
 
         /**
-         * Dynamic Pigment Diffusion gradient (BlendMode.SrcOver).
-         * Calibrated to maintain uniform, consistent optical thickness with the photo state:
-         * - Gentle peak opacity (0.42f) ensures the glass remains airy, translucent, and natural.
-         * - Avoids thick/opaque solid bands when melting white containers or gray backgrounds.
-         * - Combined with the 24.dp optical Haze blur underneath, text letter strokes and container
-         *   edges dissolve seamlessly into the ambient canvas without forming a heavy opaque curtain.
-         * - Multi-stop gentle progressive curve precisely matches ProgressiveGradientBrush.
+         * Deprecated placeholder kept for backward compatibility (evaluates to fully transparent).
          */
         fun dynamicTextDiffusionBrush(
             containerColor: Color = BaseColor,
-            alphaMultiplier: Float = 1f
+            alphaMultiplier: Float = 0f
         ): Brush = Brush.verticalGradient(
-            0.0f to containerColor.copy(alpha = 0.42f * alphaMultiplier),
-            0.25f to containerColor.copy(alpha = 0.38f * alphaMultiplier),
-            0.45f to containerColor.copy(alpha = 0.28f * alphaMultiplier),
-            0.65f to containerColor.copy(alpha = 0.16f * alphaMultiplier),
-            0.82f to containerColor.copy(alpha = 0.07f * alphaMultiplier),
-            0.93f to containerColor.copy(alpha = 0.02f * alphaMultiplier),
+            0.0f to Color.Transparent,
             1.0f to Color.Transparent
         )
 
@@ -234,40 +265,106 @@ enum class HeaderUnderlayState {
 }
 
 /**
- * Extension modifier to apply the standardized Diajak iOS-Style Progressive Glass Header effect.
- * Pure optical Haze blur with progressive fade (DstIn) combined with dynamic, intelligent adaptation:
- * - Text melting diffusion ONLY when text on gray background is passing underneath.
- * - Subtle specular gloss sheen ("kilap transisi") when photos pass, with ZERO gray fog.
+ * Unified Haze Mode for the application:
+ * - PHOTO_MODE: 100% pure optical blur (HazeTint 0.0f), crystal clear, airy, ZERO fog/chalk.
+ *   Used for images, banners, card footers, and white containers.
+ * - CONTENT_MODE: Frosted blur (HazeTint 0.78f) designed specifically to absorb dark text
+ *   over gray backgrounds into the glass canvas.
+ */
+enum class HazeMode {
+    PHOTO_MODE,
+    CONTENT_MODE
+}
+
+/**
+ * Configuration holder for unified Haze styling.
+ */
+data class HazeConfig(
+    val mode: HazeMode = HazeMode.CONTENT_MODE,
+    val photoRatio: Float = 0f,
+    val textMeltingRatio: Float = 1f
+) {
+    /**
+     * Resolves the effective HazeStyle based on the unified mode and ratios.
+     */
+    val effectiveStyle: HazeStyle
+        get() = GlassmorphismTheme.Header.dynamicStyle(
+            photoRatio = photoRatio,
+            textMeltingRatio = textMeltingRatio
+        )
+
+    companion object {
+        val Default = HazeConfig()
+        val Photo = HazeConfig(mode = HazeMode.PHOTO_MODE, photoRatio = 1f, textMeltingRatio = 0f)
+        val Content = HazeConfig(mode = HazeMode.CONTENT_MODE, photoRatio = 0f, textMeltingRatio = 1f)
+
+        /**
+         * Resolves HazeMode and ratios from the underlying HeaderUnderlayState.
+         */
+        fun fromUnderlayState(
+            underlayState: HeaderUnderlayState,
+            photoRatio: Float = if (underlayState == HeaderUnderlayState.PHOTO) 1f else 0f,
+            textMeltingRatio: Float = if (underlayState == HeaderUnderlayState.TEXT) 1f else 0f
+        ): HazeConfig {
+            val mode = if (underlayState == HeaderUnderlayState.PHOTO) HazeMode.PHOTO_MODE else HazeMode.CONTENT_MODE
+            return HazeConfig(
+                mode = mode,
+                photoRatio = photoRatio,
+                textMeltingRatio = textMeltingRatio
+            )
+        }
+    }
+}
+
+/**
+ * Unified CompositionLocal for ambient Haze configuration across the app hierarchy.
+ */
+val LocalHazeConfig: ProvidableCompositionLocal<HazeConfig> = compositionLocalOf {
+    HazeConfig.Default
+}
+
+/**
+ * Helper to provide a unified HazeConfig to a Composable sub-tree.
+ */
+@Composable
+fun ProvideHazeConfig(
+    config: HazeConfig,
+    content: @Composable () -> Unit
+) {
+    CompositionLocalProvider(LocalHazeConfig provides config) {
+        content()
+    }
+}
+
+/**
+ * Extension modifier to apply the standardized Diajak 100% Pure Optical Progressive Glass Header effect.
+ * Pure optical Haze blur with progressive fade (DstIn) without ANY manual paint spray or color overlay layers.
  */
 fun Modifier.diajakGlassHeaderEffect(
     hazeState: HazeState,
-    style: HazeStyle = GlassmorphismTheme.Header.adaptiveStyle(),
+    style: HazeStyle = GlassmorphismTheme.Header.UniversalStyle,
+    underlayState: HeaderUnderlayState = HeaderUnderlayState.TEXT,
     textMeltingFactor: Float = 0f,
-    photoGlowFactor: Float = 1f,
+    photoGlowFactor: Float = 0f,
+    containerMeltingFactor: Float = 0f,
     containerColor: Color = GlassmorphismTheme.Header.BaseColor
 ): Modifier = this
     .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
     .drawWithContent {
-        // 1. Draw pure optical blur from Haze
+        // 1. Render pure optical Haze blur from content passing underneath
         drawContent()
 
-        // 2. Progressive Edge Feathering (DstIn)
+        // 2. Coupled Progressive Dissolver (Dissolves text & containers along the exact same gradient slope)
+        // When over PHOTO: the brush is completely transparent, giving 100% crystal clear blur without any fog!
+        drawRect(
+            brush = GlassmorphismTheme.Header.progressiveDissolverBrush(underlayState)
+        )
+
+        // 3. Precision bottom edge feathering (DstIn) without harsh cutoff
         drawRect(
             brush = GlassmorphismTheme.Header.ProgressiveGradientBrush,
             blendMode = BlendMode.DstIn
         )
-
-        // 3. Dynamic Text Dissolve (SrcOver) - ONLY when text on gray background is entering!
-        // Melts black letter strokes into containerColor. ZERO impact on photos (alpha = 0f).
-        if (textMeltingFactor > 0.01f) {
-            drawRect(
-                brush = GlassmorphismTheme.Header.dynamicTextDiffusionBrush(
-                    containerColor = containerColor,
-                    alphaMultiplier = textMeltingFactor
-                ),
-                blendMode = BlendMode.SrcOver
-            )
-        }
     }
     .hazeEffect(
         state = hazeState,
