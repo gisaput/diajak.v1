@@ -74,6 +74,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.R
 import com.example.model.ActivityModel
 import com.example.ui.theme.DiajakOrange
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.DiajakDesignSystem
 import com.example.ui.theme.DiajakOrangeLight
 import com.example.ui.theme.DiajakOrangeDark
@@ -333,7 +334,7 @@ fun KreatorMainDashboard(
         .fillMaxSize()
         .hazeSource(state = hazeState)
         .verticalScroll(scrollState)
-        .padding(bottom = 20.dp) ){
+        .padding(bottom = AppSpacing.Medium) ) {
       // Top Cover & Header (Vibrant Sunset Gradient)
       Box(
         modifier = Modifier
@@ -483,7 +484,7 @@ fun KreatorMainDashboard(
       border = BorderStroke(0.dp, Color.Transparent)
     ) {
       Column(
-        modifier = Modifier.padding(vertical = 18.dp, horizontal = MaterialTheme.spacing.screenMargin)
+        modifier = Modifier.padding(vertical = AppSpacing.Medium, horizontal = AppSpacing.ScreenMargin)
       ) {
         Row(
           modifier = Modifier.fillMaxWidth(),
@@ -987,7 +988,7 @@ fun KreatorActivitiesScreen(
         .fillMaxWidth()
         .background(Color.Transparent)
         .navigationBarsPadding()
-        .padding(horizontal = 20.dp, vertical = 20.dp)
+        .padding(horizontal = AppSpacing.ScreenMargin, vertical = AppSpacing.Medium)
         .zIndex(5f)
     ) {
       Button(
@@ -1142,14 +1143,14 @@ fun KreatorCreateActivityScreen(
         .verticalScroll(scrollState)
         .background(Color.Transparent)
         .padding(horizontal = 20.dp),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       Spacer(modifier = Modifier.statusBarsPadding().height(DiajakDesignSystem.Header.HeaderTotalTopPadding))
 
       com.example.ui.theme.DiajakCard(modifier = Modifier.fillMaxWidth()) {
         Column(
-          modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+          modifier = Modifier.fillMaxWidth().padding(vertical = AppSpacing.Medium),
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
         ) {
         // SECTION 1: MEDIA & COVER PHOTO (FLATTENED)
         Column(
@@ -1261,7 +1262,7 @@ fun KreatorCreateActivityScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = DiajakDesignSystem.Dimens.ScreenPaddingHorizontal),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
         ) {
           Box(modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
@@ -1403,7 +1404,7 @@ fun KreatorCreateActivityScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = DiajakDesignSystem.Dimens.ScreenPaddingHorizontal),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
         ) {
           Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
             // Biaya
@@ -1572,12 +1573,12 @@ fun KreatorCreateActivityScreen(
           .fillMaxWidth()
           .background(Color.Transparent)
           .navigationBarsPadding()
-          .padding(horizontal = 20.dp, vertical = 20.dp)
+          .padding(horizontal = AppSpacing.ScreenMargin, vertical = AppSpacing.Medium)
           .zIndex(5f)
       ) {
       Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        horizontalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
       ) {
         // BUTTON 1: SIMPAN KE DRAFT (FULLY TRANSPARENT BACKGROUND, NO SHADOW)
         OutlinedButton(
@@ -1934,7 +1935,7 @@ fun SlideInBenefitScreen(
           .fillMaxWidth()
           .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
       ) {
           // Render standard benefits
           standardBenefits.forEach { benefit ->
@@ -2008,7 +2009,7 @@ fun SlideInBenefitScreen(
           }
         }
 
-        Spacer(modifier = Modifier.height(200.dp))
+        Spacer(modifier = Modifier.height(120.dp))
       }
 
     // 2. Glass Header Layer
@@ -2845,7 +2846,7 @@ fun AturWaktuContent(
         val firstDayOfWeek = currentYearMonth.atDay(1).dayOfWeek.value // 1 = Monday, ..., 7 = Sunday
         val daysInMonth = currentYearMonth.lengthOfMonth()
 
-        Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall) ){
+        Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.ExtraSmall) ){
           for (week in 0 until 6) {
             Row(
               modifier = Modifier.fillMaxWidth(),
@@ -2907,7 +2908,7 @@ fun AturWaktuContent(
     // Time Adjuster Container
     Column(
       modifier = Modifier.fillMaxWidth(),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
         Row(
           modifier = Modifier.fillMaxWidth(),
@@ -3320,7 +3321,7 @@ fun SlideInKategoriScreen(
           Row(
             modifier = Modifier
               .fillMaxWidth()
-              .padding(vertical = 20.dp, horizontal = 20.dp),
+              .padding(vertical = AppSpacing.Medium, horizontal = AppSpacing.ScreenMargin),
             verticalAlignment = Alignment.CenterVertically
           ) {
             val categoryIcon = getCategoryIconVector(cat)
@@ -3492,7 +3493,7 @@ fun ShopeeFormGridItem(
       modifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
     ) {
       Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -3558,7 +3559,7 @@ fun KreatorPendaftaranScreen(
         .fillMaxSize()
         .hazeSource(state = hazeState),
       contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 24.dp),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       item {
         Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
@@ -3704,7 +3705,7 @@ fun KreatorFinanceScreen(
         .hazeSource(state = hazeState)
         .verticalScroll(scrollState)
         .padding(horizontal = 20.dp),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
 
@@ -3750,7 +3751,7 @@ fun KreatorFinanceScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
         ) {
           if (transactions.isEmpty()) {
             Text(
@@ -3859,7 +3860,7 @@ fun KreatorWithdrawScreen(
         .hazeSource(state = hazeState)
         .verticalScroll(scrollState)
         .padding(horizontal = 20.dp),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
 
@@ -3873,7 +3874,7 @@ fun KreatorWithdrawScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
         ) {
           OutlinedTextField(
             value = amount,
@@ -4001,7 +4002,7 @@ fun KreatorPerformanceScreen(
         .fillMaxSize()
         .hazeSource(state = hazeState),
       contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 24.dp),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       item {
         Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
@@ -4133,7 +4134,7 @@ fun KreatorVouchersScreen(
         .fillMaxSize()
         .hazeSource(state = hazeState),
       contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 24.dp),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       item {
         Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
@@ -4271,7 +4272,7 @@ fun KreatorCreateVoucherScreen(
         .hazeSource(state = hazeState)
         .verticalScroll(scrollState)
         .padding(horizontal = 20.dp),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
 
@@ -4285,7 +4286,7 @@ fun KreatorCreateVoucherScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
         ) {
           OutlinedTextField(
             value = code,

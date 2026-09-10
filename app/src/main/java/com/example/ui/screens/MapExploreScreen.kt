@@ -1,4 +1,6 @@
 package com.example.ui.screens
+
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.spacing
 import androidx.compose.material3.MaterialTheme
 
@@ -895,7 +897,7 @@ fun SlideInFilterScreen(
       DiajakFlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
       ) {
         options.forEach { (key, label) ->
           val isSelected = tempPriceFilter == key
@@ -952,7 +954,7 @@ fun SlideInFilterScreen(
       DiajakFlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
       ) {
         ratingOptions.forEach { (key, label) ->
           val isSelected = tempRatingFilter == key
@@ -1030,7 +1032,7 @@ fun SlideInFilterScreen(
       DiajakFlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
       ) {
         cityOptions.forEach { (key, label) ->
           val isSelected = tempCityFilter == key
@@ -1084,7 +1086,7 @@ fun SlideInFilterScreen(
       DiajakFlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
       ) {
         categoryOptions.forEach { (key, label) ->
           val isSelected = tempCategoryFilter == key

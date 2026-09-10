@@ -1,4 +1,6 @@
 package com.example.ui.screens
+
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.spacing
 import com.example.ui.theme.diajakGlassButton
 import androidx.compose.material3.MaterialTheme
@@ -55,7 +57,7 @@ fun AboutDiajakScreen(
         modifier = Modifier
           .fillMaxWidth()
           .padding(start = 20.dp, end = 20.dp, bottom = MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
       ) {
         Text(
           text = "Platform sosial inovatif ini dirancang untuk menghubungkan peserta-peserta melalui hobi, aktivitas seru di sekitar mereka. Kami percaya bahwa setiap peserta berhak menemukan komunitas yang mendukung, teman baru yang asyik, serta pengalaman hidup yang berkesan.",

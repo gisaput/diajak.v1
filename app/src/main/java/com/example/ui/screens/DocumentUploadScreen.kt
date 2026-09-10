@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import com.example.ui.theme.AppSpacing
+
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -99,7 +101,7 @@ fun DocumentUploadScreen(
         .hazeSource(state = hazeState)
         .verticalScroll(scrollState)
         .padding(horizontal = 20.dp),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       // 56.dp header + 24.dp gap = 80.dp
       Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))

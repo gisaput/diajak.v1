@@ -1,4 +1,6 @@
 package com.example.ui.screens
+
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.spacing
 import com.example.ui.components.DiajakFlowRow
 import com.example.data.DiajakRepository
@@ -325,7 +327,7 @@ fun CreateActivityDialog(
               modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .padding(end = 20.dp),
-              verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+              verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
             ) {
               FloatingActionButton(
                 onClick = { mapScale = (mapScale + 0.3f).coerceAtMost(4.0f) },
@@ -392,7 +394,7 @@ fun CreateActivityDialog(
             ) {
               Column(
                 modifier = Modifier.padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
               ) {
                 Row(
                   modifier = Modifier.fillMaxWidth(),
@@ -611,7 +613,7 @@ fun CreateActivityDialog(
                   modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState()),
-                  verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                  verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
           ) {
                   OutlinedTextField(
                     value = title,
@@ -761,7 +763,7 @@ fun CreateActivityDialog(
                   DiajakFlowRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                    verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+                    verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
                   ) {
                     standardBenefits.forEach { benefit ->
                       val isChecked = selectedBenefits.contains(benefit)
@@ -891,7 +893,7 @@ fun CreateActivityDialog(
                   modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState()),
-                  verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                  verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
           ) {
                   // Price setup with locked toggle
                   Surface(
@@ -901,7 +903,7 @@ fun CreateActivityDialog(
                     shadowElevation = 0.dp,
                     shape = RoundedCornerShape(20.dp)
                   ) {
-                    Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                    Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
 ) {
                       Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -960,7 +962,7 @@ fun CreateActivityDialog(
                   ) {
                     Column(
                       modifier = Modifier.padding(20.dp),
-                      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
 ) {
                       Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -1100,7 +1102,7 @@ fun CreateActivityDialog(
                       var currentDayCount = 1
                       val rows = 6
                       Column(
-                        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+                        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
                 ) {
                         for (r in 0 until rows) {
                           Row(
@@ -1205,7 +1207,7 @@ fun CreateActivityDialog(
                   modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState()),
-                  verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                  verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
                 ) {
                   // Deteksi Lokasi GPS Section
                   Column(
@@ -1264,7 +1266,7 @@ fun CreateActivityDialog(
                   }
 
                   // Pin Titik Temu di Peta Section
-                  Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
+                  Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)) {
                     Text(
                       text = "Pin Titik Temu di Peta",
                       style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,

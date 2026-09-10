@@ -57,3 +57,8 @@ object ThemeSpacing {
     val Section: Dp = Medium
     val ScreenMargin: Dp = Medium
 }
+
+/**
+ * Standardized alias for application spacing, matching ThemeSpacing.
+ */
+typealias AppSpacing = ThemeSpacing

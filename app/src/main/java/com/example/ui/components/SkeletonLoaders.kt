@@ -1,5 +1,7 @@
 package com.example.ui.components
 
+import com.example.ui.theme.AppSpacing
+
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -118,7 +120,7 @@ fun SkeletonCategoryChipsRow(
     LazyRow(
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 20.dp),
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        horizontalArrangement = Arrangement.spacedBy(AppSpacing.Small)
     ) {
         items(itemCount) { index ->
             val chipWidth = when (index % 3) {
@@ -320,7 +322,7 @@ fun SkeletonActivityList(
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
         repeat(itemCount) {
             SkeletonActivityCardVertical()
@@ -401,7 +403,7 @@ fun SkeletonDetailContent(
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
             // Detail Body Paragraph Skeleton
-            Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
+            Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)) {
                 SkeletonText(modifier = Modifier.fillMaxWidth(), height = 14.dp)
                 SkeletonText(modifier = Modifier.fillMaxWidth(), height = 14.dp)
                 SkeletonText(width = 220.dp, height = 14.dp)

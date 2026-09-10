@@ -1,4 +1,6 @@
 package com.example.ui.screens
+
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.spacing
 import com.example.ui.theme.diajakGlassButton
 import androidx.compose.material3.MaterialTheme
@@ -62,12 +64,12 @@ fun HelpCenterScreen(
         modifier = Modifier
           .fillMaxWidth()
           .padding(start = 20.dp, end = 20.dp, bottom = MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
       ) {
         // Intro Text
         Column(
           modifier = Modifier.fillMaxWidth(),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
         ) {
         Text(
           text = "Ada pertanyaan mengenai layanan kami?",

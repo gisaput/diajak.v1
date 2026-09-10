@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import com.example.ui.theme.AppSpacing
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -75,7 +77,7 @@ fun FavoritesScreen(
         state = gridState,
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 124.dp),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium),
         modifier = Modifier.fillMaxSize().hazeSource(state = hazeState)
       ) {
         item(span = { GridItemSpan(2) }, contentType = HeaderUnderlayState.TEXT) {
@@ -140,7 +142,7 @@ fun FavoritesScreen(
         state = gridState,
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 124.dp),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium),
         modifier = Modifier.fillMaxSize().hazeSource(state = hazeState)
       ) {
         item(span = { GridItemSpan(2) }, contentType = HeaderUnderlayState.TEXT) {

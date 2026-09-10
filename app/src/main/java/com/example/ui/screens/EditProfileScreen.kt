@@ -1,4 +1,6 @@
 package com.example.ui.screens
+
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.spacing
 import com.example.ui.theme.diajakGlassButton
 import androidx.compose.material3.MaterialTheme
@@ -146,7 +148,7 @@ fun EditProfileScreen(
           bottom = DiajakDesignSystem.Dimens.ScreenPaddingVertical
         ),
       horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
     ) {
       Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
       
@@ -501,7 +503,7 @@ fun EditProfileScreen(
       ) {
         Text("Pilih Jenis Kelamin", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-        Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
+        Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)) {
           Row(
             modifier = Modifier
               .fillMaxWidth()
@@ -867,7 +869,7 @@ fun EditProfileScreen(
           .navigationBarsPadding()
           .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
       ) {
         Text("Pilih Foto Profil", style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFamily = com.example.ui.theme.AppFontFamily), color = MaterialTheme.colorScheme.onSurface)
         
@@ -898,7 +900,7 @@ fun EditProfileScreen(
         // 2x2 Preset Grid
         Column(
           modifier = Modifier.fillMaxWidth(),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
         ) {
           Row(
             modifier = Modifier.fillMaxWidth(),

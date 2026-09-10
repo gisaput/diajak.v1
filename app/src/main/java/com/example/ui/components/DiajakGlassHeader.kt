@@ -1,5 +1,7 @@
 package com.example.ui.components
 
+import com.example.ui.theme.AppSpacing
+
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -263,7 +265,7 @@ fun DiajakUniversalHeader(
                 Row(
                     modifier = Modifier.align(Alignment.CenterEnd),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.Small)
                 ) {
                     actions()
                 }

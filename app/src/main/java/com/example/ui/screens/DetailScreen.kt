@@ -13,6 +13,7 @@ import dev.chrisbanes.haze.hazeEffect
 import com.example.ui.components.DiajakGlassHeader
 import com.example.ui.components.DiajakGlassBottomSheet
 import com.example.ui.theme.spacing
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.diajakGlassButton
 import com.example.ui.theme.diajakGlassHeaderEffect
 import androidx.compose.material3.MaterialTheme
@@ -314,7 +315,7 @@ fun DetailScreen(
             Surface(
               modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 32.dp),
+                .padding(bottom = AppSpacing.Medium),
               shape = RoundedCornerShape(12.dp),
               color = Color.White.copy(alpha = 0.75f),
               shadowElevation = 0.dp
@@ -522,7 +523,7 @@ fun DetailScreen(
                 )
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                 Column(
-                  verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                  verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
                 ) {
                   activity.detailsList.forEach { detail ->
                     Row(
@@ -1239,7 +1240,7 @@ fun DetailScreen(
                 listHeight = currentHeight
               }
               .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
           ) {
             // Include an initial message at the beginning of the chat (bottom of reversed list)
             val combinedMessages = listOf("Halo! Senang bisa terhubung. Ada yang bisa saya bantu terkait aktivitas ini? 😊") + chatMessages
@@ -1549,7 +1550,7 @@ fun DetailScreen(
               .fillMaxWidth()
               .weight(1f)
               .padding(horizontal = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium),
             contentPadding = PaddingValues(top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.section)
           ) {
             itemsIndexed(filteredReviews) { _, rev ->
@@ -2159,7 +2160,7 @@ fun DetailMapBottomSheet(
         .align(Alignment.CenterEnd)
         .padding(end = 16.dp)
         .zIndex(10f),
-      verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+      verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
     ) {
       IconButton(
         onClick = {

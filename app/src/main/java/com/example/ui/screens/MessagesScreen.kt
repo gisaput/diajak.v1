@@ -1,4 +1,6 @@
 package com.example.ui.screens
+
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.spacing
 import com.example.ui.theme.diajakGlassButton
 import androidx.compose.material3.MaterialTheme
@@ -699,7 +701,7 @@ fun MessagesScreen(
               listHeight = currentHeight
             }
             .padding(20.dp),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
         ) {
           itemsIndexed(
             items = reversedMessages,

@@ -1,4 +1,6 @@
 package com.example.ui.screens
+
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.spacing
 import com.example.ui.theme.diajakGlassButton
 import androidx.compose.material3.MaterialTheme
@@ -422,7 +424,7 @@ fun BookingFlowScreen(
                   modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
-                  verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+                  verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
                 ) {
                   Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -626,7 +628,7 @@ fun BookingFlowScreen(
 
               // Payment Methods list
               Column(
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
               ) {
                 // QRIS
                 PaymentMethodItem(
@@ -990,7 +992,7 @@ fun BookingFlowScreen(
 
                 Column(
                   modifier = Modifier.fillMaxWidth(),
-                  verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+                  verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
                 ) {
                   Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -1107,7 +1109,7 @@ fun BookingFlowScreen(
                   .fillMaxWidth()
                   .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.medium)
                   .navigationBarsPadding(),
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
               ) {
                 // Save to Gallery Button
                 OutlinedButton(

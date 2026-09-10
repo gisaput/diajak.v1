@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import com.example.ui.theme.AppSpacing
+
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -95,7 +97,7 @@ fun BookingsScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, top = 0.dp, end = 20.dp, bottom = 124.dp),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
         ) {
           repeat(4) {
             SkeletonBookingCard()
@@ -146,7 +148,7 @@ fun BookingsScreen(
           modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, top = 0.dp, end = 20.dp, bottom = 124.dp),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
         ) {
           bookings.forEach { booking ->
             Surface(
@@ -257,7 +259,7 @@ fun BookingsScreen(
                   horizontalArrangement = Arrangement.SpaceBetween,
                   verticalAlignment = Alignment.CenterVertically
                 ) {
-                  Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)) {
+                  Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.ExtraSmall)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                       Text(
                         text = "Peserta: ",
@@ -550,7 +552,7 @@ fun UndanganDetailDialog(
                 modifier = Modifier
                   .fillMaxWidth()
                   .padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
               ) {
               Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text("Nama Lengkap", style = com.example.ui.theme.DiajakDesignSystem.Typography.Body, color = MaterialTheme.colorScheme.onSurface)

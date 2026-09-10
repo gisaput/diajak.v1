@@ -1,4 +1,6 @@
 package com.example.ui.screens
+
+import com.example.ui.theme.AppSpacing
 import com.example.ui.theme.spacing
 import com.example.ui.theme.diajakGlassButton
 import androidx.compose.material3.MaterialTheme
@@ -57,7 +59,7 @@ fun TermsAndConditionsScreen(
         modifier = Modifier
           .fillMaxWidth()
           .padding(start = 20.dp, end = 20.dp, bottom = MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
       ) {
           Text(
             text = "Selamat datang di platform kami. Sebelum menggunakan layanan kami, harap luangkan waktu untuk membaca Syarat & Ketentuan Layanan ini. Syarat & Ketentuan ini mengatur akses dan penggunaan Anda atas aplikasi, situs web, serta layanan yang disediakan oleh kami.",

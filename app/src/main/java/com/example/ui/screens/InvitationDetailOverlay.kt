@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import com.example.ui.theme.AppSpacing
+
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -210,7 +212,7 @@ fun InvitationDetailOverlay(
 
         Column(
           modifier = Modifier.fillMaxWidth(),
-          verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+          verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
         ) {
           Row(
             modifier = Modifier.fillMaxWidth(),
@@ -364,7 +366,7 @@ fun InvitationDetailOverlay(
     ) {
       Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
       ) {
         // Save to Gallery Button
         OutlinedButton(

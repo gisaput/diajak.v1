@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import com.example.ui.theme.AppSpacing
+
 import com.example.ui.theme.diajakGlassButton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -60,7 +62,7 @@ fun PrivacyPolicyScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp, top = 0.dp, bottom = MaterialTheme.spacing.medium),
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium)
             ) {
                 Text(
                     text = "Selamat datang di Kebijakan Privasi kami. Kami sangat menghargai kepercayaan Anda dan berkomitmen penuh untuk melindungi privasi serta keamanan data pribadi Anda. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan membagikan informasi Anda saat menggunakan aplikasi ini.",
