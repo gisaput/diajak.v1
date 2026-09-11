@@ -149,12 +149,14 @@ fun DiajakGlassHeader(
 
     // Unified HazeConfig resolved from threshold state and smooth transition ratios
     val ambientHazeConfig = LocalHazeConfig.current
-    val calculatedHazeConfig = remember(currentUnderlayState, animatedPhotoRatio, animatedTextMeltingRatio) {
+    val effectiveBaseColor = meltingColor ?: containerColor
+    val calculatedHazeConfig = remember(currentUnderlayState, animatedPhotoRatio, animatedTextMeltingRatio, effectiveBaseColor) {
         val mode = if (currentUnderlayState == HeaderUnderlayState.PHOTO) HazeMode.PHOTO_MODE else HazeMode.CONTENT_MODE
         HazeConfig(
             mode = mode,
             photoRatio = animatedPhotoRatio,
-            textMeltingRatio = animatedTextMeltingRatio
+            textMeltingRatio = animatedTextMeltingRatio,
+            baseColor = effectiveBaseColor
         )
     }
 

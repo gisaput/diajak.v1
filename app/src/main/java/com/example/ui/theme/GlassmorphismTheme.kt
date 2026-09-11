@@ -92,20 +92,22 @@ object GlassmorphismTheme {
 
         /**
          * Dynamic Optical & Frosted Style:
-         * Uses 100% pure HazeTint with Color.White (zero manual color overlays/spray).
+         * Uses HazeTint with canvas gray BaseColor Color(0xFFE5E7EB).
          * - Over PHOTO & CONTAINER (Search bar, Chip, Card, Footer): pure optical blur (tint alpha 0.0f)
          *   matching footer card smoothness and eliminating milky chalk blocks.
-         * - Over TEXT (Standalone text on gray canvas): deep frosted tint (0.78f) to dissolve dark letters into the glass.
+         * - Over TEXT (Standalone text on gray canvas): gentle gray canvas tint to smoothly dissolve dark
+         *   letters directly into the background gray canvas without any chalky white blocks (iOS Settings & Tinder style).
          */
         fun dynamicStyle(
             photoRatio: Float = 0f,
-            textMeltingRatio: Float = 0f
+            textMeltingRatio: Float = 0f,
+            baseColor: Color = BaseColor
         ): HazeStyle {
-            val textBoost = (0.78f * textMeltingRatio * (1f - photoRatio)).coerceIn(0f, 0.78f)
+            val textBoost = (0.65f * textMeltingRatio * (1f - photoRatio)).coerceIn(0f, 0.65f)
 
             return HazeStyle(
                 backgroundColor = Color.Transparent,
-                tint = HazeTint(Color.White.copy(alpha = textBoost)),
+                tint = HazeTint(baseColor.copy(alpha = textBoost)),
                 blurRadius = 24.dp,
                 noiseFactor = 0f
             )
@@ -282,7 +284,8 @@ enum class HazeMode {
 data class HazeConfig(
     val mode: HazeMode = HazeMode.CONTENT_MODE,
     val photoRatio: Float = 0f,
-    val textMeltingRatio: Float = 1f
+    val textMeltingRatio: Float = 1f,
+    val baseColor: Color = GlassmorphismTheme.Header.BaseColor
 ) {
     /**
      * Resolves the effective HazeStyle based on the unified mode and ratios.
@@ -290,7 +293,8 @@ data class HazeConfig(
     val effectiveStyle: HazeStyle
         get() = GlassmorphismTheme.Header.dynamicStyle(
             photoRatio = photoRatio,
-            textMeltingRatio = textMeltingRatio
+            textMeltingRatio = textMeltingRatio,
+            baseColor = baseColor
         )
 
     companion object {
@@ -304,13 +308,15 @@ data class HazeConfig(
         fun fromUnderlayState(
             underlayState: HeaderUnderlayState,
             photoRatio: Float = if (underlayState == HeaderUnderlayState.PHOTO) 1f else 0f,
-            textMeltingRatio: Float = if (underlayState == HeaderUnderlayState.TEXT) 1f else 0f
+            textMeltingRatio: Float = if (underlayState == HeaderUnderlayState.TEXT) 1f else 0f,
+            baseColor: Color = GlassmorphismTheme.Header.BaseColor
         ): HazeConfig {
             val mode = if (underlayState == HeaderUnderlayState.PHOTO) HazeMode.PHOTO_MODE else HazeMode.CONTENT_MODE
             return HazeConfig(
                 mode = mode,
                 photoRatio = photoRatio,
-                textMeltingRatio = textMeltingRatio
+                textMeltingRatio = textMeltingRatio,
+                baseColor = baseColor
             )
         }
     }
