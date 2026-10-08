@@ -383,7 +383,7 @@ fun HomeScreen(
     ) {
       // 1. Kolom Pencarian Putih Bersih (Langsung di atas, dengan safe status bar spacing)
       item(contentType = HeaderUnderlayState.CONTAINER) {
-        Spacer(modifier = Modifier.statusBarsPadding().height(16.dp))
+        Spacer(modifier = Modifier.statusBarsPadding().height(20.dp))
         Surface(
           modifier = Modifier
             .fillMaxWidth()
@@ -471,7 +471,7 @@ fun HomeScreen(
             }
           }
         }
-        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+        Spacer(modifier = Modifier.height(20.dp))
       }
 
       // 2. Sliding Banners - Berada tepat di bawah Kolom Pencarian
@@ -484,7 +484,7 @@ fun HomeScreen(
 
       // 3. Kategori Kapsul (Pills dengan Ikon Berwarna) - Berada di Bawah Banner
       item(contentType = HeaderUnderlayState.CONTAINER) {
-        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+        Spacer(modifier = Modifier.height(20.dp))
         LazyRow(
           modifier = Modifier.fillMaxWidth(),
           contentPadding = PaddingValues(horizontal = 20.dp),
@@ -512,7 +512,7 @@ fun HomeScreen(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.section, bottom = MaterialTheme.spacing.sectionContent),
+            .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 20.dp),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -559,7 +559,7 @@ fun HomeScreen(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.section, bottom = MaterialTheme.spacing.sectionContent),
+            .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 20.dp),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -607,7 +607,7 @@ fun HomeScreen(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.section, bottom = MaterialTheme.spacing.sectionContent),
+            .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 20.dp),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -654,7 +654,7 @@ fun HomeScreen(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, top = MaterialTheme.spacing.section, bottom = MaterialTheme.spacing.sectionContent),
+            .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 20.dp),
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -1753,26 +1753,7 @@ fun HomeSlidingBanners(
             )
         )
 
-        // Top-Right Chip Badge
-        Surface(
-          color = Color.White.copy(alpha = 0.22f),
-          shape = RoundedCornerShape(12.dp),
-          shadowElevation = 0.dp,
-          modifier = Modifier
-            .align(Alignment.TopEnd)
-            .padding(12.dp)
-        ) {
-          Text(
-            text = "Destinasi",
-            color = Color.White,
-            style = TextStyle(
-              fontSize = 10.sp,
-              fontWeight = FontWeight.Bold
-            ),
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
-          )
-        }
-        
+
         // Content container inside banner
         Column(
           modifier = Modifier
