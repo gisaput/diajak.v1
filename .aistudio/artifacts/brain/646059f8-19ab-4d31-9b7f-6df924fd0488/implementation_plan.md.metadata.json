@@ -1,0 +1,6 @@
+{
+  "summary":  "Rencana implementasi transisi ke 100% Pure Optical Glass Header ala Instagram: menghapus lapisan cat kanvas (drawRect) penyebab efek berkabut pada foto, menaikkan radius blur optik ke 32.dp, dan mempertahankan alpha mask gradien DstIn melandai halus.",
+  "updatedAt":  "2026-10-23T14:40:39.098699424Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

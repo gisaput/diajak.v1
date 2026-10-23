@@ -13,12 +13,14 @@ Aplikasi **Diajak** menggunakan desain bertema **Pure Optical Glassmorphism** (t
 Tujuannya adalah menghadirkan visual header yang mewah, natural, dan konsisten di **seluruh layar** (Beranda, Detail Aktivitas, Checkout/Payment, Kategori, Tiket, Profil, dll).
 
 ### Prinsip Utama:
-1. **Zero Artificial Fog over Visuals (PHOTO_MODE)**:
-   Saat foto banner, gambar aktivitas, atau footer card melintas di bawah header, kaca bersikap 100% optikal murni (`HazeTint = 0.0f`). Tidak boleh ada lapisan abu-abu kusam, kapur susu, atau cat putih pekat. Foto tetap hidup dan berkilau di balik blur.
-2. **Text Absorption Diffusion (CONTENT_MODE)**:
-   Saat teks hitam tebal di atas background abu-abu (`#E5E7EB`) melintas di bawah header (seperti judul seksi "Seru di Sekitarmu"), sistem otomatis mengaktifkan peredam optik (`textMeltingFactor = 0.78f`) agar huruf-huruf hitam tidak tembus tajam atau mengganggu keterbacaan status bar.
-3. **Unified CompositionLocal**:
-   Semua status dan parameter ditransmisikan secara otomatis melalui `LocalHazeConfig` (`HazeConfig` & `HazeMode`). Setiap layar atau sub-komponen dapat membaca atau mewarisi status ini tanpa perlu passing parameter berulang.
+1. **Universal Progressive Dissolver**:
+   Header menggunakan satu formula optikal universal (`universalDissolverBrush` + `ProgressiveGradientBrush` dengan `DstIn` alpha mask) yang melandai secara natural dari warna canvas (`#E5E7EB`) di bagian status bar menuju transparan murni di bibir bawah header.
+2. **Zero Over-Engineering & Zero State Detection**:
+   Tidak lagi memerlukan deteksi manual atau penandaan `contentType = HeaderUnderlayState` pada list items. Semua tipe konten (foto, teks hitam di atas canvas abu-abu, maupun kontainer putih) otomatis melebur dengan transisi optikal yang mulus tanpa kedip/glitch.
+3. **Crystal Clear Visuals & Clean Status Bar**:
+   - Foto dan banner di bagian bawah header tetap 100% transparan dan jernih berkilau.
+   - Teks hitam dan elemen konten melebur secara gradual ke dalam latar canvas `#E5E7EB` saat mendekati status bar.
+   - Jam dan indikator baterai pada status bar tetap kontras dan mudah dibaca.
 
 ---
 
@@ -37,19 +39,14 @@ Tujuannya adalah menghadirkan visual header yang mewah, natural, dan konsisten d
 
 ---
 
-## 3. Architecture & CompositionLocal: `LocalHazeConfig`
+## 3. Architecture & Universal Engine
 
-Header bekerja sama dengan `GlassmorphismTheme.kt` yang menyediakan:
-```kotlin
-enum class HazeMode {
-    PHOTO_MODE,    // 0.0f tint -> Untuk Foto, Banner, Card Footer, Search Bar
-    CONTENT_MODE   // 0.78f tint -> Untuk Teks di atas Gray Canvas
-}
+Header bekerja sama dengan `GlassmorphismTheme.kt` yang menyediakan engine terpadu:
+- **`universalDissolverBrush`**: Melarutkan konten ke warna kanvas latar belakang (`#E5E7EB`) secara melandai di area status bar.
+- **`ProgressiveGradientBrush`** (`BlendMode.DstIn`): Menghasilkan *optical bottom feather* tanpa garis potong tajam.
+- **`OpticalStyle`**: Blur murni `24.dp` tanpa residu cat/kabut buatan.
 
-val LocalHazeConfig: ProvidableCompositionLocal<HazeConfig>
-```
-
-Transisi antar mode terjadi secara halus dengan animasi durasi `280ms` (`FastOutSlowInEasing`) sehingga pergantian dari teks ke foto tampak seamless dan natural.
+Tidak perlu *state switching*, tidak perlu *derivedStateOf*, dan tidak perlu *recomposition overhead* saat scrolling!
 
 ---
 
@@ -57,11 +54,11 @@ Transisi antar mode terjadi secara halus dengan animasi durasi `280ms` (`FastOut
 
 Setiap layar baru di aplikasi Diajak **WAJIB** mengikuti struktur baku berikut:
 
-### Opsi A: Layar dengan Scrollable Content (List / Column)
+### Opsi A: Layar dengan Scrollable Content (List / Column / LazyColumn)
 
 ```kotlin
 @Composable
-fun ContohLayarScrollableScreen(
+fun ContohLayarScreen(
     onBackClick: () -> Unit
 ) {
     val scrollState = rememberScrollState()
@@ -132,57 +129,49 @@ fun ContohLayarScrollableScreen(
 
 ---
 
-### Opsi B: Layar dengan LazyColumn (Deteksi Dynamic Agnostic)
+### Opsi B: Layar dengan LazyColumn / LazyVerticalGrid
 
-Untuk layar dengan banyak elemen dinamis (seperti Beranda):
-Gunakan `contentType` pada setiap item list agar header otomatis tahu kapan harus beralih ke `PHOTO_MODE` atau `CONTENT_MODE`:
+Cukup pasang `.hazeSource(state = hazeState)` pada `LazyColumn` atau `LazyVerticalGrid`. Header `DiajakGlassHeader` langsung menangani peleburan secara universal tanpa penandaan apa pun:
 
 ```kotlin
 val listState = rememberLazyListState()
 val hazeState = remember { HazeState() }
 
-// Dynamic Underlay State Detector
-val currentUnderlayState by remember {
-    derivedStateOf {
-        val firstVisibleItem = listState.layoutInfo.visibleItemsInfo.firstOrNull()
-        (firstVisibleItem?.contentType as? HeaderUnderlayState) ?: HeaderUnderlayState.CONTAINER
-    }
-}
-
-LazyColumn(
-    state = listState,
+Box(
     modifier = Modifier
         .fillMaxSize()
-        .hazeSource(state = hazeState)
+        .background(Color(0xFFE5E7EB))
 ) {
-    // 1. Spacing awal
-    item(contentType = HeaderUnderlayState.CONTAINER) {
-        Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
+    LazyColumn(
+        state = listState,
+        modifier = Modifier
+            .fillMaxSize()
+            .hazeSource(state = hazeState)
+    ) {
+        item {
+            Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
+        }
+
+        item {
+            HeroBannerSection(...)
+        }
+
+        item {
+            SectionTitleText("Seru di Sekitarmu")
+        }
+
+        items(activities) { activity ->
+            ActivityCard(activity)
+        }
     }
 
-    // 2. Banner/Foto -> Otomatis PHOTO_MODE (Pure Optical Blur)
-    item(contentType = HeaderUnderlayState.PHOTO) {
-        HeroBannerSection(...)
+    // Pasang Header Universal - tanpa passing underlayState!
+    DiajakGlassHeader(
+        hazeState = hazeState,
+        modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    ) {
+        // Header Content
     }
-
-    // 3. Judul Section -> Otomatis CONTENT_MODE (Text Absorption)
-    item(contentType = HeaderUnderlayState.TEXT) {
-        SectionTitleText("Seru di Sekitarmu")
-    }
-
-    // 4. Kartu/Footer -> PHOTO_MODE
-    items(activities, contentType = { HeaderUnderlayState.PHOTO }) { activity ->
-        ActivityCard(activity)
-    }
-}
-
-// Pasang Header
-DiajakGlassHeader(
-    hazeState = hazeState,
-    underlayState = currentUnderlayState,
-    modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
-) {
-    // Header Content
 }
 ```
 

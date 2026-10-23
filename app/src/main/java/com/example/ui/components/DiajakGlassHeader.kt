@@ -91,106 +91,23 @@ fun DiajakGlassHeader(
     meltingColor: Color? = null,
     content: @Composable BoxScope.() -> Unit
 ) {
-    val density = LocalDensity.current
-
-    // Dynamically detect underlay state based on current scroll position & visible items
-    val currentUnderlayState by remember(lazyListState, lazyGridState, scrollState) {
-        derivedStateOf {
-            if (lazyListState != null) {
-                val layoutInfo = lazyListState.layoutInfo
-                val visibleItems = layoutInfo.visibleItemsInfo
-                if (visibleItems.isEmpty()) {
-                    HeaderUnderlayState.TEXT
-                } else {
-                    // Header active blur zone is ~40dp to 80dp from the top of the viewport
-                    val headerTargetPx = with(density) { 50.dp.toPx() }
-                    val item = visibleItems.firstOrNull { 
-                        it.offset <= headerTargetPx && (it.offset + it.size) > headerTargetPx 
-                    } ?: visibleItems.first()
-                    (item.contentType as? HeaderUnderlayState) ?: HeaderUnderlayState.TEXT
-                }
-            } else if (lazyGridState != null) {
-                val layoutInfo = lazyGridState.layoutInfo
-                val visibleItems = layoutInfo.visibleItemsInfo
-                if (visibleItems.isEmpty()) {
-                    HeaderUnderlayState.TEXT
-                } else {
-                    val headerTargetPx = with(density) { 50.dp.toPx() }
-                    val item = visibleItems.firstOrNull { 
-                        it.offset.y <= headerTargetPx && (it.offset.y + it.size.height) > headerTargetPx 
-                    } ?: visibleItems.first()
-                    (item.contentType as? HeaderUnderlayState) ?: HeaderUnderlayState.TEXT
-                }
-            } else if (scrollState != null) {
-                if (scrollState.value < with(density) { 340.dp.toPx() }) {
-                    HeaderUnderlayState.PHOTO
-                } else {
-                    HeaderUnderlayState.CONTAINER
-                }
-            } else {
-                HeaderUnderlayState.TEXT
-            }
-        }
-    }
-
-    val targetPhotoRatio = if (currentUnderlayState == HeaderUnderlayState.PHOTO) 1f else 0f
-    val animatedPhotoRatio by animateFloatAsState(
-        targetValue = targetPhotoRatio,
-        animationSpec = tween(durationMillis = 280, easing = LinearOutSlowInEasing),
-        label = "photoOpticalTransition"
-    )
-
-    val targetTextMeltingRatio = if (currentUnderlayState == HeaderUnderlayState.TEXT) 1f else 0f
-    val animatedTextMeltingRatio by animateFloatAsState(
-        targetValue = targetTextMeltingRatio,
-        animationSpec = tween(durationMillis = 280, easing = LinearOutSlowInEasing),
-        label = "textMeltingTransition"
-    )
-
-    // Unified HazeConfig resolved from threshold state and smooth transition ratios
-    val ambientHazeConfig = LocalHazeConfig.current
     val effectiveBaseColor = meltingColor ?: containerColor
-    val calculatedHazeConfig = remember(currentUnderlayState, animatedPhotoRatio, animatedTextMeltingRatio, effectiveBaseColor) {
-        val mode = if (currentUnderlayState == HeaderUnderlayState.PHOTO) HazeMode.PHOTO_MODE else HazeMode.CONTENT_MODE
-        HazeConfig(
-            mode = mode,
-            photoRatio = animatedPhotoRatio,
-            textMeltingRatio = animatedTextMeltingRatio,
-            baseColor = effectiveBaseColor
+    val effectiveStyle = style ?: GlassmorphismTheme.Header.OpticalStyle
+
+    Box(modifier = modifier.fillMaxWidth()) {
+        // Layer 1: Universal Pure Optical Glass Header
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .diajakGlassHeaderEffect(
+                    hazeState = hazeState,
+                    style = effectiveStyle,
+                    containerColor = effectiveBaseColor
+                )
         )
-    }
-
-    val effectiveHazeConfig = if (style != null) {
-        ambientHazeConfig
-    } else {
-        calculatedHazeConfig
-    }
-
-    val effectiveStyle = style ?: effectiveHazeConfig.effectiveStyle
-    val effectiveTextMelting = textMeltingFactor ?: 0f
-    val effectivePhotoGlow = photoGlowFactor ?: 0f
-    val effectiveContainerMelting = containerMeltingFactor ?: 0f
-
-    ProvideHazeConfig(config = effectiveHazeConfig) {
-        Box(modifier = modifier.fillMaxWidth()) {
-            // Layer 1: Pure Optical iOS-Style Frosted Glass Header with Coupled Progressive Dissolver
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .diajakGlassHeaderEffect(
-                        hazeState = hazeState,
-                        style = effectiveStyle,
-                        underlayState = currentUnderlayState,
-                        textMeltingFactor = effectiveTextMelting,
-                        photoGlowFactor = effectivePhotoGlow,
-                        containerMeltingFactor = effectiveContainerMelting,
-                        containerColor = meltingColor ?: containerColor
-                    )
-            )
-            
-            // Layer 2: Content Layer
-            content()
-        }
+        
+        // Layer 2: Content Layer
+        content()
     }
 }
 

@@ -20,6 +20,10 @@ import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.haze.HazeState
@@ -46,22 +50,22 @@ object GlassmorphismTheme {
 
         val BaseColor: Color = Color(0xFFE5E7EB)
         const val TintAlpha: Float = 0.0f
-        val BlurRadius: Dp = 18.dp
+        val BlurRadius: Dp = 32.dp
         const val NoiseFactor: Float = 0f
 
-        // Universal Pure Crystal Optical Glass Tint (Tipis, jernih, kilau kaca asli)
-        const val UniversalGlassAlpha: Float = 0.20f
+        // Universal Pure Crystal Optical Glass Tint
+        const val UniversalGlassAlpha: Float = 0.0f
 
         /**
-         * Universal Tinder & iOS Style Frosted Glass Header:
-         * Uses 24.dp pure optical blur with completely transparent background (NO double white paint).
-         * Zero tint (0.0f) ensures search bars, chips, and white containers match footer card softness
-         * without creating chalky, milky layers.
+         * Universal Instagram & iOS Style Pure Optical Glass Header:
+         * Uses 32.dp pure optical blur with completely transparent background (NO paint overlay).
+         * Zero tint (0.0f) ensures photos remain 100% vibrant, saturated, and crystal-clear
+         * with zero chalky, milky, or foggy layers.
          */
         val UniversalStyle: HazeStyle = HazeStyle(
             backgroundColor = Color.Transparent,
-            tint = HazeTint(Color.White.copy(alpha = 0f)),
-            blurRadius = 24.dp,
+            tint = HazeTint(Color.Transparent),
+            blurRadius = 32.dp,
             noiseFactor = 0f
         )
 
@@ -69,49 +73,40 @@ object GlassmorphismTheme {
         val OpticalStyle: HazeStyle = HazeStyle(
             backgroundColor = Color.Transparent,
             tint = HazeTint(Color.Transparent),
-            blurRadius = 24.dp,
+            blurRadius = 32.dp,
             noiseFactor = 0f
         )
 
         /**
-         * Tinder/iOS uses a single continuous glass material rather than abruptly switching paints.
-         * For PHOTO underlay, the glass is purely optical (transparent paint).
-         * For non-photo underlay, no hard-edged color spray is applied; the HazeStyle's frosted tint
-         * and the 3-Tier ProgressiveGradientBrush naturally handle the smooth melting.
+         * 100% Pure Optical Glass (Instagram & iOS Architecture).
+         * Zero paint/tint overlay: returns a completely transparent brush so photos and cards
+         * underneath retain 100% color saturation and contrast, with zero milky or chalky fog.
          */
-        fun progressiveDissolverBrush(underlayState: HeaderUnderlayState): Brush {
-            // Keep completely transparent: the Haze frosted style and ProgressiveGradientBrush
-            // perform the natural dissolving without abrupt blocky paint bands!
-            return Brush.verticalGradient(
-                0.0f to Color.Transparent,
-                1.0f to Color.Transparent
-            )
-        }
+        fun universalDissolverBrush(
+            canvasColor: Color = BaseColor
+        ): Brush = Brush.verticalGradient(
+            0.00f to Color.Transparent,
+            1.00f to Color.Transparent
+        )
+
+        /**
+         * Backwards-compatible alias for universalDissolverBrush.
+         */
+        fun progressiveDissolverBrush(
+            underlayState: HeaderUnderlayState = HeaderUnderlayState.TEXT,
+            canvasColor: Color = BaseColor
+        ): Brush = universalDissolverBrush(canvasColor)
 
         fun tintFor(underlayState: HeaderUnderlayState): Color = Color.Transparent
 
         /**
-         * Dynamic Optical & Frosted Style:
-         * Uses HazeTint with canvas gray BaseColor Color(0xFFE5E7EB).
-         * - Over PHOTO & CONTAINER (Search bar, Chip, Card, Footer): pure optical blur (tint alpha 0.0f)
-         *   matching footer card smoothness and eliminating milky chalk blocks.
-         * - Over TEXT (Standalone text on gray canvas): gentle gray canvas tint to smoothly dissolve dark
-         *   letters directly into the background gray canvas without any chalky white blocks (iOS Settings & Tinder style).
+         * Dynamic Optical & Frosted Style (Pure Optical 32.dp blur without paint boost).
          */
         fun dynamicStyle(
             photoRatio: Float = 0f,
             textMeltingRatio: Float = 0f,
             baseColor: Color = BaseColor
-        ): HazeStyle {
-            val textBoost = (0.65f * textMeltingRatio * (1f - photoRatio)).coerceIn(0f, 0.65f)
-
-            return HazeStyle(
-                backgroundColor = Color.Transparent,
-                tint = HazeTint(baseColor.copy(alpha = textBoost)),
-                blurRadius = 24.dp,
-                noiseFactor = 0f
-            )
-        }
+        ): HazeStyle = OpticalStyle
 
         /**
          * Returns the clean optical HazeStyle (zero flat paint spray).
@@ -131,21 +126,21 @@ object GlassmorphismTheme {
             get() = OpticalStyle
 
         /**
-         * Precision 3-Tier Gentle Progressive Gradient Mask (BlendMode.DstIn).
+         * Precision Continuous Sloped Progressive Gradient Mask (BlendMode.DstIn).
          * Harmonized across Background abu-abu, Kontainer putih, dan Foto:
-         * - Tier 1 (Bagian Atas / Status bar 0.00f - 0.40f): TEBAL (0.90f - 0.82f) agar jam & status bar kontras & terbaca.
-         * - Tier 2 (Bagian Tengah / Kontrol & Judul 0.40f - 0.70f): SEMI-TEBAL (0.80f turun melandai ke 0.45f).
-         * - Tier 3 (Bagian Bawah / Bibir Kaca 0.70f - 1.00f): LANDAI & TIPIS (0.45f turun bertahap 0.20f -> 0.05f -> 0f),
-         *   sehingga konten yang masuk tidak terpotong garis tegas dan melebur mulus.
+         * - Bagian Atas / Status bar (0.00f - 0.25f): Solid Black (1.00f - 0.98f) agar blur optik
+         *   dan dissolver kanvas bekerja maksimal tanpa bocor atau pudar di pucuk layar.
+         * - Bagian Tengah & Bawah (0.25f - 1.00f): Kurva melandai sangat halus (cubic smooth curve)
+         *   tanpa patahan garis potong tajam (ultra-feathered bottom edge).
          */
         val ProgressiveGradientBrush: Brush = Brush.verticalGradient(
-            0.00f to Color.Black.copy(alpha = 0.90f),
-            0.40f to Color.Black.copy(alpha = 0.82f),
-            0.55f to Color.Black.copy(alpha = 0.65f),
-            0.70f to Color.Black.copy(alpha = 0.45f),
-            0.82f to Color.Black.copy(alpha = 0.22f),
-            0.92f to Color.Black.copy(alpha = 0.07f),
-            0.98f to Color.Black.copy(alpha = 0.015f),
+            0.00f to Color.Black,
+            0.25f to Color.Black.copy(alpha = 0.98f),
+            0.45f to Color.Black.copy(alpha = 0.90f),
+            0.62f to Color.Black.copy(alpha = 0.72f),
+            0.76f to Color.Black.copy(alpha = 0.48f),
+            0.88f to Color.Black.copy(alpha = 0.24f),
+            0.95f to Color.Black.copy(alpha = 0.08f),
             1.00f to Color.Transparent
         )
 
@@ -360,13 +355,7 @@ fun Modifier.diajakGlassHeaderEffect(
         // 1. Render pure optical Haze blur from content passing underneath
         drawContent()
 
-        // 2. Coupled Progressive Dissolver (Dissolves text & containers along the exact same gradient slope)
-        // When over PHOTO: the brush is completely transparent, giving 100% crystal clear blur without any fog!
-        drawRect(
-            brush = GlassmorphismTheme.Header.progressiveDissolverBrush(underlayState)
-        )
-
-        // 3. Precision bottom edge feathering (DstIn) without harsh cutoff
+        // 2. Precision bottom edge progressive feathering (DstIn) without harsh cutoff
         drawRect(
             brush = GlassmorphismTheme.Header.ProgressiveGradientBrush,
             blendMode = BlendMode.DstIn
@@ -376,6 +365,47 @@ fun Modifier.diajakGlassHeaderEffect(
         state = hazeState,
         style = style
     )
+
+/**
+ * Universal Top Exit-Fade for scrollable containers (Tinder & iOS architecture).
+ * As content scrolls up into the status bar area, its opacity smoothly dissolves to 0.0f
+ * using BlendMode.DstIn. Because the screen background is Color(0xFFE5E7EB), text,
+ * white cards, and photos seamlessly melt into the canvas without leaving sharp or dark
+ * smudges behind the status bar.
+ *
+ * @param fadeHeight Custom height of the fade zone. If null, automatically derives
+ *                   from WindowInsets.statusBars + 16.dp (coerced to at least 56.dp).
+ * @param enabled Whether the top fade is currently active.
+ */
+@Composable
+fun Modifier.diajakScrollFadeTop(
+    fadeHeight: Dp? = null,
+    enabled: Boolean = true
+): Modifier {
+    if (!enabled) return this
+    val statusBarPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+    val effectiveFadeHeight = fadeHeight ?: (statusBarPadding + 16.dp).coerceAtLeast(56.dp)
+    val density = LocalDensity.current
+    val fadeHeightPx = with(density) { effectiveFadeHeight.toPx() }
+
+    return this
+        .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
+        .drawWithContent {
+            drawContent()
+            drawRect(
+                brush = Brush.verticalGradient(
+                    0.00f to Color.Transparent,
+                    0.20f to Color.Black.copy(alpha = 0.06f),
+                    0.45f to Color.Black.copy(alpha = 0.35f),
+                    0.75f to Color.Black.copy(alpha = 0.80f),
+                    1.00f to Color.Black,
+                    startY = 0f,
+                    endY = fadeHeightPx
+                ),
+                blendMode = BlendMode.DstIn
+            )
+        }
+}
 
 /**
  * Extension modifier to apply the standardized Frosted Glass Circular/Pill Button styling.

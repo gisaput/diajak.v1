@@ -2,7 +2,7 @@ package com.example.ui.screens
 import com.example.ui.theme.spacing
 import com.example.ui.theme.diajakGlassButton
 import com.example.ui.theme.diajakGlassHeaderEffect
-import com.example.ui.theme.HeaderUnderlayState
+import com.example.ui.theme.diajakScrollFadeTop
 import com.example.ui.theme.GlassmorphismTheme
 import com.example.ui.theme.HazeConfig
 import com.example.ui.theme.HazeMode
@@ -378,11 +378,12 @@ fun HomeScreen(
       state = lazyListState,
       modifier = Modifier
         .fillMaxSize()
-        .hazeSource(state = hazeState),
+        .hazeSource(state = hazeState)
+        .diajakScrollFadeTop(),
       contentPadding = PaddingValues(bottom = 124.dp)
     ) {
       // 1. Kolom Pencarian Putih Bersih (Langsung di atas, dengan safe status bar spacing)
-      item(contentType = HeaderUnderlayState.CONTAINER) {
+      item {
         Spacer(modifier = Modifier.statusBarsPadding().height(20.dp))
         Surface(
           modifier = Modifier
@@ -475,7 +476,7 @@ fun HomeScreen(
       }
 
       // 2. Sliding Banners - Berada tepat di bawah Kolom Pencarian
-      item(contentType = HeaderUnderlayState.PHOTO) {
+      item {
         HomeSlidingBanners(
           onSelectCityFilter = onSelectCityFilter,
           statusBarHeightDp = statusBarHeightDp
@@ -483,7 +484,7 @@ fun HomeScreen(
       }
 
       // 3. Kategori Kapsul (Pills dengan Ikon Berwarna) - Berada di Bawah Banner
-      item(contentType = HeaderUnderlayState.CONTAINER) {
+      item {
         Spacer(modifier = Modifier.height(20.dp))
         LazyRow(
           modifier = Modifier.fillMaxWidth(),
@@ -507,7 +508,7 @@ fun HomeScreen(
 
 
     // Activities Section Header
-    item(contentType = HeaderUnderlayState.TEXT) {
+    item {
       Column {
         Row(
           modifier = Modifier
@@ -528,7 +529,7 @@ fun HomeScreen(
       }
     }
 
-    item(contentType = HeaderUnderlayState.PHOTO) {
+    item {
       if (isLoading) {
         SkeletonActivityCarousel()
       } else {
@@ -554,7 +555,7 @@ fun HomeScreen(
       }
     }
 
-    item(contentType = HeaderUnderlayState.TEXT) {
+    item {
       Column {
         Row(
           modifier = Modifier
@@ -575,7 +576,7 @@ fun HomeScreen(
       }
     }
 
-    item(contentType = HeaderUnderlayState.PHOTO) {
+    item {
       if (isLoading) {
         SkeletonActivityCarousel()
       } else {
@@ -602,7 +603,7 @@ fun HomeScreen(
     }
 
     // Aktivitas Rekomendasi Carousel
-    item(contentType = HeaderUnderlayState.TEXT) {
+    item {
       Column {
         Row(
           modifier = Modifier
@@ -623,7 +624,7 @@ fun HomeScreen(
       }
     }
 
-    item(contentType = HeaderUnderlayState.PHOTO) {
+    item {
       if (isLoading) {
         SkeletonActivityCarousel()
       } else {
@@ -649,7 +650,7 @@ fun HomeScreen(
       }
     }
 
-    item(contentType = HeaderUnderlayState.TEXT) {
+    item {
       Column {
         Row(
           modifier = Modifier
@@ -670,7 +671,7 @@ fun HomeScreen(
       }
     }
 
-    item(contentType = HeaderUnderlayState.PHOTO) {
+    item {
       if (isLoading) {
         SkeletonActivityCarousel()
       } else {

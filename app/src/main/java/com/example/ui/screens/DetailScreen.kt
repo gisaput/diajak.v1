@@ -125,6 +125,7 @@ import com.example.ui.components.SkeletonDetailContent
 import com.example.ui.components.DiajakGlassHeader
 import com.example.ui.theme.diajakGlassButton
 import com.example.ui.theme.diajakGlassHeaderEffect
+import com.example.ui.theme.diajakScrollFadeTop
 import androidx.compose.ui.zIndex
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -272,6 +273,7 @@ fun DetailScreen(
         modifier = Modifier
           .fillMaxSize()
           .hazeSource(state = hazeState)
+          .diajakScrollFadeTop(enabled = scrollState.value > 0)
           .verticalScroll(scrollState)
           .onGloballyPositioned { coords ->
             scrollColumnTopInRoot = coords.positionInRoot().y
@@ -917,28 +919,6 @@ fun DetailScreen(
           .coerceIn(0f, 1f)
       }
     }
-
-    val underlayState by remember {
-      derivedStateOf {
-        if (scrollState.value < with(density) { 340.dp.toPx() }) {
-          com.example.ui.theme.HeaderUnderlayState.PHOTO
-        } else {
-          com.example.ui.theme.HeaderUnderlayState.CONTAINER
-        }
-      }
-    }
-
-    val textMeltingFactor by androidx.compose.animation.core.animateFloatAsState(
-      targetValue = if (underlayState == com.example.ui.theme.HeaderUnderlayState.CONTAINER) 0.35f else 0f,
-      animationSpec = androidx.compose.animation.core.tween(durationMillis = 180, easing = androidx.compose.animation.core.LinearOutSlowInEasing),
-      label = "detailTextMelting"
-    )
-
-    val photoGlowFactor by androidx.compose.animation.core.animateFloatAsState(
-      targetValue = if (underlayState == com.example.ui.theme.HeaderUnderlayState.PHOTO) 1f else 0.4f,
-      animationSpec = androidx.compose.animation.core.tween(durationMillis = 180, easing = androidx.compose.animation.core.LinearOutSlowInEasing),
-      label = "detailPhotoGlow"
-    )
 
     Box(
       modifier = Modifier

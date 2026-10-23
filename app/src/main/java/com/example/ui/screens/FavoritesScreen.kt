@@ -1,6 +1,7 @@
 package com.example.ui.screens
 
 import com.example.ui.theme.AppSpacing
+import com.example.ui.theme.diajakScrollFadeTop
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,7 +41,6 @@ import com.example.ui.theme.DiajakTextDark
 import com.example.ui.theme.RatingGold
 import com.example.ui.theme.spacing
 import com.example.ui.theme.DiajakDesignSystem
-import com.example.ui.theme.HeaderUnderlayState
 import androidx.compose.ui.platform.LocalDensity
 import com.example.ui.components.SkeletonActivityCardHorizontal
 import com.example.ui.components.DiajakGlassHeader
@@ -78,9 +78,9 @@ fun FavoritesScreen(
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 124.dp),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium),
-        modifier = Modifier.fillMaxSize().hazeSource(state = hazeState)
+        modifier = Modifier.fillMaxSize().hazeSource(state = hazeState).diajakScrollFadeTop()
       ) {
-        item(span = { GridItemSpan(2) }, contentType = HeaderUnderlayState.TEXT) {
+        item(span = { GridItemSpan(2) }) {
           Column(modifier = Modifier.fillMaxWidth().statusBarsPadding().padding(top = 16.dp, bottom = 0.dp)) {
             Text(
               text = "Aktivitas Favorit",
@@ -89,7 +89,7 @@ fun FavoritesScreen(
             )
           }
         }
-        items(4, contentType = { HeaderUnderlayState.PHOTO }) {
+        items(4) {
           SkeletonActivityCardHorizontal()
         }
       }
@@ -143,9 +143,9 @@ fun FavoritesScreen(
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 124.dp),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium),
-        modifier = Modifier.fillMaxSize().hazeSource(state = hazeState)
+        modifier = Modifier.fillMaxSize().hazeSource(state = hazeState).diajakScrollFadeTop()
       ) {
-        item(span = { GridItemSpan(2) }, contentType = HeaderUnderlayState.TEXT) {
+        item(span = { GridItemSpan(2) }) {
           Column(modifier = Modifier.fillMaxWidth().statusBarsPadding().padding(top = 16.dp, bottom = 0.dp)) {
             Text(
               text = "Aktivitas Favorit",
@@ -156,8 +156,7 @@ fun FavoritesScreen(
         }
         items(
           favoriteActivities,
-          key = { it.id },
-          contentType = { HeaderUnderlayState.PHOTO }
+          key = { it.id }
         ) { activity ->
           FavoriteActivityGridCard(
             activity = activity,
