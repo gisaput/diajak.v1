@@ -63,6 +63,10 @@ fun MainScreen(viewModel: DiajakViewModel) {
   val priceFilter by viewModel.priceFilter.collectAsState()
   val ratingFilter by viewModel.ratingFilter.collectAsState()
   val cityFilter by viewModel.cityFilter.collectAsState()
+  val maxDistanceKm by viewModel.maxDistanceKm.collectAsState()
+  val trendFilter by viewModel.trendFilter.collectAsState()
+  val timeFilter by viewModel.timeFilter.collectAsState()
+  val socialFilter by viewModel.socialFilter.collectAsState()
   val filteredActivities by viewModel.filteredActivities.collectAsState()
   val selectedActivity by viewModel.selectedActivity.collectAsState()
   val isPushTransition by viewModel.isPushTransition.collectAsState()
@@ -224,7 +228,16 @@ fun MainScreen(viewModel: DiajakViewModel) {
                 profileImageUri = profileImageUri,
                 profileImageRes = profileImageRes,
                 onProfileClick = { viewModel.setTab(4) },
-                isLoading = isLoading
+                isLoading = isLoading,
+                onSeeAllClick = { sectionKey ->
+                  when (sectionKey) {
+                    "terdekat" -> viewModel.openMapExploreWithDistance(10f)
+                    "teramai" -> viewModel.openMapExploreWithTrend("ramai")
+                    "terbaik" -> viewModel.openMapExploreWithRating("4_5_up")
+                    "terbaru" -> viewModel.openMapExploreWithTrend("terbaru")
+                    else -> viewModel.setTab(5)
+                  }
+                }
               )
               1 -> FavoritesScreen(
                 favoriteActivities = allActivities.filter { favoriteActivityIds.contains(it.id) },
@@ -386,6 +399,14 @@ fun MainScreen(viewModel: DiajakViewModel) {
                 onRatingFilterChange = { viewModel.updateRatingFilter(it) },
                 cityFilter = cityFilter,
                 onCityFilterChange = { viewModel.updateCityFilter(it) },
+                maxDistanceKm = maxDistanceKm,
+                onMaxDistanceKmChange = { viewModel.updateMaxDistanceKm(it) },
+                trendFilter = trendFilter,
+                onTrendFilterChange = { viewModel.updateTrendFilter(it) },
+                timeFilter = timeFilter,
+                onTimeFilterChange = { viewModel.updateTimeFilter(it) },
+                socialFilter = socialFilter,
+                onSocialFilterChange = { viewModel.updateSocialFilter(it) },
                 userCoordinates = userCoordinates,
                 profileImageUri = profileImageUri,
                 profileImageRes = profileImageRes,
@@ -404,8 +425,6 @@ fun MainScreen(viewModel: DiajakViewModel) {
                   showPesanBadge = showPesanBadge,
                   showFavoritBadge = favoriteActivityIds.isNotEmpty(),
                   showUndanganBadge = bookings.isNotEmpty(),
-                  profileImageUri = profileImageUri,
-                  profileImageRes = profileImageRes,
                   onTabSelected = { viewModel.setTab(it) }
                 )
               }
@@ -553,8 +572,6 @@ fun DiajakBottomNav(
   showPesanBadge: Boolean,
   showFavoritBadge: Boolean,
   showUndanganBadge: Boolean,
-  profileImageUri: String? = null,
-  profileImageRes: Int? = null,
   onTabSelected: (Int) -> Unit
 ) {
   Box(
@@ -623,9 +640,7 @@ fun DiajakBottomNav(
         BottomNavItem(
           label = "Profil",
           selected = selectedTab == 4,
-          icon = if (selectedTab == 4) Icons.Filled.AccountCircle else Icons.Outlined.AccountCircle,
-          profileImageUri = profileImageUri,
-          profileImageRes = profileImageRes,
+          icon = if (selectedTab == 4) Icons.Filled.Person else Icons.Outlined.Person,
           onClick = { onTabSelected(4) }
         )
       }
@@ -638,8 +653,6 @@ fun BottomNavItem(
   label: String,
   selected: Boolean,
   icon: androidx.compose.ui.graphics.vector.ImageVector,
-  profileImageUri: String? = null,
-  profileImageRes: Int? = null,
   showBadge: Boolean = false,
   onClick: () -> Unit
 ) {
@@ -668,37 +681,12 @@ fun BottomNavItem(
       .padding(horizontal = 8.dp, vertical = 4.dp)
   ) {
     Box(contentAlignment = Alignment.TopEnd) {
-      if (profileImageUri != null || profileImageRes != null) {
-        Box(
-          modifier = Modifier
-            .size(24.dp)
-            .clip(CircleShape)
-            .border(
-              width = if (selected) 2.dp else 0.75.dp,
-              color = if (selected) DiajakOrange else Color.Black.copy(alpha = 0.12f),
-              shape = CircleShape
-            ),
-          contentAlignment = Alignment.Center
-        ) {
-          Image(
-            painter = if (profileImageUri != null) {
-              rememberAsyncImagePainter(model = profileImageUri)
-            } else {
-              rememberAsyncImagePainter(model = profileImageRes)
-            },
-            contentDescription = label,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-          )
-        }
-      } else {
-        Icon(
-          imageVector = icon,
-          contentDescription = label,
-          tint = if (selected) activeColor else inactiveColor,
-          modifier = Modifier.size(24.dp)
-        )
-      }
+      Icon(
+        imageVector = icon,
+        contentDescription = label,
+        tint = if (selected) activeColor else inactiveColor,
+        modifier = Modifier.size(24.dp)
+      )
       if (showBadge) {
         Box(
           modifier = Modifier

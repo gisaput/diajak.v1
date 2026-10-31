@@ -298,3 +298,100 @@ fun DiajakGlassBottomSheet(
         }
     }
 }
+
+/**
+ * CompositionLocal untuk HazeState aktif agar tombol dan komponen anak
+ * dapat menggunakan modifier .diajakGlassButton() tanpa passing parameter manual.
+ */
+val LocalDiajakHazeState: ProvidableCompositionLocal<HazeState?> = compositionLocalOf { null }
+
+/**
+ * Universal Glass Scaffold:
+ * Solusi arsitektur untuk menerapkan iOS-Style Pure Optical Glass Header
+ * ke SELURUH LAYAR aplikasi secara otomatis tanpa perlu implementasi manual satu per satu.
+ *
+ * Keunggulan:
+ * 1. Tanpa Manual Satu per Satu: Mengelola HazeState dan .hazeSource() secara otomatis di balik layar.
+ * 2. Selalu Aktif di Layar Statis: Header kaca tetap hadir dan mengaburkan latar belakang
+ *    meskipun halaman tersebut statis, pendek, kosong (empty state), atau belum di-scroll.
+ * 3. Konsistensi Global: Memastikan tinggi header (56.dp), statusBarsPadding(), headline typography,
+ *    dan tombol kaca bulat (.diajakGlassButton) 100% konsisten dengan standar desain Diajak.
+ * 4. Fleksibel: Mendukung judul tengah, tombol kembali otomatis, aksi di kanan, custom header,
+ *    dan bottom bar.
+ */
+@Composable
+fun DiajakGlassScaffold(
+    modifier: Modifier = Modifier,
+    title: String? = null,
+    onBack: (() -> Unit)? = null,
+    actions: @Composable (RowScope.() -> Unit)? = null,
+    customHeader: (@Composable BoxScope.(HazeState) -> Unit)? = null,
+    bottomBar: @Composable () -> Unit = {},
+    containerColor: Color = Color(0xFFE5E7EB),
+    content: @Composable BoxScope.(HazeState) -> Unit
+) {
+    val hazeState = remember { HazeState() }
+
+    CompositionLocalProvider(LocalDiajakHazeState provides hazeState) {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .background(containerColor)
+        ) {
+            // Layer 1: Content Layer (Otomatis terkoneksi ke hazeSource)
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .hazeSource(state = hazeState)
+            ) {
+                content(hazeState)
+            }
+
+            // Layer 2: Universal Pure Optical Glass Header Layer (Selalu Aktif bahkan di layar statis!)
+            if (customHeader != null) {
+                DiajakGlassHeader(
+                    hazeState = hazeState,
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .zIndex(10f)
+                ) {
+                    customHeader(hazeState)
+                }
+            } else if (title != null || onBack != null || actions != null) {
+                DiajakUniversalHeader(
+                    title = title,
+                    onBack = onBack,
+                    hazeState = hazeState,
+                    containerColor = containerColor,
+                    actions = actions,
+                    modifier = Modifier.align(Alignment.TopCenter)
+                )
+            } else {
+                // Default Minimal Transparent Glass Header (Status bar blur overlay - seperti Beranda)
+                DiajakGlassHeader(
+                    hazeState = hazeState,
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .zIndex(10f)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .statusBarsPadding()
+                            .height(DiajakDesignSystem.Header.HeaderContentHeight)
+                    )
+                }
+            }
+
+            // Layer 3: Bottom Bar
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .zIndex(99f)
+            ) {
+                bottomBar()
+            }
+        }
+    }
+}
+

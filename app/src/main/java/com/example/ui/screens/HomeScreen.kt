@@ -2,7 +2,6 @@ package com.example.ui.screens
 import com.example.ui.theme.spacing
 import com.example.ui.theme.diajakGlassButton
 import com.example.ui.theme.diajakGlassHeaderEffect
-import com.example.ui.theme.diajakScrollFadeTop
 import com.example.ui.theme.GlassmorphismTheme
 import com.example.ui.theme.HazeConfig
 import com.example.ui.theme.HazeMode
@@ -22,6 +21,7 @@ import com.example.ui.components.DiajakGlassHeader
 import com.example.ui.components.DiajakGlassConfig
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.platform.testTag
 import androidx.compose.material.icons.automirrored.outlined.*
 import androidx.compose.material.icons.outlined.*
 
@@ -250,7 +250,8 @@ fun HomeScreen(
   profileImageUri: String? = null,
   profileImageRes: Int? = null,
   onProfileClick: () -> Unit = {},
-  isLoading: Boolean = false
+  isLoading: Boolean = false,
+  onSeeAllClick: (String) -> Unit = {}
 ) {
   val context = LocalContext.current
   val focusManager = LocalFocusManager.current
@@ -260,10 +261,10 @@ fun HomeScreen(
   val greetingText = remember {
     val hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)
     when (hour) {
-      in 4..10 -> "Selamat Pagi"
-      in 11..14 -> "Selamat Siang"
-      in 15..18 -> "Selamat Sore"
-      else -> "Selamat Malam"
+      in 4..10 -> "Selamat pagi"
+      in 11..14 -> "Selamat siang"
+      in 15..18 -> "Selamat sore"
+      else -> "Selamat malam"
     }
   }
   val displayName = remember(userName) {
@@ -378,13 +379,82 @@ fun HomeScreen(
       state = lazyListState,
       modifier = Modifier
         .fillMaxSize()
-        .hazeSource(state = hazeState)
-        .diajakScrollFadeTop(),
+        .hazeSource(state = hazeState),
       contentPadding = PaddingValues(bottom = 124.dp)
     ) {
-      // 1. Kolom Pencarian Putih Bersih (Langsung di atas, dengan safe status bar spacing)
+      // 1. Header: Salam Dinamis & Lonceng Notifikasi + Kolom Pencarian
       item {
-        Spacer(modifier = Modifier.statusBarsPadding().height(20.dp))
+        Spacer(modifier = Modifier.statusBarsPadding().height(16.dp))
+
+        // Row Header: Salam Pengguna (Kiri) + Ikon Lonceng (Kanan)
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
+          horizontalArrangement = Arrangement.SpaceBetween,
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Column(
+            modifier = Modifier
+              .weight(1f)
+              .padding(end = 12.dp)
+          ) {
+            val userGreeting = if (displayName.isNotBlank()) "$greetingText $displayName" else greetingText
+            Text(
+              text = userGreeting,
+              style = com.example.ui.theme.DiajakDesignSystem.Typography.Title.copy(
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = (-0.4).sp
+              ),
+              color = MaterialTheme.colorScheme.onSurface,
+              maxLines = 1,
+              overflow = TextOverflow.Ellipsis
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+              text = "Cari aktivitas di sekitarmu",
+              style = com.example.ui.theme.DiajakDesignSystem.Typography.Body.copy(
+                fontSize = 13.5.sp,
+                color = Color(0xFF64748B)
+              )
+            )
+          }
+
+          // Ikon Lonceng (Menuju Pesan Masuk / Notifikasi)
+          Box(
+            modifier = Modifier.size(44.dp),
+            contentAlignment = Alignment.Center
+          ) {
+            IconButton(
+              onClick = { onNavigateToNotifications() },
+              modifier = Modifier
+                .size(40.dp)
+                .diajakGlassButton(hazeState)
+            ) {
+              Icon(
+                imageVector = Icons.Outlined.Notifications,
+                contentDescription = "Pesan Masuk",
+                tint = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.size(22.dp)
+              )
+            }
+
+            // Titik indikator jika ada pesan/notifikasi belum dibaca
+            if (hasUnreadNotifications) {
+              Box(
+                modifier = Modifier
+                  .align(Alignment.TopEnd)
+                  .padding(top = 2.dp, end = 2.dp)
+                  .size(9.dp)
+                  .clip(CircleShape)
+                  .background(DiajakOrange)
+              )
+            }
+          }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
         Surface(
           modifier = Modifier
             .fillMaxWidth()
@@ -525,6 +595,12 @@ fun HomeScreen(
             ),
             color = MaterialTheme.colorScheme.onSurface
           )
+          SectionSeeAllButton(
+            onClick = {
+              onSeeAllClick("terdekat")
+            },
+            modifier = Modifier.testTag("see_all_seru_sekitarmu")
+          )
         }
       }
     }
@@ -571,6 +647,12 @@ fun HomeScreen(
                 fontSize = 16.sp
             ),
             color = MaterialTheme.colorScheme.onSurface
+          )
+          SectionSeeAllButton(
+            onClick = {
+              onSeeAllClick("teramai")
+            },
+            modifier = Modifier.testTag("see_all_lagi_ramai")
           )
         }
       }
@@ -620,6 +702,12 @@ fun HomeScreen(
             ),
             color = MaterialTheme.colorScheme.onSurface
           )
+          SectionSeeAllButton(
+            onClick = {
+              onSeeAllClick("terbaik")
+            },
+            modifier = Modifier.testTag("see_all_rating_juara")
+          )
         }
       }
     }
@@ -667,6 +755,12 @@ fun HomeScreen(
             ),
             color = MaterialTheme.colorScheme.onSurface
           )
+          SectionSeeAllButton(
+            onClick = {
+              onSeeAllClick("terbaru")
+            },
+            modifier = Modifier.testTag("see_all_ada_yang_baru")
+          )
         }
       }
     }
@@ -707,22 +801,21 @@ fun HomeScreen(
   }
 
   // 2. Pure Optical Glass Header Layer (100% Pure Optical Haze - iOS & Tinder Style)
-  if (isScrolled) {
-    DiajakGlassHeader(
-      hazeState = hazeState,
-      lazyListState = lazyListState,
-      containerColor = Color(0xFFE5E7EB),
+  // Always active even when static, ensuring seamless glass header presence across all states!
+  DiajakGlassHeader(
+    hazeState = hazeState,
+    lazyListState = lazyListState,
+    containerColor = Color(0xFFE5E7EB),
+    modifier = Modifier
+      .align(Alignment.TopCenter)
+      .zIndex(10f)
+  ) {
+    Box(
       modifier = Modifier
-        .align(Alignment.TopCenter)
-        .zIndex(10f)
-    ) {
-      Box(
-        modifier = Modifier
-          .fillMaxWidth()
-          .statusBarsPadding()
-          .height(56.dp)
-      )
-    }
+        .fillMaxWidth()
+        .statusBarsPadding()
+        .height(56.dp)
+    )
   }
 
   // Location Selection Modal Bottom Sheet
@@ -887,7 +980,168 @@ fun HomeScreen(
       }
     }
   }
+
+  }
 }
+
+@Composable
+fun SectionSeeAllButton(
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier
+) {
+  Row(
+    verticalAlignment = Alignment.CenterVertically,
+    modifier = modifier
+      .clip(RoundedCornerShape(8.dp))
+      .clickable(
+        interactionSource = remember { MutableInteractionSource() },
+        indication = null,
+        onClick = onClick
+      )
+      .padding(start = 8.dp, end = 2.dp, top = 6.dp, bottom = 6.dp)
+  ) {
+    Text(
+      text = "Lihat Semua >",
+      style = TextStyle(
+        fontSize = 13.5.sp,
+        fontWeight = FontWeight.Medium,
+        color = Color(0xFF00A699)
+      )
+    )
+  }
+}
+
+@Composable
+fun SeeAllActivityItem(
+  activity: ActivityModel,
+  isFavorite: Boolean,
+  onToggleFavorite: () -> Unit,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier
+) {
+  Card(
+    onClick = onClick,
+    modifier = modifier.fillMaxWidth(),
+    shape = RoundedCornerShape(16.dp),
+    colors = CardDefaults.cardColors(containerColor = Color.White),
+    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+    border = BorderStroke(0.dp, Color.Transparent)
+  ) {
+    Row(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(12.dp),
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      Box(
+        modifier = Modifier
+          .size(76.dp)
+          .clip(RoundedCornerShape(12.dp))
+      ) {
+        Image(
+          painter = painterResource(id = if (activity.imageResId != 0) activity.imageResId else com.example.R.drawable.diajak_onboarding_hero_1783253536983),
+          contentDescription = activity.title,
+          contentScale = ContentScale.Crop,
+          modifier = Modifier.fillMaxSize()
+        )
+      }
+
+      Spacer(modifier = Modifier.width(12.dp))
+
+      Column(
+        modifier = Modifier.weight(1f)
+      ) {
+        Row(
+          modifier = Modifier.fillMaxWidth(),
+          horizontalArrangement = Arrangement.SpaceBetween,
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Text(
+            text = activity.category.replaceFirstChar { it.uppercase() },
+            style = TextStyle(
+              fontSize = 11.sp,
+              fontWeight = FontWeight.SemiBold,
+              color = Color(0xFF00A699)
+            )
+          )
+          Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+              imageVector = Icons.Outlined.Star,
+              contentDescription = null,
+              tint = RatingGold,
+              modifier = Modifier.size(13.dp)
+            )
+            Spacer(modifier = Modifier.width(2.dp))
+            Text(
+              text = String.format("%.1f", activity.rating),
+              style = TextStyle(
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+              )
+            )
+          }
+        }
+
+        Spacer(modifier = Modifier.height(2.dp))
+
+        Text(
+          text = activity.title,
+          style = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurface
+          ),
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis
+        )
+
+        Spacer(modifier = Modifier.height(2.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+          Icon(
+            imageVector = Icons.Outlined.Place,
+            contentDescription = null,
+            tint = DiajakTextMuted,
+            modifier = Modifier.size(12.dp)
+          )
+          Spacer(modifier = Modifier.width(2.dp))
+          Text(
+            text = activity.locationName,
+            style = TextStyle(fontSize = 11.sp, color = DiajakTextMuted),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+          )
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        val priceText = if (activity.priceValue == 0) "Gratis" else "Rp " + String.format("%,d", activity.priceValue).replace(',', '.')
+        Text(
+          text = priceText,
+          style = TextStyle(
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold,
+            color = DiajakOrange
+          )
+        )
+      }
+
+      Spacer(modifier = Modifier.width(8.dp))
+
+      IconButton(
+        onClick = onToggleFavorite,
+        modifier = Modifier.size(36.dp)
+      ) {
+        Icon(
+          imageVector = if (isFavorite) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+          contentDescription = "Favorit",
+          tint = if (isFavorite) DiajakOrange else Color(0xFF94A3B8),
+          modifier = Modifier.size(20.dp)
+        )
+      }
+    }
+  }
 }
 
 @Composable

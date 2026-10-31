@@ -261,37 +261,35 @@ fun ProfileScreen(
       }
     } // End of verticalScroll Column
       
-    // Floating Glass Header at the very top (Status Bar area) - Appears instantly on scroll, exactly like HomeScreen
-    if (isScrolled) {
-      DiajakGlassHeader(
-        hazeState = hazeState,
-        scrollState = scrollState,
-        modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    // Floating Glass Header at the very top (Status Bar area) - Always active even when static
+    DiajakGlassHeader(
+      hazeState = hazeState,
+      scrollState = scrollState,
+      modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    ) {
+      // Content Layer (Buttons and Title) MUST be 56.dp height
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .statusBarsPadding()
+          .height(56.dp)
+          .padding(horizontal = 20.dp),
+        contentAlignment = Alignment.Center
       ) {
-        // Content Layer (Buttons and Title) MUST be 56.dp height
-        Box(
-          modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-            .height(56.dp)
-            .padding(horizontal = 20.dp),
-          contentAlignment = Alignment.Center
+        androidx.compose.animation.AnimatedVisibility(
+          visible = showTitle,
+          enter = androidx.compose.animation.fadeIn(),
+          exit = androidx.compose.animation.fadeOut()
         ) {
-          androidx.compose.animation.AnimatedVisibility(
-            visible = showTitle,
-            enter = androidx.compose.animation.fadeIn(),
-            exit = androidx.compose.animation.fadeOut()
-          ) {
-            Text(
-              text = profileName,
-              style = com.example.ui.theme.DiajakDesignSystem.Typography.Headline,
-              textAlign = TextAlign.Center,
-              maxLines = 1,
-              overflow = TextOverflow.Ellipsis,
-              color = MaterialTheme.colorScheme.onSurface,
-              modifier = Modifier.fillMaxWidth().padding(horizontal = 48.dp)
-            )
-          }
+          Text(
+            text = profileName,
+            style = com.example.ui.theme.DiajakDesignSystem.Typography.Headline,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 48.dp)
+          )
         }
       }
     }

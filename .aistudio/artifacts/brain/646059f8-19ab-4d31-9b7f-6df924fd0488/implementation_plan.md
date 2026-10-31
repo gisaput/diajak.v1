@@ -1,82 +1,45 @@
-# 100% Pure Optical Glass Header (Bebas Kabut ala Instagram)
+# Implementation Plan - Desain Kontainer Menyatu Halaman Detail (Non-Floating)
 
-Penyempurnaan arsitektur rendering header aplikasi Diajak untuk beralih sepenuhnya ke **100% Pure Optical Glass** identik dengan Instagram (**IMG_0477**), menghilangkan lapisan cat kanvas abu-abu yang menyebabkan foto terlihat berkabut (**IMG_0476**).
+Mengubah desain kontainer pada halaman detail (`DetailScreen.kt`) dari sistem kartu mengambang (*floating separate cards*) dengan celah abu-abu di sekelilingnya, menjadi satu kesatuan kontainer putih solid (*non-floating bottom sheet container*) penuh selebar layar (*edge-to-edge width*) dengan sudut atas melengkung (*rounded top corners*), yang merangkum seluruh konten dari Judul aktivitas hingga bagian rekomendasi "Mungkin Kamu Suka" sesuai dengan gambar referensi yang dikirimkan.
 
 ---
 
-### User Review & Critical Decisions
+## User Review Required
 
 > [!IMPORTANT]
-> - **Keputusan Terkonfirmasi**: **Hapus Lapisan Cat Kanvas 100% (Zero Paint Overlay)**.
->   Mengeliminasi `drawRect` warna kanvas abu-abu (`#E5E7EB`) dari pipa render `diajakGlassHeaderEffect`. Menggantinya dengan pembiasan optik murni (*live optical backdrop blur*) berkekuatan 32.dp, sehingga foto dan banner di bawah header tetap 100% tajam, jernih, dan warnanya menyala cerah tanpa selaput kabut/milky film.
+> - **Kontainer Menyatu Penuh**: Kontainer putih kini menempel penuh ke sisi kiri dan kanan layar (`fillMaxWidth()`, tanpa padding horizontal luar) dan bertumpuk (*overlap*) mulus di atas gambar hero dengan sudut atas melengkung (`topStart = 28.dp, topEnd = 28.dp`).
+> - **Cakupan Kontainer**: Semua bagian informasi (Judul, Jadwal & Lokasi, Tentang Aktivitas & Yang Didapat, Peserta Bergabung & Kuota, Lokasi Peta, Profil Kreator, Ulasan Peserta, hingga carousel "Mungkin Kamu Suka") kini berada di dalam satu kontainer putih yang bersih.
+> - **Pemisah Antar Bagian**: Seluruh transisi antar bagian menggunakan garis pemisah halus (*subtle divider*) dan ritme spasi yang konsisten, menghilangkan kesan kartu terpotong-potong.
 
 ---
 
-### 1. Overview & Core Concept
+## Proposed Changes
 
-- **Masalah yang Diperbaiki**:
-  Pada iterasi sebelumnya, `drawRect(universalDissolverBrush)` menyemprotkan pigmen warna abu-abu `#E5E7EB` dengan opasitas hingga 94%. Ketika foto (seperti foto barista kopi) digulirkan ke bawah header, pigmen abu-abu ini menutupi foto sehingga menghasilkan efek kabut putih/kusam yang kontras dengan Instagram.
-- **Solusi Arsitektur**:
-  - Instagram **TIDAK PERNAH** menyemprotkan pigmen warna di atas foto. Instagram murni mengandalkan **pembiasan optik GPU (live backdrop blur)** dengan radius blur yang cukup tinggi (`32.dp`).
-  - Huruf dan teks hitam secara otomatis terpecah dan terbiaskan menjadi halus tanpa perlu cat tambahan.
-  - Gradasi bawah menggunakan *progressive alpha mask* (`BlendMode.DstIn`) untuk transisi melandai yang sangat lembut.
+### UI & Layout Detail (`app/src/main/java/com/example/ui/screens/DetailScreen.kt`)
 
----
+#### 1. Transformasi Kontainer Utama
+- Menyatukan komponen `Surface` yang sebelumnya terpisah per seksi (Seksi Judul, Seksi Lokasi & Peserta, Seksi Ulasan, dan Seksi Rekomendasi luar) menjadi **satu `Surface` putih kontinu**.
+- Memberikan bentuk sudut membulat di bagian atas (`RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)`) dengan efek tumpukan (*overlap*) ke atas gambar hero (24.dp).
+- Menghapus margin samping luar (`padding(horizontal = 20.dp)`) pada kontainer, sehingga kontainer membentang selebar layar (*edge-to-edge*).
+- Menetapkan `padding(horizontal = 20.dp)` secara internal untuk konten teks dan elemen di dalamnya agar rapi dan simetris.
 
-### 2. User Experience & Visual Design
-
-- **Tampilan Foto di Bawah Header**:
-  - Warna foto (seperti kopi, dedaunan, langit, atau karakter) tetap 100% hidup, saturated, dan bercahaya, persis seperti feed Instagram pada **IMG_0477**.
-  - Bebas dari kabut putih, kusam, atau selaput susu.
-- **Peleburan Teks & Detail**:
-  - Dengan radius blur `32.dp`, teks berukuran kecil akan terbiaskan secara optik sehingga tidak terbaca, namun latar belakang foto tetap memancarkan rona warna aslinya.
-- **Kelandaian Halus (*Feathered Lip*)**:
-  - Gradien `DstIn` memastikan bibir bawah header memudar melandai tanpa garis batas terpotong.
+#### 2. Penyelarasan Layout Bagian Konten
+- **Bagian Judul & Jadwal**: Mengatur tipografi judul yang tegas dan susunan jadwal/lokasi yang elegan sesuai referensi visual.
+- **Bagian Tentang Aktivitas**: Menyertakan deskripsi ringkas dengan tombol "Selengkapnya" / "Sembunyikan" dan daftar fasilitas/yang didapat.
+- **Bagian Peserta & Host/Lokasi**: Menampilkan stack avatar peserta bergabung, sisa kuota, tautan lokasi, dan profil kreator dengan pemisah garis horizontal bersih (`HorizontalDivider`).
+- **Bagian Ulasan**: Menampilkan ulasan peserta dengan bintang rating dan tombol lihat semua ulasan.
+- **Bagian "Mungkin Kamu Suka"**: Memasukkan carousel rekomendasi aktivitas ke dalam bagian bawah kontainer putih yang sama, dengan padding horizontal yang selaras dan transisi akhir yang mulus.
 
 ---
 
-### 3. Key Product Decisions & Trade-Offs
+## Verification Plan
 
-- **Keputusan 1: Zero Paint Overlay vs Artificial Dissolver**
-  - *Pendekatan*: Menghapus `drawRect(universalDissolverBrush)` sepenuhnya dari komposisi kanvas header.
-  - *Alasan*: Menghilangkan akar penyebab kabut pada foto. Kaca murni merefraksikan piksel asli di baliknya.
-- **Keputusan 2: Peningkatan Radius Blur Optik ke 32.dp**
-  - *Pendekatan*: Menaikkan `blurRadius` dari `24.dp` ke `32.dp` pada `HazeStyle`.
-  - *Alasan*: Memberikan peleburan tipografi yang cukup kuat di status bar secara murni optik, tanpa membutuhkan semprotan cat.
+### Automated Verification
+1. Jalankan `compile_applet` untuk memastikan seluruh perubahan kode Kotlin dan Jetpack Compose terkompilasi 100% tanpa error sintaks maupun dependensi.
+2. Jalankan unit test aplikasi (`gradle :app:testDebugUnitTest`) jika diperlukan untuk memverifikasi tidak ada regresi logika.
 
----
-
-### 4. Technical Architecture & Optical Pipeline
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│             INSTAGRAM PURE OPTICAL GLASS PIPELINE            │
-│                                                              │
-│  Layer 1: Live Backdrop Haze Effect (32.dp Optical Blur)     │
-│  ┌────────────────────────────────────────────────────────┐  │
-│  │ Membiaskan warna asli foto secara murni (Zero Paint)   │  │
-│  │ Warna merah, biru, dan rona foto tetap 100% cerah      │  │
-│  └────────────────────────────────────────────────────────┘  │
-│                             │                                │
-│                             ▼                                │
-│  Layer 2: Progressive Gradient Feather (BlendMode.DstIn)     │
-│  ┌────────────────────────────────────────────────────────┐  │
-│  │ Menghaluskan bibir bawah kaca secara melandai          │  │
-│  │ 0.00f -> Solid (1.0f) hingga 1.00f -> Bening (0.0f)   │  │
-│  └────────────────────────────────────────────────────────┘  │
-│                             │                                │
-│                   (ZERO CAT/FOG OVERLAY)                     │
-└──────────────────────────────────────────────────────────────┘
-```
-
-#### File yang Diperbarui:
-- **`GlassmorphismTheme.kt`**:
-  - Menghapus layer cat `drawRect(universalDissolverBrush)` dari modifier `diajakGlassHeaderEffect` sehingga foto bebas dari kabut putih (zero foggy paint overlay).
-  - Mengonfigurasi `UniversalStyle` dan `OpticalStyle` dengan `blurRadius = 32.dp`, `tint = Color.Transparent`, dan `backgroundColor = Color.Transparent`.
-  - Mempertahankan `ProgressiveGradientBrush` dengan `BlendMode.DstIn` untuk memudarkan bibir bawah kaca secara melandai halus.
-  - **Menambahkan Arsitektur Tinder/iOS Top Exit-Fade (`Modifier.diajakScrollFadeTop`)**:
-    Menambahkan modifier pada kontainer gulir (`LazyColumn`, `Column.verticalScroll`) yang menerapkan gradasi transparansi (`BlendMode.DstIn`) dari `y = 0` (alpha 0.0) hingga batas status bar (alpha 1.0). Saat teks hitam dan kartu digulir ke atas mendekati status bar, opasitasnya meluruh halus dan melebur 100% ke dalam kanvas abu-abu `#E5E7EB` tanpa meninggalkan residu huruf tajam, sementara foto di bawah header kaca tetap 100% cerah dan bebas kabut.
-- **`HomeScreen.kt`**:
-  - Menerapkan `.diajakScrollFadeTop()` pada `LazyColumn` utama sehingga judul bagian ("Seru di Sekitarmu", "Lagi Ramai Diikuti") dan kartu melebur sempurna ke latar abu-abu saat digulir ke area status bar.
-- **`FavoritesScreen.kt` & `DetailScreen.kt`**:
-  - Mengintegrasikan `.diajakScrollFadeTop()` untuk menjaga keseragaman peleburan konten di seluruh layar.
+### Manual / Visual Verification
+1. Buka halaman Detail aktivitas di emulator streaming.
+2. Verifikasi bahwa kontainer putih membentang penuh ke sisi layar tanpa celah samping mengambang.
+3. Periksa transisi tumpukan (*overlap*) di bagian bawah foto hero utama.
+4. Lakukan scroll ke bawah dan pastikan seluruh seksi (Judul, Deskripsi, Kuota/Lokasi, Ulasan, hingga "Mungkin Kamu Suka") berada di dalam kanvas putih yang menyatu dan rapi.

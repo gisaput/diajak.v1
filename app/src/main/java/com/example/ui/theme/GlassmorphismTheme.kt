@@ -78,14 +78,17 @@ object GlassmorphismTheme {
         )
 
         /**
-         * 100% Pure Optical Glass (Instagram & iOS Architecture).
-         * Zero paint/tint overlay: returns a completely transparent brush so photos and cards
-         * underneath retain 100% color saturation and contrast, with zero milky or chalky fog.
+         * Universal Status Bar Dissolver Brush.
+         * Softly blends content into the canvas color (#E5E7EB) ONLY at the status bar zone (top 28-32dp),
+         * while keeping the remaining 60%+ of the header completely transparent (zero fog over photos/cards).
          */
         fun universalDissolverBrush(
             canvasColor: Color = BaseColor
         ): Brush = Brush.verticalGradient(
-            0.00f to Color.Transparent,
+            0.00f to canvasColor,
+            0.18f to canvasColor.copy(alpha = 0.85f),
+            0.28f to canvasColor.copy(alpha = 0.35f),
+            0.38f to Color.Transparent,
             1.00f to Color.Transparent
         )
 
@@ -126,21 +129,26 @@ object GlassmorphismTheme {
             get() = OpticalStyle
 
         /**
-         * Precision Continuous Sloped Progressive Gradient Mask (BlendMode.DstIn).
-         * Harmonized across Background abu-abu, Kontainer putih, dan Foto:
-         * - Bagian Atas / Status bar (0.00f - 0.25f): Solid Black (1.00f - 0.98f) agar blur optik
-         *   dan dissolver kanvas bekerja maksimal tanpa bocor atau pudar di pucuk layar.
-         * - Bagian Tengah & Bawah (0.25f - 1.00f): Kurva melandai sangat halus (cubic smooth curve)
-         *   tanpa patahan garis potong tajam (ultra-feathered bottom edge).
+         * Precision Non-Linear Easing Progressive Gradient Mask (BlendMode.DstIn).
+         * Uses a continuous cubic smootherstep easing curve:
+         * - Plateau / Header Content Region (0.00f - 0.30f): Solid mask (1.00f - 0.98f)
+         *   guaranteeing header titles, action icons, and text maintain maximum contrast
+         *   and readability against blurred content underneath.
+         * - Non-Linear Transition Region (0.30f - 0.85f): Smooth S-curve easing that
+         *   progressively diffuses the glass blur without harsh bands or premature drop-off.
+         * - Asymptotic Feather Lip (0.85f - 1.00f): Decelerates tangentially to 0.0f
+         *   for an ultra-smooth, imperceptible boundary between blurred glass and crisp content.
          */
         val ProgressiveGradientBrush: Brush = Brush.verticalGradient(
             0.00f to Color.Black,
-            0.25f to Color.Black.copy(alpha = 0.98f),
-            0.45f to Color.Black.copy(alpha = 0.90f),
-            0.62f to Color.Black.copy(alpha = 0.72f),
-            0.76f to Color.Black.copy(alpha = 0.48f),
-            0.88f to Color.Black.copy(alpha = 0.24f),
-            0.95f to Color.Black.copy(alpha = 0.08f),
+            0.15f to Color.Black.copy(alpha = 0.995f),
+            0.30f to Color.Black.copy(alpha = 0.980f),
+            0.42f to Color.Black.copy(alpha = 0.942f),
+            0.55f to Color.Black.copy(alpha = 0.739f),
+            0.68f to Color.Black.copy(alpha = 0.412f),
+            0.80f to Color.Black.copy(alpha = 0.142f),
+            0.90f to Color.Black.copy(alpha = 0.023f),
+            0.96f to Color.Black.copy(alpha = 0.002f),
             1.00f to Color.Transparent
         )
 
@@ -156,15 +164,19 @@ object GlassmorphismTheme {
         )
 
         /**
-         * Standard bottom progressive vertical fade gradient stops for floating footers/bars.
+         * Standard bottom progressive vertical fade gradient stops with non-linear easing for floating footers/bars.
          */
         val BottomProgressiveGradientBrush: Brush = Brush.verticalGradient(
-            0.0f to Color.Transparent,
-            0.15f to Color.Black.copy(alpha = 0.15f),
-            0.3f to Color.Black.copy(alpha = 0.4f),
-            0.5f to Color.Black.copy(alpha = 0.7f),
-            0.7f to Color.Black.copy(alpha = 0.9f),
-            1.0f to Color.Black
+            0.00f to Color.Transparent,
+            0.04f to Color.Black.copy(alpha = 0.002f),
+            0.10f to Color.Black.copy(alpha = 0.023f),
+            0.20f to Color.Black.copy(alpha = 0.142f),
+            0.32f to Color.Black.copy(alpha = 0.412f),
+            0.45f to Color.Black.copy(alpha = 0.739f),
+            0.58f to Color.Black.copy(alpha = 0.942f),
+            0.70f to Color.Black.copy(alpha = 0.980f),
+            0.85f to Color.Black.copy(alpha = 0.995f),
+            1.00f to Color.Black
         )
     }
 
@@ -355,7 +367,12 @@ fun Modifier.diajakGlassHeaderEffect(
         // 1. Render pure optical Haze blur from content passing underneath
         drawContent()
 
-        // 2. Precision bottom edge progressive feathering (DstIn) without harsh cutoff
+        // 2. Status Bar Canvas Dissolver (smoothly dissolves black text into #E5E7EB canvas at the status bar zone only)
+        drawRect(
+            brush = GlassmorphismTheme.Header.universalDissolverBrush(canvasColor = containerColor)
+        )
+
+        // 3. Precision bottom edge progressive feathering (DstIn) without harsh cutoff
         drawRect(
             brush = GlassmorphismTheme.Header.ProgressiveGradientBrush,
             blendMode = BlendMode.DstIn
@@ -395,9 +412,11 @@ fun Modifier.diajakScrollFadeTop(
             drawRect(
                 brush = Brush.verticalGradient(
                     0.00f to Color.Transparent,
-                    0.20f to Color.Black.copy(alpha = 0.06f),
-                    0.45f to Color.Black.copy(alpha = 0.35f),
-                    0.75f to Color.Black.copy(alpha = 0.80f),
+                    0.10f to Color.Black.copy(alpha = 0.02f),
+                    0.25f to Color.Black.copy(alpha = 0.12f),
+                    0.45f to Color.Black.copy(alpha = 0.40f),
+                    0.68f to Color.Black.copy(alpha = 0.78f),
+                    0.86f to Color.Black.copy(alpha = 0.96f),
                     1.00f to Color.Black,
                     startY = 0f,
                     endY = fadeHeightPx

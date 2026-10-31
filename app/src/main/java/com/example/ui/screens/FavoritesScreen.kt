@@ -1,8 +1,6 @@
 package com.example.ui.screens
 
 import com.example.ui.theme.AppSpacing
-import com.example.ui.theme.diajakScrollFadeTop
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -78,7 +76,7 @@ fun FavoritesScreen(
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 124.dp),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium),
-        modifier = Modifier.fillMaxSize().hazeSource(state = hazeState).diajakScrollFadeTop()
+        modifier = Modifier.fillMaxSize().hazeSource(state = hazeState)
       ) {
         item(span = { GridItemSpan(2) }) {
           Column(modifier = Modifier.fillMaxWidth().statusBarsPadding().padding(top = 16.dp, bottom = 0.dp)) {
@@ -143,7 +141,7 @@ fun FavoritesScreen(
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 124.dp),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.Medium),
-        modifier = Modifier.fillMaxSize().hazeSource(state = hazeState).diajakScrollFadeTop()
+        modifier = Modifier.fillMaxSize().hazeSource(state = hazeState)
       ) {
         item(span = { GridItemSpan(2) }) {
           Column(modifier = Modifier.fillMaxWidth().statusBarsPadding().padding(top = 16.dp, bottom = 0.dp)) {
@@ -168,44 +166,42 @@ fun FavoritesScreen(
       }
     }
 
-    // 2. Glass Header Layer (Appears instantly as soon as screen scrolls, identical to HomeScreen)
-    if (isScrolled) {
-      val showHeaderTitle by remember {
-        derivedStateOf {
-          gridState.firstVisibleItemIndex > 0 || gridState.firstVisibleItemScrollOffset > with(density) { 48.dp.toPx() }
-        }
+    // 2. Glass Header Layer (Always active, even on static screens or empty state)
+    val showHeaderTitle by remember {
+      derivedStateOf {
+        favoriteActivities.isEmpty() || gridState.firstVisibleItemIndex > 0 || gridState.firstVisibleItemScrollOffset > with(density) { 48.dp.toPx() }
       }
+    }
 
-      DiajakGlassHeader(
-        hazeState = hazeState,
-        lazyGridState = gridState,
-        modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    DiajakGlassHeader(
+      hazeState = hazeState,
+      lazyGridState = gridState,
+      modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    ) {
+      // Content Layer (Title) MUST be 56.dp height
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .statusBarsPadding()
+          .height(56.dp)
+          .padding(horizontal = 20.dp),
+        contentAlignment = Alignment.Center
       ) {
-        // Content Layer (Title) MUST be 56.dp height
-        Box(
-          modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-            .height(56.dp)
-            .padding(horizontal = 20.dp),
-          contentAlignment = Alignment.Center
+        // Dynamic title: immediately visible on static empty state, or fades in when scrolled past content title
+        androidx.compose.animation.AnimatedVisibility(
+          visible = showHeaderTitle,
+          enter = androidx.compose.animation.fadeIn(),
+          exit = androidx.compose.animation.fadeOut(),
+          modifier = Modifier.align(Alignment.Center)
         ) {
-          // Dynamic WhatsApp/Instagram style title: only show when scrolled past the content title!
-          androidx.compose.animation.AnimatedVisibility(
-            visible = showHeaderTitle,
-            enter = androidx.compose.animation.fadeIn(),
-            exit = androidx.compose.animation.fadeOut(),
-            modifier = Modifier.align(Alignment.Center)
-          ) {
-            // Title (STRICTLY CENTERED WITH HEADLINE TYPOGRAPHY)
-            Text(
-              text = "Aktivitas Favorit",
-              style = DiajakDesignSystem.Typography.Headline,
-              color = MaterialTheme.colorScheme.onSurface,
-              textAlign = TextAlign.Center,
-              modifier = Modifier.fillMaxWidth()
-            )
-          }
+          // Title (STRICTLY CENTERED WITH HEADLINE TYPOGRAPHY)
+          Text(
+            text = "Aktivitas Favorit",
+            style = DiajakDesignSystem.Typography.Headline,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+          )
         }
       }
     }

@@ -125,7 +125,6 @@ import com.example.ui.components.SkeletonDetailContent
 import com.example.ui.components.DiajakGlassHeader
 import com.example.ui.theme.diajakGlassButton
 import com.example.ui.theme.diajakGlassHeaderEffect
-import com.example.ui.theme.diajakScrollFadeTop
 import androidx.compose.ui.zIndex
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -273,7 +272,6 @@ fun DetailScreen(
         modifier = Modifier
           .fillMaxSize()
           .hazeSource(state = hazeState)
-          .diajakScrollFadeTop(enabled = scrollState.value > 0)
           .verticalScroll(scrollState)
           .onGloballyPositioned { coords ->
             scrollColumnTopInRoot = coords.positionInRoot().y
@@ -350,43 +348,42 @@ fun DetailScreen(
           }
         }
 
-        // Section 2: Title, Schedule, Overview & Facilities (Floating Modern Overlapping White Card)
+        // === CONTAINER 1: Judul sampai Yang Didapat (Edge-to-Edge with Rounded Top & Bottom Corners) ===
         Surface(
           modifier = Modifier
             .fillMaxWidth()
             .layout { measurable, constraints ->
               val placeable = measurable.measure(constraints)
-              val overlapPx = 24.dp.roundToPx()
+              val overlapPx = 28.dp.roundToPx()
               layout(placeable.width, placeable.height - overlapPx) {
                 placeable.placeRelative(0, -overlapPx)
               }
-            }
-            .padding(horizontal = 20.dp),
-          shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp, bottomStart = 18.dp, bottomEnd = 18.dp),
+            },
+          shape = RoundedCornerShape(24.dp),
           color = Color.White,
           shadowElevation = 0.dp
         ) {
           Column(
             modifier = Modifier
               .fillMaxWidth()
-              .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium)
+              .padding(horizontal = 20.dp, vertical = 20.dp)
           ) {
-            // Judul Aktivitas
+            // Judul Aktivitas (Centered)
             Text(
               text = activity.title,
               style = com.example.ui.theme.DiajakDesignSystem.Typography.Title.copy(
-                fontSize = 20.sp,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                lineHeight = 28.sp
+                lineHeight = 30.sp
               ),
               color = MaterialTheme.colorScheme.onSurface,
               textAlign = TextAlign.Center,
               modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+            Spacer(modifier = Modifier.height(14.dp))
 
-            // Tanggal & Jam info (Sesuai Desain Tanggal & Jam dengan Tahun Lengkap)
+            // Tanggal & Jam info (Center aligned)
             val datePart = getDisplayedScheduleDateText(activity.schedule, baseToday)
             val timePartRaw = displaySchedule.split("•").getOrNull(1)?.trim() ?: activity.schedule.split("•").getOrNull(1)?.trim() ?: ""
             val timeFormatted = timePartRaw
@@ -394,75 +391,34 @@ fun DetailScreen(
               .replace("(?i)\\s*WITA".toRegex(), "")
               .replace("(?i)\\s*WIT".toRegex(), "")
               .trim()
+            val dateTimeText = if (timeFormatted.isNotEmpty()) "$datePart, $timeFormatted" else datePart
 
             Row(
-              modifier = Modifier.fillMaxWidth(),
               verticalAlignment = Alignment.CenterVertically,
-              horizontalArrangement = Arrangement.Center
+              horizontalArrangement = Arrangement.Center,
+              modifier = Modifier.fillMaxWidth()
             ) {
-              // 1. Date Item
-              Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 4.dp)
-              ) {
-                Icon(
-                  imageVector = Icons.Outlined.Event,
-                  contentDescription = "Tanggal Aktivitas",
-                  tint = DiajakOrange,
-                  modifier = Modifier.size(16.dp)
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                  text = datePart,
-                  style = com.example.ui.theme.DiajakDesignSystem.Typography.Body.copy(
-                    fontSize = 13.5.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color(0xFF64748B)
-                  )
-                )
-              }
-
-              if (timeFormatted.isNotEmpty()) {
-                Spacer(modifier = Modifier.width(16.dp))
-
-                // 2. Time Item
-                Row(
-                  verticalAlignment = Alignment.CenterVertically,
-                  modifier = Modifier.padding(vertical = 4.dp)
-                ) {
-                  Icon(
-                    imageVector = Icons.Outlined.Schedule,
-                    contentDescription = "Jam Aktivitas",
-                    tint = DiajakOrange,
-                    modifier = Modifier.size(16.dp)
-                  )
-                  Spacer(modifier = Modifier.width(6.dp))
-                  Text(
-                    text = timeFormatted,
-                    style = com.example.ui.theme.DiajakDesignSystem.Typography.Body.copy(
-                      fontSize = 13.5.sp,
-                      fontWeight = FontWeight.Medium,
-                      color = Color(0xFF64748B)
-                    )
-                  )
-                }
-              }
+              Icon(
+                imageVector = Icons.Outlined.Event,
+                contentDescription = "Tanggal Aktivitas",
+                tint = DiajakOrange,
+                modifier = Modifier.size(18.dp)
+              )
+              Spacer(modifier = Modifier.width(8.dp))
+              Text(
+                text = dateTimeText,
+                style = com.example.ui.theme.DiajakDesignSystem.Typography.Body.copy(
+                  fontSize = 14.sp,
+                  fontWeight = FontWeight.Medium,
+                  color = Color(0xFF64748B)
+                ),
+                textAlign = TextAlign.Center
+              )
             }
 
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-            HorizontalDivider(color = Color(0xFFE2E8F0), thickness = 1.dp)
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-
-            // 1. Tentang Aktivitas
-            Text(
-              text = "Tentang Aktivitas",
-              style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold.copy(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
-              ),
-              color = MaterialTheme.colorScheme.onSurface
-            )
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+            Spacer(modifier = Modifier.height(16.dp))
+            HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Overview Text with Soft Gradient Fade on lines 3-4 when collapsed
             Box(
@@ -482,12 +438,11 @@ fun DetailScreen(
                   lineHeight = 23.sp
                 ),
                 color = Color(0xFF334155),
-                maxLines = if (isOverviewExpanded) Int.MAX_VALUE else 4,
+                maxLines = if (isOverviewExpanded) Int.MAX_VALUE else 3,
                 overflow = TextOverflow.Clip
               )
 
               if (!isOverviewExpanded) {
-                // Soft gradient fade: lines 1-2 sharp, line 3 soft fade, line 4 faded but still visible/readable
                 Box(
                   modifier = Modifier
                     .matchParentSize()
@@ -496,7 +451,7 @@ fun DetailScreen(
                         0.0f to Color.White.copy(alpha = 0.0f),
                         0.45f to Color.White.copy(alpha = 0.0f),
                         0.70f to Color.White.copy(alpha = 0.40f),
-                        1.0f to Color.White.copy(alpha = 0.78f)
+                        1.0f to Color.White.copy(alpha = 0.85f)
                       )
                     )
                 )
@@ -514,7 +469,6 @@ fun DetailScreen(
                 HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
-                // 2. Yang Didapat
                 Text(
                   text = "Yang Didapat",
                   style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold.copy(
@@ -562,9 +516,9 @@ fun DetailScreen(
               }
             }
 
-            Spacer(modifier = Modifier.height(if (isOverviewExpanded) 18.dp else 8.dp))
+            Spacer(modifier = Modifier.height(if (isOverviewExpanded) 18.dp else 10.dp))
 
-            // Center Pill Button: "Selengkapnya ▾" / "Sembunyikan ▴"
+            // Center Pill Button: "Selengkapnya" / "Sembunyikan"
             Surface(
               onClick = { isOverviewExpanded = !isOverviewExpanded },
               shape = CircleShape,
@@ -572,9 +526,9 @@ fun DetailScreen(
               border = BorderStroke(1.dp, DiajakOrange),
               modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
-              Row(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 7.dp),
-                verticalAlignment = Alignment.CenterVertically
+              Box(
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 7.dp),
+                contentAlignment = Alignment.Center
               ) {
                 Text(
                   text = if (isOverviewExpanded) "Sembunyikan" else "Selengkapnya",
@@ -584,22 +538,15 @@ fun DetailScreen(
                     color = DiajakOrange
                   )
                 )
-                Spacer(modifier = Modifier.width(4.dp))
-                Icon(
-                  imageVector = if (isOverviewExpanded) Icons.Outlined.KeyboardArrowUp else Icons.Outlined.KeyboardArrowDown,
-                  contentDescription = null,
-                  tint = DiajakOrange,
-                  modifier = Modifier.size(16.dp)
-                )
               }
             }
           }
         }
 
-        // Section Spacer showing app gray background
+        // Gray background gap between Container 1 and Container 2
         Spacer(modifier = Modifier.height(com.example.ui.theme.ThemeSpacing.Medium))
 
-        // Group 2: Lokasi, Profil & User Joined (Flat White Card on Gray Canvas)
+        // === CONTAINER 2: Peserta & Kreator (Edge-to-Edge with Rounded Top & Bottom Corners) ===
         val onKreatorClick = {
           if (isLoggedIn) {
             isChatSheetOpen = true
@@ -607,50 +554,30 @@ fun DetailScreen(
             onRequireLogin()
           }
         }
+
         Surface(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
             .onGloballyPositioned { coords ->
               locationContainerScrollTarget = coords.positionInRoot().y - scrollColumnTopInRoot + scrollState.value
             },
-          shape = RoundedCornerShape(16.dp),
+          shape = RoundedCornerShape(24.dp),
           color = Color.White,
           shadowElevation = 0.dp
         ) {
-          Column(modifier = Modifier.fillMaxWidth().padding(18.dp)) {
-            // 1. User Joined (Atas)
+          Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 20.dp)) {
+            // 1. Lokasi
             Row(
-              modifier = Modifier.fillMaxWidth(),
-              verticalAlignment = Alignment.CenterVertically
-            ) {
-              JoinedPesertaStack(
-                currentPeserta = activity.currentPeserta,
-                avatarSize = 40.dp
-              )
-              Spacer(modifier = Modifier.width(10.dp))
-              val sisa = (activity.maxPeserta - activity.currentPeserta).coerceAtLeast(0)
-              Text(
-                text = if (sisa > 0) "Kuota Tersisa $sisa" else "Kuota penuh",
-                style = com.example.ui.theme.DiajakDesignSystem.Typography.Body.copy(
-                  fontSize = 13.sp,
-                  fontWeight = FontWeight.Medium,
-                  color = Color(0xFF64748B)
-                )
-              )
-            }
-
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-            HorizontalDivider(color = Color(0xFFF1F5F9))
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-
-            // 2. Lokasi (Tengah)
-            Row(
-              modifier = Modifier.fillMaxWidth().clickable { isMapSheetOpen = true },
+              modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .clickable { isMapSheetOpen = true }
+                .padding(vertical = 4.dp),
               verticalAlignment = Alignment.CenterVertically
             ) {
               Box(
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier
+                  .size(40.dp)
                   .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape),
                 contentAlignment = Alignment.Center
               ) {
@@ -679,15 +606,25 @@ fun DetailScreen(
                   overflow = TextOverflow.Ellipsis
                 )
               }
+              Icon(
+                imageVector = Icons.AutoMirrored.Outlined.ArrowForwardIos,
+                contentDescription = null,
+                tint = Color(0xFF94A3B8),
+                modifier = Modifier.size(14.dp)
+              )
             }
 
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-            HorizontalDivider(color = Color(0xFFF1F5F9))
+            HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
-            // 3. Profile (Bawah)
+            // 3. Profile Kreator
             Row(
-              modifier = Modifier.fillMaxWidth().clickable { onKreatorClick() },
+              modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .clickable { onKreatorClick() }
+                .padding(vertical = 4.dp),
               verticalAlignment = Alignment.CenterVertically
             ) {
               Box(
@@ -719,26 +656,31 @@ fun DetailScreen(
                   color = MaterialTheme.colorScheme.onSurface
                 )
               }
+              Icon(
+                imageVector = Icons.AutoMirrored.Outlined.ArrowForwardIos,
+                contentDescription = null,
+                tint = Color(0xFF94A3B8),
+                modifier = Modifier.size(14.dp)
+              )
             }
           }
         }
 
-        // Section Spacer showing app gray background
+        // Gray background gap between Container 2 and Container 3
         Spacer(modifier = Modifier.height(com.example.ui.theme.ThemeSpacing.Medium))
 
-        // Group 3: Ulasan (Flat White Card on Gray Canvas)
+        // === CONTAINER 3: Ulasan Peserta (Edge-to-Edge with Rounded Top & Bottom Corners) ===
         Surface(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
             .onGloballyPositioned { coords ->
               reviewsContainerScrollTarget = coords.positionInRoot().y - scrollColumnTopInRoot + scrollState.value
             },
-          shape = RoundedCornerShape(16.dp),
+          shape = RoundedCornerShape(24.dp),
           color = Color.White,
           shadowElevation = 0.dp
         ) {
-          Column(modifier = Modifier.fillMaxWidth().padding(18.dp)) {
+          Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 20.dp)) {
             Row(
               modifier = Modifier.fillMaxWidth(),
               horizontalArrangement = Arrangement.SpaceBetween,
@@ -853,7 +795,10 @@ fun DetailScreen(
           }
         }
 
-        // --- RECOMMENDED ACTIVITIES ("Mungkin Kamu Suka") ---
+        // Gray background gap before Mungkin Kamu Suka
+        Spacer(modifier = Modifier.height(com.example.ui.theme.ThemeSpacing.Medium))
+
+        // === 4. RECOMMENDED ACTIVITIES ("Mungkin Kamu Suka" directly on Gray Background) ===
         val allActivities = DiajakRepository.activitiesFlow.collectAsState().value
         val otherActivities = remember(allActivities, activity) {
           allActivities.filter { it.id != activity.id }
@@ -879,7 +824,7 @@ fun DetailScreen(
           Column(
             modifier = Modifier
               .fillMaxWidth()
-              .padding(vertical = MaterialTheme.spacing.section)
+              .padding(top = 8.dp)
           ) {
             Text(
               text = "Mungkin Kamu Suka",
@@ -888,8 +833,10 @@ fun DetailScreen(
                 fontSize = 18.sp
               ),
               color = MaterialTheme.colorScheme.onSurface,
-              modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = MaterialTheme.spacing.medium)
+              modifier = Modifier.padding(horizontal = 20.dp)
             )
+
+            Spacer(modifier = Modifier.height(14.dp))
 
             LazyRow(
               horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
@@ -1400,6 +1347,7 @@ fun DetailScreen(
         }
       }
     }
+  }
 
     if (isMapSheetOpen) {
       ModalBottomSheet(
@@ -1429,54 +1377,31 @@ fun DetailScreen(
             .navigationBarsPadding()
         ) {
 
-          // Header
+          // Rating summary
           Row(
             modifier = Modifier
               .fillMaxWidth()
               .padding(horizontal = 20.dp, vertical = MaterialTheme.spacing.medium),
-            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
           ) {
-            Column {
-              Text(
-                text = "Semua Ulasan",
-                style = com.example.ui.theme.DiajakDesignSystem.Typography.Display.copy(fontSize = 20.sp),
-                color = MaterialTheme.colorScheme.onSurface
-              )
-              Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = MaterialTheme.spacing.extraSmall)
-              ) {
-                Icon(
-                  imageVector = Icons.Outlined.Star,
-                  contentDescription = null,
-                  tint = RatingGold,
-                  modifier = Modifier.size(18.dp)
-                )
-                Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
-                Text(
-                  text = "4.9",
-                  style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold.copy(fontSize = 14.sp),
-                  color = MaterialTheme.colorScheme.onSurface
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                  text = "(${activity.reviewsCount} ulasan)",
-                  style = com.example.ui.theme.DiajakDesignSystem.Typography.Body.copy(fontSize = 13.sp),
-                  color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-              }
-            }
-            IconButton(
-              onClick = { isReviewsSheetOpen = false },
-              modifier = Modifier.size(36.dp)
-            ) {
-              Icon(
-                imageVector = Icons.Outlined.Close,
-                contentDescription = "Tutup",
-                tint = MaterialTheme.colorScheme.onSurface
-              )
-            }
+            Icon(
+              imageVector = Icons.Outlined.Star,
+              contentDescription = null,
+              tint = RatingGold,
+              modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
+            Text(
+              text = "4.9",
+              style = com.example.ui.theme.DiajakDesignSystem.Typography.BodyBold.copy(fontSize = 15.sp),
+              color = MaterialTheme.colorScheme.onSurface
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+            Text(
+              text = "(${activity.reviewsCount} ulasan)",
+              style = com.example.ui.theme.DiajakDesignSystem.Typography.Body.copy(fontSize = 13.sp),
+              color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
           }
 
           HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
@@ -1607,7 +1532,6 @@ fun DetailScreen(
       }
     }
   }
-}
 }
 
 @Composable

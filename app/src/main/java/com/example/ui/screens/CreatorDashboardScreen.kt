@@ -534,13 +534,12 @@ fun KreatorMainDashboard(
       derivedStateOf { scrollState.value > 0 } 
     }
 
-    // 2. Glass Header Layer (DiajakGlassHeader - appears instantly on scroll, identical to HomeScreen)
-    if (isScrolled) {
-      DiajakGlassHeader(
-        hazeState = hazeState,
-        scrollState = scrollState,
-        modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
-      ) {
+    // 2. Glass Header Layer (DiajakGlassHeader - always active even when static)
+    DiajakGlassHeader(
+      hazeState = hazeState,
+      scrollState = scrollState,
+      modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    ) {
         Box(
           modifier = Modifier
             .fillMaxWidth()
@@ -578,7 +577,6 @@ fun KreatorMainDashboard(
       }
     }
   }
-}
 
 @Composable
 fun KreatorProfileDetailRow(label: String, value: String) {

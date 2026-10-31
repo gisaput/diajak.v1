@@ -216,6 +216,18 @@ class DiajakViewModel : ViewModel() {
   private val _cityFilter = MutableStateFlow("all")
   val cityFilter: StateFlow<String> = _cityFilter.asStateFlow()
 
+  private val _maxDistanceKm = MutableStateFlow<Float?>(null)
+  val maxDistanceKm: StateFlow<Float?> = _maxDistanceKm.asStateFlow()
+
+  private val _trendFilter = MutableStateFlow("all")
+  val trendFilter: StateFlow<String> = _trendFilter.asStateFlow()
+
+  private val _timeFilter = MutableStateFlow("all")
+  val timeFilter: StateFlow<String> = _timeFilter.asStateFlow()
+
+  private val _socialFilter = MutableStateFlow("all")
+  val socialFilter: StateFlow<String> = _socialFilter.asStateFlow()
+
   fun updatePriceFilter(filter: String) {
     _priceFilter.value = filter
   }
@@ -226,6 +238,61 @@ class DiajakViewModel : ViewModel() {
 
   fun updateCityFilter(filter: String) {
     _cityFilter.value = filter
+  }
+
+  fun updateMaxDistanceKm(km: Float?) {
+    _maxDistanceKm.value = km
+  }
+
+  fun updateTrendFilter(filter: String) {
+    _trendFilter.value = filter
+  }
+
+  fun updateTimeFilter(filter: String) {
+    _timeFilter.value = filter
+  }
+
+  fun updateSocialFilter(filter: String) {
+    _socialFilter.value = filter
+  }
+
+  fun openMapExploreWithDistance(km: Float = 10f) {
+    _selectedTab.value = 5 // Go directly to Map/Explore tab
+    _searchQuery.value = ""
+    _selectedCategory.value = "all"
+    _priceFilter.value = "all"
+    _ratingFilter.value = "all"
+    _cityFilter.value = "all"
+    _trendFilter.value = "all"
+    _timeFilter.value = "all"
+    _socialFilter.value = "all"
+    _maxDistanceKm.value = km
+  }
+
+  fun openMapExploreWithTrend(trend: String) {
+    _selectedTab.value = 5 // Go directly to Map/Explore tab
+    _searchQuery.value = ""
+    _selectedCategory.value = "all"
+    _priceFilter.value = "all"
+    _ratingFilter.value = "all"
+    _cityFilter.value = "all"
+    _maxDistanceKm.value = null
+    _timeFilter.value = "all"
+    _socialFilter.value = "all"
+    _trendFilter.value = trend
+  }
+
+  fun openMapExploreWithRating(rating: String = "4_5_up") {
+    _selectedTab.value = 5 // Go directly to Map/Explore tab
+    _searchQuery.value = ""
+    _selectedCategory.value = "all"
+    _priceFilter.value = "all"
+    _ratingFilter.value = rating
+    _cityFilter.value = "all"
+    _maxDistanceKm.value = null
+    _trendFilter.value = "all"
+    _timeFilter.value = "all"
+    _socialFilter.value = "all"
   }
 
   fun navigateToPromo(promoId: String) {
@@ -490,14 +557,60 @@ class DiajakViewModel : ViewModel() {
   val allAcara get() = allActivities
   val userBookings = DiajakRepository.bookingsFlow
 
+  private fun getCoordinatesForLocation(locationName: String): Pair<Double, Double> {
+    val loc = locationName.lowercase()
+    return when {
+      loc.contains("yogyakarta") || loc.contains("jogja") -> Pair(-7.7956, 110.3695)
+      loc.contains("solo") -> Pair(-7.5755, 110.8243)
+      loc.contains("semarang") -> Pair(-6.9667, 110.4167)
+      loc.contains("magelang") -> Pair(-7.4722, 110.2197)
+      loc.contains("bandung") -> Pair(-6.9175, 107.6191)
+      loc.contains("bogor") -> Pair(-5.5972, 106.7992)
+      loc.contains("surabaya") -> Pair(-7.2575, 112.7521)
+      loc.contains("malang") -> Pair(-7.9785, 112.6560)
+      loc.contains("bali") || loc.contains("denpasar") || loc.contains("badung") || loc.contains("sanur") || loc.contains("ubud") || loc.contains("kuta") -> Pair(-8.4095, 115.1889)
+      loc.contains("medan") -> Pair(3.5952, 98.6722)
+      loc.contains("batam") -> Pair(1.1301, 104.0531)
+      loc.contains("padang") -> Pair(-0.9471, 100.4172)
+      loc.contains("pekanbaru") -> Pair(0.5071, 101.4478)
+      loc.contains("palembang") -> Pair(-2.9761, 104.7754)
+      loc.contains("makassar") -> Pair(-5.1477, 119.4327)
+      loc.contains("balikpapan") -> Pair(-1.2654, 116.8312)
+      else -> Pair(-6.2088, 106.8456)
+    }
+  }
+
+  private fun calculateDistKm(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+    val r = 6371.0 // Earth radius in km
+    val dLat = Math.toRadians(lat2 - lat1)
+    val dLon = Math.toRadians(lon2 - lon1)
+    val a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    return r * c
+  }
+
+  private data class ExploreFilterExtra(
+    val trend: String,
+    val time: String,
+    val social: String,
+    val userCoords: Pair<Double, Double>?
+  )
+
   val filteredActivities = combine(
     allActivities,
     combine(_selectedCategory, _searchQuery, _priceFilter) { cat, query, price -> Triple(cat, query, price) },
-    combine(_ratingFilter, _cityFilter) { rating, city -> Pair(rating, city) }
-  ) { acts, filters1, filters2 ->
-    val (cat, query, price) = filters1
-    val (rating, city) = filters2
-    acts.filter { act ->
+    combine(_ratingFilter, _cityFilter, _maxDistanceKm) { rating, city, dist -> Triple(rating, city, dist) },
+    combine(_trendFilter, _timeFilter, _socialFilter, _userCoordinates) { trend, time, social, coords ->
+      ExploreFilterExtra(trend, time, social, coords)
+    }
+  ) { acts, f1, f2, f3 ->
+    val (cat, query, price) = f1
+    val (rating, city, maxDist) = f2
+    val (trend, time, social, userCoords) = f3
+
+    val baseFiltered = acts.filter { act ->
       val catMatch = if (cat == "all") true else {
         val catItem = DiajakRepository.categories.find { it.id.equals(cat, ignoreCase = true) || it.name.equals(cat, ignoreCase = true) }
         val targetName = catItem?.name ?: cat
@@ -547,7 +660,63 @@ class DiajakViewModel : ViewModel() {
       val cityMatch = if (city == "all") true else {
         act.locationName.contains(city, ignoreCase = true)
       }
-      catMatch && queryMatch && priceMatch && ratingMatch && cityMatch
+      val distMatch = if (maxDist != null) {
+        val coords = userCoords ?: Pair(-7.7956, 110.3695)
+        val actCoords = getCoordinatesForLocation(act.locationName)
+        val d = calculateDistKm(coords.first, coords.second, actCoords.first, actCoords.second)
+        d <= maxDist
+      } else true
+
+      val trendMatch = when (trend) {
+        "hampir_penuh" -> (act.maxPeserta - act.currentPeserta) <= 3 || act.currentPeserta.toFloat() / act.maxPeserta >= 0.75f
+        "pasti_jalan" -> act.currentPeserta >= 3
+        else -> true
+      }
+
+      val timeMatch = when (time) {
+        "today" -> act.schedule.contains("Hari Ini", ignoreCase = true) || act.schedule.contains("Sep", ignoreCase = true)
+        "weekend" -> act.schedule.contains("Sabtu", ignoreCase = true) || act.schedule.contains("Minggu", ignoreCase = true) || act.schedule.contains("Weekend", ignoreCase = true) || act.title.contains("Weekend", ignoreCase = true)
+        else -> true
+      }
+
+      val socialMatch = when (social) {
+        "solo" -> act.detailsList.any { it.contains("Solo", ignoreCase = true) || it.contains("Santai", ignoreCase = true) } ||
+                  act.title.contains("Solo", ignoreCase = true) || act.overview.contains("sendiri", ignoreCase = true) ||
+                  act.overview.contains("solo", ignoreCase = true)
+        "pemula" -> act.detailsList.any { it.contains("Pemula", ignoreCase = true) || it.contains("Beginner", ignoreCase = true) } ||
+                    act.title.contains("Pemula", ignoreCase = true) || act.overview.contains("pemula", ignoreCase = true) ||
+                    act.overview.contains("semua level", ignoreCase = true)
+        "intim" -> act.maxPeserta <= 10
+        "rame" -> act.maxPeserta > 10
+        else -> true
+      }
+
+      catMatch && queryMatch && priceMatch && ratingMatch && cityMatch && distMatch && trendMatch && timeMatch && socialMatch
+    }
+
+    when (trend) {
+      "ramai" -> {
+        baseFiltered.sortedWith(
+          compareByDescending<ActivityModel> { it.currentPeserta }
+            .thenByDescending { it.reviewsCount }
+        )
+      }
+      "terbaru" -> {
+        val customActivities = baseFiltered.filter { it.id.length > 5 }
+        val standardActivities = baseFiltered.filter { it.id.length <= 5 }.reversed()
+        customActivities + standardActivities
+      }
+      else -> {
+        if (maxDist != null) {
+          val coords = userCoords ?: Pair(-7.7956, 110.3695)
+          baseFiltered.sortedBy { act ->
+            val actCoords = getCoordinatesForLocation(act.locationName)
+            calculateDistKm(coords.first, coords.second, actCoords.first, actCoords.second)
+          }
+        } else {
+          baseFiltered
+        }
+      }
     }
   }.stateIn(viewModelScope, SharingStarted.Lazily, DiajakRepository.activitiesFlow.value)
   val filteredAcara get() = filteredActivities
@@ -568,6 +737,10 @@ class DiajakViewModel : ViewModel() {
       _priceFilter.value = "all"
       _ratingFilter.value = "all"
       _cityFilter.value = "all"
+      _maxDistanceKm.value = null
+      _trendFilter.value = "all"
+      _timeFilter.value = "all"
+      _socialFilter.value = "all"
     }
     _selectedTab.value = tabIndex
   }
@@ -577,6 +750,10 @@ class DiajakViewModel : ViewModel() {
     _priceFilter.value = "all"
     _ratingFilter.value = "all"
     _cityFilter.value = "all"
+    _maxDistanceKm.value = null
+    _trendFilter.value = "all"
+    _timeFilter.value = "all"
+    _socialFilter.value = "all"
   }
 
   fun resetDatabase(context: Context? = null) {
@@ -604,6 +781,10 @@ class DiajakViewModel : ViewModel() {
       _priceFilter.value = "all"
       _ratingFilter.value = "all"
       _cityFilter.value = "all"
+      _maxDistanceKm.value = null
+      _trendFilter.value = "all"
+      _timeFilter.value = "all"
+      _socialFilter.value = "all"
     }
   }
 

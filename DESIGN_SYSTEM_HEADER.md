@@ -52,9 +52,36 @@ Tidak perlu *state switching*, tidak perlu *derivedStateOf*, dan tidak perlu *re
 
 ## 4. Universal Screen Template (Copy-Paste Ready)
 
-Setiap layar baru di aplikasi Diajak **WAJIB** mengikuti struktur baku berikut:
+### Opsi Utama (SANGAT DIREKOMENDASIKAN): Menggunakan `DiajakGlassScaffold`
+**Solusi otomatis tanpa perlu setup HazeState dan header secara manual satu per satu!** Bekerja otomatis untuk layar scrollable maupun layar **statis**:
 
-### Opsi A: Layar dengan Scrollable Content (List / Column / LazyColumn)
+```kotlin
+@Composable
+fun ContohLayarScreen(
+    onBackClick: () -> Unit
+) {
+    DiajakGlassScaffold(
+        title = "Judul Halaman",
+        onBack = onBackClick
+    ) { hazeState ->
+        // Konten layar langsung ditempatkan di sini!
+        // HazeState dan .hazeSource() sudah otomatis terhubung.
+        // Header kaca SELALU aktif di pucuk layar (bahkan pada layar statis / kosong).
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            Spacer(modifier = Modifier.statusBarsPadding().height(80.dp))
+            // Isi konten...
+        }
+    }
+}
+```
+
+---
+
+### Opsi A: Layar dengan Scrollable Content Manual (List / Column / LazyColumn)
 
 ```kotlin
 @Composable

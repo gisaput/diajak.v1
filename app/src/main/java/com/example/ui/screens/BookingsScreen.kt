@@ -307,45 +307,43 @@ fun BookingsScreen(
       }
     }
 
-    // 2. Glass Header Layer (Appears instantly as soon as screen scrolls, identical to HomeScreen)
-    if (isScrolled) {
-      val density = LocalDensity.current
-      val showHeaderTitle by remember {
-        derivedStateOf {
-          scrollState.value > with(density) { 48.dp.toPx() }
-        }
+    // 2. Glass Header Layer (Always active, even on static screens or empty state)
+    val density = LocalDensity.current
+    val showHeaderTitle by remember {
+      derivedStateOf {
+        bookings.isEmpty() || scrollState.value > with(density) { 48.dp.toPx() }
       }
+    }
 
-      DiajakGlassHeader(
-        hazeState = hazeState,
-        scrollState = scrollState,
-        modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    DiajakGlassHeader(
+      hazeState = hazeState,
+      scrollState = scrollState,
+      modifier = Modifier.align(Alignment.TopCenter).zIndex(10f)
+    ) {
+      // Content Layer (Buttons and Title) MUST be 56.dp height
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .statusBarsPadding()
+          .height(56.dp)
+          .padding(horizontal = 20.dp),
+        contentAlignment = Alignment.Center
       ) {
-        // Content Layer (Buttons and Title) MUST be 56.dp height
-        Box(
-          modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-            .height(56.dp)
-            .padding(horizontal = 20.dp),
-          contentAlignment = Alignment.Center
+        // Dynamic title: immediately visible on static empty state, or fades in when scrolled past content title
+        androidx.compose.animation.AnimatedVisibility(
+          visible = showHeaderTitle,
+          enter = androidx.compose.animation.fadeIn(),
+          exit = androidx.compose.animation.fadeOut(),
+          modifier = Modifier.align(Alignment.Center)
         ) {
-          // Dynamic WhatsApp/Instagram style title: only show when scrolled past the content title!
-          androidx.compose.animation.AnimatedVisibility(
-            visible = showHeaderTitle,
-            enter = androidx.compose.animation.fadeIn(),
-            exit = androidx.compose.animation.fadeOut(),
-            modifier = Modifier.align(Alignment.Center)
-          ) {
-            // Title (STRICTLY CENTERED WITH HEADLINE TYPOGRAPHY)
-            Text(
-              text = "Undangan Aktivitas",
-              style = DiajakDesignSystem.Typography.Headline,
-              color = MaterialTheme.colorScheme.onSurface,
-              textAlign = TextAlign.Center,
-              modifier = Modifier.fillMaxWidth()
-            )
-          }
+          // Title (STRICTLY CENTERED WITH HEADLINE TYPOGRAPHY)
+          Text(
+            text = "Undangan Aktivitas",
+            style = DiajakDesignSystem.Typography.Headline,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+          )
         }
       }
     }

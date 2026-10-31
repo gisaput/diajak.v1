@@ -137,6 +137,14 @@ fun MapExploreScreen(
   onRatingFilterChange: (String) -> Unit = {},
   cityFilter: String = "all",
   onCityFilterChange: (String) -> Unit = {},
+  maxDistanceKm: Float? = null,
+  onMaxDistanceKmChange: (Float?) -> Unit = {},
+  trendFilter: String = "all",
+  onTrendFilterChange: (String) -> Unit = {},
+  timeFilter: String = "all",
+  onTimeFilterChange: (String) -> Unit = {},
+  socialFilter: String = "all",
+  onSocialFilterChange: (String) -> Unit = {},
   userCoordinates: Pair<Double, Double>? = null,
   profileImageUri: String? = null,
   profileImageRes: Int? = null,
@@ -522,6 +530,10 @@ fun MapExploreScreen(
                       onRatingFilterChange("all")
                       onCityFilterChange("all")
                       onSelectCategory("all")
+                      onMaxDistanceKmChange(null)
+                      onTrendFilterChange("all")
+                      onTimeFilterChange("all")
+                      onSocialFilterChange("all")
                     }
                   }
               )
@@ -536,6 +548,10 @@ fun MapExploreScreen(
                   onRatingFilterChange("all")
                   onCityFilterChange("all")
                   onSelectCategory("all")
+                  onMaxDistanceKmChange(null)
+                  onTrendFilterChange("all")
+                  onTimeFilterChange("all")
+                  onSocialFilterChange("all")
                   focusManager.clearFocus()
                 },
                 modifier = Modifier.size(32.dp)
@@ -550,7 +566,7 @@ fun MapExploreScreen(
             }
 
             // Filter icon inside the bar with active highlight state matching Google Maps
-            val hasActiveFilters = priceFilter != "all" || ratingFilter != "all" || cityFilter != "all" || selectedCategory != "all"
+            val hasActiveFilters = priceFilter != "all" || ratingFilter != "all" || cityFilter != "all" || selectedCategory != "all" || maxDistanceKm != null || trendFilter != "all" || timeFilter != "all" || socialFilter != "all"
             IconButton(
               onClick = {
                 focusManager.clearFocus()
@@ -581,6 +597,64 @@ fun MapExploreScreen(
       }
     }
 
+    // Active Filter Indicator Chip Pill
+    val activeFilterChipLabel = when {
+      maxDistanceKm != null -> "📍 Jarak ≤ ${maxDistanceKm.toInt()} km"
+      trendFilter == "ramai" -> "🔥 Lagi Ramai Diikuti"
+      trendFilter == "terbaru" -> "✨ Ada Yang Baru Loh"
+      trendFilter == "hampir_penuh" -> "⚡ Hampir Penuh"
+      trendFilter == "pasti_jalan" -> "🎯 Pasti Jalan"
+      timeFilter == "today" -> "☀️ Hari Ini"
+      timeFilter == "weekend" -> "🏖️ Akhir Pekan Ini"
+      timeFilter == "this_week" -> "🗓️ Minggu Ini"
+      socialFilter == "solo" -> "🙋 Bisa Datang Sendiri"
+      socialFilter == "pemula" -> "🔰 Ramah Pemula"
+      socialFilter == "intim" -> "👥 Grup Intim"
+      socialFilter == "rame" -> "🎪 Rame-Rame"
+      ratingFilter != "all" -> "⭐ Rating $ratingFilter"
+      else -> null
+    }
+
+    if (activeFilterChipLabel != null) {
+      Surface(
+        onClick = {
+          onMaxDistanceKmChange(null)
+          onTrendFilterChange("all")
+          onTimeFilterChange("all")
+          onSocialFilterChange("all")
+          onRatingFilterChange("all")
+        },
+        shape = RoundedCornerShape(20.dp),
+        color = DiajakOrange,
+        shadowElevation = 0.dp,
+        modifier = Modifier
+          .align(Alignment.TopStart)
+          .statusBarsPadding()
+          .padding(top = 80.dp, start = 20.dp)
+          .zIndex(10f)
+      ) {
+        Row(
+          modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp),
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Text(
+            text = activeFilterChipLabel,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp,
+            fontFamily = com.example.ui.theme.AppFontFamily
+          )
+          Spacer(modifier = Modifier.width(6.dp))
+          Icon(
+            imageVector = Icons.Outlined.Close,
+            contentDescription = "Hapus filter",
+            tint = Color.White,
+            modifier = Modifier.size(14.dp)
+          )
+        }
+      }
+    }
+
     Box(
       modifier = Modifier
         .align(Alignment.TopEnd)
@@ -607,6 +681,10 @@ fun MapExploreScreen(
             onPriceFilterChange("all")
             onRatingFilterChange("all")
             onCityFilterChange("all")
+            onMaxDistanceKmChange(null)
+            onTrendFilterChange("all")
+            onTimeFilterChange("all")
+            onSocialFilterChange("all")
             onDetectLocation()
                
             // Select the closest one immediately if coordinates are already detected
@@ -837,6 +915,14 @@ fun MapExploreScreen(
           onCityFilterChange = onCityFilterChange,
           categoryFilter = selectedCategory,
           onCategoryFilterChange = onSelectCategory,
+          maxDistanceKm = maxDistanceKm,
+          onMaxDistanceKmChange = onMaxDistanceKmChange,
+          trendFilter = trendFilter,
+          onTrendFilterChange = onTrendFilterChange,
+          timeFilter = timeFilter,
+          onTimeFilterChange = onTimeFilterChange,
+          socialFilter = socialFilter,
+          onSocialFilterChange = onSocialFilterChange,
           onApply = { showFilterDialog = false },
           onBack = { showFilterDialog = false }
         )
@@ -856,6 +942,14 @@ fun SlideInFilterScreen(
   onCityFilterChange: (String) -> Unit,
   categoryFilter: String,
   onCategoryFilterChange: (String) -> Unit,
+  maxDistanceKm: Float? = null,
+  onMaxDistanceKmChange: (Float?) -> Unit = {},
+  trendFilter: String = "all",
+  onTrendFilterChange: (String) -> Unit = {},
+  timeFilter: String = "all",
+  onTimeFilterChange: (String) -> Unit = {},
+  socialFilter: String = "all",
+  onSocialFilterChange: (String) -> Unit = {},
   onApply: () -> Unit,
   onBack: () -> Unit
 ) {
@@ -863,6 +957,11 @@ fun SlideInFilterScreen(
   var tempRatingFilter by remember(ratingFilter) { mutableStateOf(ratingFilter) }
   var tempCityFilter by remember(cityFilter) { mutableStateOf(cityFilter) }
   var tempCategoryFilter by remember(categoryFilter) { mutableStateOf(categoryFilter) }
+  var isDistanceActive by remember(maxDistanceKm) { mutableStateOf(maxDistanceKm != null) }
+  var tempDistanceKm by remember(maxDistanceKm) { mutableStateOf(maxDistanceKm ?: 10f) }
+  var tempTrendFilter by remember(trendFilter) { mutableStateOf(trendFilter) }
+  var tempTimeFilter by remember(timeFilter) { mutableStateOf(timeFilter) }
+  var tempSocialFilter by remember(socialFilter) { mutableStateOf(socialFilter) }
 
   Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.85f)) {
     Column(
@@ -873,6 +972,301 @@ fun SlideInFilterScreen(
         .padding(start = 20.dp, top = 72.dp, end = 20.dp, bottom = 120.dp)
     ) {
 
+      // 1. Jarak Maksimum (Tinder-Style Distance Slider for "Seru di Sekitarmu")
+      Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+      ) {
+        Column(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+        ) {
+          Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+          ) {
+            Text(
+              text = "Jarak Maksimum",
+              style = TextStyle(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = com.example.ui.theme.AppFontFamily
+              ),
+              color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+              text = if (isDistanceActive) "${tempDistanceKm.toInt()} km" else "Semua Jarak",
+              style = TextStyle(
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = com.example.ui.theme.AppFontFamily
+              ),
+              color = if (isDistanceActive) DiajakOrange else Color(0xFF64748B)
+            )
+          }
+
+          Spacer(modifier = Modifier.height(12.dp))
+
+          Slider(
+            value = tempDistanceKm.coerceIn(1f, 50f),
+            onValueChange = {
+              tempDistanceKm = it
+              isDistanceActive = true
+            },
+            valueRange = 1f..50f,
+            steps = 48,
+            colors = SliderDefaults.colors(
+              thumbColor = DiajakOrange,
+              activeTrackColor = DiajakOrange,
+              inactiveTrackColor = Color(0xFFE5E7EB)
+            ),
+            modifier = Modifier.fillMaxWidth()
+          )
+
+          Spacer(modifier = Modifier.height(8.dp))
+
+          // Quick distance selection chips
+          val distancePresets = listOf(
+            Pair(1f, "1 km"),
+            Pair(3f, "3 km"),
+            Pair(5f, "5 km"),
+            Pair(10f, "10 km"),
+            Pair(25f, "25 km"),
+            Pair(50f, "50 km")
+          )
+
+          DiajakFlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+          ) {
+            distancePresets.forEach { (km, label) ->
+              val isSelected = isDistanceActive && tempDistanceKm.toInt() == km.toInt()
+              Surface(
+                onClick = {
+                  tempDistanceKm = km
+                  isDistanceActive = true
+                },
+                shape = RoundedCornerShape(12.dp),
+                color = if (isSelected) DiajakOrange else Color(0xFFF1F5F9),
+                shadowElevation = 0.dp
+              ) {
+                Text(
+                  text = label,
+                  fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                  fontSize = 13.sp,
+                  fontFamily = com.example.ui.theme.AppFontFamily,
+                  color = if (isSelected) Color.White else Color(0xFF334155),
+                  modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                )
+              }
+            }
+
+            // Option to disable distance limit ("Semua Jarak")
+            val isAllDistance = !isDistanceActive
+            Surface(
+              onClick = { isDistanceActive = false },
+              shape = RoundedCornerShape(12.dp),
+              color = if (isAllDistance) DiajakOrange else Color(0xFFF1F5F9),
+              shadowElevation = 0.dp
+            ) {
+              Text(
+                text = "Semua Jarak",
+                fontWeight = if (isAllDistance) FontWeight.Bold else FontWeight.Medium,
+                fontSize = 13.sp,
+                fontFamily = com.example.ui.theme.AppFontFamily,
+                color = if (isAllDistance) Color.White else Color(0xFF334155),
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+              )
+            }
+          }
+        }
+      }
+
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+      // 2. Tren & Momentum (Handles "Lagi Ramai Diikuti" & "Ada Yang Baru Loh")
+      Text(
+        text = "Tren & Momentum",
+        style = TextStyle(
+          fontSize = 16.sp,
+          fontWeight = FontWeight.Bold,
+          fontFamily = com.example.ui.theme.AppFontFamily
+        ),
+        color = MaterialTheme.colorScheme.onSurface
+      )
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+      val trendOptions = listOf(
+        Pair("all", "Semua Tren"),
+        Pair("ramai", "🔥 Lagi Ramai Diikuti"),
+        Pair("terbaru", "✨ Ada Yang Baru Loh"),
+        Pair("hampir_penuh", "⚡ Hampir Penuh"),
+        Pair("pasti_jalan", "🎯 Pasti Jalan"),
+        Pair("populer_minggu_ini", "🌟 Paling Diminati")
+      )
+
+      DiajakFlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
+      ) {
+        trendOptions.forEach { (key, label) ->
+          val isSelected = tempTrendFilter == key
+          Surface(
+            onClick = { tempTrendFilter = if (isSelected) "all" else key },
+            shape = RoundedCornerShape(16.dp),
+            color = if (isSelected) DiajakOrange else Color.White,
+            shadowElevation = 0.dp
+          ) {
+            Row(
+              modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              if (isSelected) {
+                Icon(
+                  imageVector = Icons.Outlined.Check,
+                  contentDescription = null,
+                  tint = Color.White,
+                  modifier = Modifier.size(16.dp)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+              }
+              Text(
+                text = label,
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                color = if (isSelected) Color.White else Color(0xFF262626)
+              )
+            }
+          }
+        }
+      }
+
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+      // 3. Waktu Pelaksanaan
+      Text(
+        text = "Waktu Pelaksanaan",
+        style = TextStyle(
+          fontSize = 16.sp,
+          fontWeight = FontWeight.Bold,
+          fontFamily = com.example.ui.theme.AppFontFamily
+        ),
+        color = MaterialTheme.colorScheme.onSurface
+      )
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+      val timeOptions = listOf(
+        Pair("all", "Kapan Saja"),
+        Pair("today", "☀️ Hari Ini"),
+        Pair("weekend", "🏖️ Akhir Pekan Ini"),
+        Pair("this_week", "🗓️ Minggu Ini")
+      )
+
+      DiajakFlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
+      ) {
+        timeOptions.forEach { (key, label) ->
+          val isSelected = tempTimeFilter == key
+          Surface(
+            onClick = { tempTimeFilter = if (isSelected) "all" else key },
+            shape = RoundedCornerShape(16.dp),
+            color = if (isSelected) DiajakOrange else Color.White,
+            shadowElevation = 0.dp
+          ) {
+            Row(
+              modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              if (isSelected) {
+                Icon(
+                  imageVector = Icons.Outlined.Check,
+                  contentDescription = null,
+                  tint = Color.White,
+                  modifier = Modifier.size(16.dp)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+              }
+              Text(
+                text = label,
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                color = if (isSelected) Color.White else Color(0xFF262626)
+              )
+            }
+          }
+        }
+      }
+
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+      // 4. Dinamika Sosial & Format Acara
+      Text(
+        text = "Format & Suasana Sosial",
+        style = TextStyle(
+          fontSize = 16.sp,
+          fontWeight = FontWeight.Bold,
+          fontFamily = com.example.ui.theme.AppFontFamily
+        ),
+        color = MaterialTheme.colorScheme.onSurface
+      )
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+      val socialOptions = listOf(
+        Pair("all", "Semua Format"),
+        Pair("solo", "🙋 Bisa Datang Sendiri (Solo Friendly)"),
+        Pair("pemula", "🔰 Ramah Pemula"),
+        Pair("intim", "👥 Grup Intim (< 8 orang)"),
+        Pair("rame", "🎪 Rame-Rame (> 15 orang)")
+      )
+
+      DiajakFlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.Small)
+      ) {
+        socialOptions.forEach { (key, label) ->
+          val isSelected = tempSocialFilter == key
+          Surface(
+            onClick = { tempSocialFilter = if (isSelected) "all" else key },
+            shape = RoundedCornerShape(16.dp),
+            color = if (isSelected) DiajakOrange else Color.White,
+            shadowElevation = 0.dp
+          ) {
+            Row(
+              modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              if (isSelected) {
+                Icon(
+                  imageVector = Icons.Outlined.Check,
+                  contentDescription = null,
+                  tint = Color.White,
+                  modifier = Modifier.size(16.dp)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+              }
+              Text(
+                text = label,
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                style = com.example.ui.theme.DiajakDesignSystem.Typography.Body,
+                color = if (isSelected) Color.White else Color(0xFF262626)
+              )
+            }
+          }
+        }
+      }
+
+      Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+
+      // 5. Biaya
       Text(
         text = "Tampilkan aktivitas sesuai biaya",
         style = TextStyle(
@@ -933,6 +1327,7 @@ fun SlideInFilterScreen(
 
       Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
+      // 6. Ulasan (includes 4.5+ which is "Ratingnya Juara")
       Text(
         text = "Tampilkan aktivitas berdasarkan ulasan",
         style = TextStyle(
@@ -997,6 +1392,7 @@ fun SlideInFilterScreen(
 
       Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
+      // 7. Kota
       Text(
         text = "Tampilkan aktivitas di kota tertentu",
         style = TextStyle(
@@ -1068,6 +1464,7 @@ fun SlideInFilterScreen(
 
       Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
+      // 8. Kategori Aktivitas
       Text(
         text = "Tampilkan kategori aktivitas",
         style = TextStyle(
@@ -1140,6 +1537,11 @@ fun SlideInFilterScreen(
             tempRatingFilter = "all"
             tempCityFilter = "all"
             tempCategoryFilter = "all"
+            isDistanceActive = false
+            tempDistanceKm = 10f
+            tempTrendFilter = "all"
+            tempTimeFilter = "all"
+            tempSocialFilter = "all"
           },
           modifier = Modifier.weight(1f).height(52.dp),
           border = BorderStroke(1.5.dp, DiajakOrange),
@@ -1156,6 +1558,10 @@ fun SlideInFilterScreen(
             onRatingFilterChange(tempRatingFilter)
             onCityFilterChange(tempCityFilter)
             onCategoryFilterChange(tempCategoryFilter)
+            onMaxDistanceKmChange(if (isDistanceActive) tempDistanceKm else null)
+            onTrendFilterChange(tempTrendFilter)
+            onTimeFilterChange(tempTimeFilter)
+            onSocialFilterChange(tempSocialFilter)
             onApply()
           },
           modifier = Modifier.weight(1f).height(52.dp),
